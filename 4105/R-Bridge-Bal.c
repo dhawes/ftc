@@ -97,5 +97,5 @@ task main()
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
-  wait1Msec(40000);
+  wait1Msec(30000);
 }
