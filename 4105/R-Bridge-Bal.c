@@ -6,10 +6,10 @@
 #pragma config(Motor,  mtr_S1_C1_2,     motorE,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_1,     intake,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     wheelieBar,    tmotorNormal, openLoop)
-#pragma config(Sensor, S2,     HTAC,                sensorLowSpeed)
 #pragma config(Servo,  srvo_S1_C3_1,    goalCapture1,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_2,    goalCapture2,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
+#pragma config(Sensor, S2,     HTAC,                sensorLowSpeed)
 
 /* R-Bridge */
 
