@@ -6,9 +6,9 @@
 #pragma config(Motor,  mtr_S1_C1_2,     motorE,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_1,     intake,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     wheelieBar,    tmotorNormal, openLoop)
-#pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_1,    goalCapture1,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_2,    goalCapture2,          tServoStandard)
+//#pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
@@ -22,9 +22,12 @@ void initializeRobot()
   motor[motorA] = 100;
   motor[motorB] = 100;
   motor[motorC] = 100;
-  servo[goalArm] = 64;
+  //servo[goalArm] = 68;
+  servoChangeRate[goalCapture1] = 10;
+  servoChangeRate[goalCapture2] = 10;
   servo[goalCapture1] = 220;
   servo[goalCapture2] = 50;
+
 
   return;
 }
@@ -98,40 +101,15 @@ task main()
       motor[wheelieBar] = 0;
     }
 
-
     if(joy2Btn(2))
     {
       // if joystick button 2 (controller 2) is pressed then servo motor 2 will "open"
-      servo[goalArm] = 0;
-    }
-    else if(joy2Btn(1))
-    {
-      // if joystick button 1 (controller 1) is pressed then the bridge lowerer/wheelie bar is activated
-      /*
-      servo[wheelieBar1] = 255;
-      servo[wheelieBar2] = 255;
-      */
-      /*
-      if(!wheelieBarDown)
-      {
-        motor[wheelieBar] = -50;
-        wait1Msec(100);
-        motor[wheelieBar] = 0;
-        wheelieBarDown = true;
-      }
-      else
-      {
-        motor[wheelieBar] = 50;
-        wait1Msec(100);
-        motor[wheelieBar] = 0;
-        wheelieBarDown = false;
-      }
-      */
+      //servo[goalArm] = 0;
     }
     else
     {
       //if no buttons are pressed, then the servos will do nothing or go back automatically
-      servo[goalArm] = 68;
+      //servo[goalArm] = 68;
       /*
       servo[wheelieBar1] = 0;
       servo[wheelieBar2] = 0;
@@ -148,25 +126,9 @@ task main()
       int sv2 = ServoValue[goalCapture2];
       if(sv1 > 80)
       {
-
-        servoChangeRate[goalCapture1] = 10;
-        servoChangeRate[goalCapture2] = 10;
-
         servo[goalCapture1] = sv1 - 2;
         servo[goalCapture2] = sv2 + 2;
       }
-      /*
-      if(sv > 155)
-      {
-        servo[goalCapture1] = 155;
-        servo[goalCapture2] = 105;
-      }
-      else
-      {
-        servo[goalCapture1] = 100;
-        servo[goalCapture2] = 170;
-      }
-      */
     }
   }
 }
