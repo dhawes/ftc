@@ -16,7 +16,6 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 #include "Autonomous.c"
-#include "common.h"
 #include "HTAC-driver.h"
 
 /**
