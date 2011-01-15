@@ -13,20 +13,35 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
+#define GOAL_CAPTURE_1_UP 220
+#define GOAL_CAPTURE_2_UP 50
+#define GOAL_CAPTURE_1_DOWN 80
+#define GOAL_CAPTURE_2_DOWN 250
+#define GOAL_CAPTURE_INCREMENT 2
+#define GOAL_ARM_CLOSED 68
+#define GOAL_ARM_OPEN 0
+#define SERVO_CHANGE_RATE 10
+#define LED_ON 100
+#define LED_OFF 0
+#define JOYSTICK_THRESHOLD 10
+#define INTAKE_POWER 30
+#define WHEELIE_BAR_POWER 30
+#define MOTOR_OFF 0
+
 /**
  * Initialize the robot.
  */
 void initializeRobot()
 {
   bFloatDuringInactiveMotorPWM = false;
-  motor[motorA] = 100;
-  motor[motorB] = 100;
-  motor[motorC] = 100;
-  servo[goalArm] = 68;
-  servoChangeRate[goalCapture1] = 10;
-  servoChangeRate[goalCapture2] = 10;
-  servo[goalCapture1] = 220;
-  servo[goalCapture2] = 50;
+  motor[motorA] = LED_ON;
+  motor[motorB] = LED_ON;
+  motor[motorC] = LED_ON;
+  servo[goalArm] = GOAL_ARM_CLOSED;
+  servoChangeRate[goalCapture1] = SERVO_CHANGE_RATE;
+  servoChangeRate[goalCapture2] = SERVO_CHANGE_RATE;
+  servo[goalCapture1] = GOAL_CAPTURE_1_UP;
+  servo[goalCapture2] = GOAL_CAPTURE_2_UP;
 
   return;
 }
@@ -36,7 +51,11 @@ void initializeRobot()
  */
 task main()
 {
-  initializeRobot();
+  int sv1 = GOAL_CAPTURE_1_UP;
+  int sv2 = GOAL_CAPTURE_2_UP;
+
+  initializeRobot(); // init
+
   waitForStart();   // wait for start of tele-op phase
 
   while(true)
@@ -48,81 +67,91 @@ task main()
       // only allow 20% power
       motor[motorD] = joystick.joy1_y2 * .2;
       motor[motorE] = joystick.joy1_y1 * .2;
-      motor[motorA] = 0;
-      motor[motorB] = 0;
-      motor[motorC] = 100;
+      motor[motorA] = LED_OFF;
+      motor[motorB] = LED_OFF;
+      motor[motorC] = LED_ON;
     }
     else if(joy1Btn(6))
     {
       // only allow 30% power
       motor[motorD] = joystick.joy1_y2 * .3;
       motor[motorE] = joystick.joy1_y1 * .3;
-      motor[motorA] = 0;
-      motor[motorB] = 100;
-      motor[motorC] = 0;
+      motor[motorA] = LED_OFF;
+      motor[motorB] = LED_ON;
+      motor[motorC] = LED_OFF;
     }
     else
     {
       // 100% power
       motor[motorD] = joystick.joy1_y2;
       motor[motorE] = joystick.joy1_y1;
-      motor[motorA] = 100;
-      motor[motorB] = 0;
-      motor[motorC] = 0;
+      motor[motorA] = LED_ON;
+      motor[motorB] = LED_OFF;
+      motor[motorC] = LED_OFF;
     }
 
     // figure out how to calibrate joystick so we don't have to check a threshold
-    if(joystick.joy2_y2 > 10)
+    if(joystick.joy2_y2 > JOYSTICK_THRESHOLD)
     {
-      motor[intake] = 30;
+      motor[intake] = INTAKE_POWER;
     }
-    else if(joystick.joy2_y2 < -10)
+    else if(joystick.joy2_y2 < -JOYSTICK_THRESHOLD)
     {
-      motor[intake] = -30;
+      motor[intake] = -INTAKE_POWER;
     }
     else
     {
-      motor[intake] = 0;
+      motor[intake] = MOTOR_OFF;
     }
 
     // wheelie bar up/down
-    if(joystick.joy2_y1 > 10)
+    if(joystick.joy2_y1 > JOYSTICK_THRESHOLD)
     {
-      motor[wheelieBar] = 30;
+      motor[wheelieBar] = WHEELIE_BAR_POWER;
     }
-    else if(joystick.joy2_y1 < -10)
+    else if(joystick.joy2_y1 < -JOYSTICK_THRESHOLD)
     {
-      motor[wheelieBar] = -30;
+      motor[wheelieBar] = -WHEELIE_BAR_POWER;
     }
     else
     {
-      motor[wheelieBar] = 0;
+      motor[wheelieBar] = MOTOR_OFF;
     }
 
+    // baton dumper
     if(joy2Btn(2))
     {
       // if joystick button 2 (controller 2) is pressed then servo motor 2 will "open"
-      servo[goalArm] = 0;
+      servo[goalArm] = GOAL_ARM_OPEN;
     }
     else
     {
       //if no buttons are pressed, then the servos will do nothing or go back automatically
-      servo[goalArm] = 68;
+      servo[goalArm] = GOAL_ARM_CLOSED;
     }
+
+    // goal capture arm
     if(joystick.joy2_TopHat == 0)
     {
-      servo[goalCapture1] = 220;
-      servo[goalCapture2] = 50;
+      sv1 = GOAL_CAPTURE_1_UP;
+      sv2 = GOAL_CAPTURE_2_UP;
+      servo[goalCapture1] = sv1;
+      servo[goalCapture2] = sv2;
     }
     else if(joystick.joy2_TopHat == 4)
     {
-      int sv1 = ServoValue[goalCapture1];
-      int sv2 = ServoValue[goalCapture2];
-      if(sv1 > 80)
+      if(sv1 > GOAL_CAPTURE_1_DOWN)
       {
-        servo[goalCapture1] = sv1 - 2;
-        servo[goalCapture2] = sv2 + 2;
+        sv1 -= GOAL_CAPTURE_INCREMENT;
+        sv2 += GOAL_CAPTURE_INCREMENT;
+        servo[goalCapture1] = sv1;
+        servo[goalCapture2] = sv2;
       }
+    }
+    else
+    {
+      servo[goalCapture1] = sv1;
+      servo[goalCapture2] = sv2;
     }
   }
 }
