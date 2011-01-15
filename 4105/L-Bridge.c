@@ -1,4 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
+#pragma config(Sensor, S2,     HTAC,                sensorLowSpeed)
 #pragma config(Motor,  motorA,          motorA,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          motorB,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          motorC,        tmotorNormal, openLoop)
@@ -9,7 +10,7 @@
 #pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_1,    goalCapture1,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_2,    goalCapture2,          tServoStandard)
-#pragma config(Sensor, S2,     HTAC,                sensorLowSpeed)
+
 
 /* L-Bridge.c */
 

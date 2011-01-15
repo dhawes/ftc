@@ -1,4 +1,5 @@
 /* Autonomous.c */
+#include "HTAC-driver.h"
 
 /* Function prototypes */
 void initializeRobot();
@@ -8,15 +9,24 @@ void rightQuarterTurn();
 void leftQuarterTurn();
 void move(int distance, int speed);
 void batonLoader();
+void bridgeBalance();
 
 /* Common defines */
-#define LEFT_TURN_ENCODER  750
-#define RIGHT_TURN_ENCODER 750
-#define TURN_SPEED         25
-#define INTAKE_SPEED       -30
-#define RIGHT_180_ENCODER  1550
-#define WHEELIE_BAR_SPEED  30
-#define WHEELIE_BAR_TIME   400
+#define LEFT_TURN_ENCODER    750
+#define RIGHT_TURN_ENCODER   750
+#define TURN_SPEED           25
+#define INTAKE_SPEED         -30
+#define RIGHT_180_ENCODER    1550
+#define WHEELIE_BAR_SPEED    30
+#define WHEELIE_BAR_TIME     400
+#define ACCELEROMETER_LEVEL  -30
+#define ACCELEROMETER_X_UP   -60
+#define ACCELEROMETER_X_DOWN 0
+#define ACCELEROMETER_THRESH 5
+#define BALANCE_WAIT_TIME    1000
+
+/* Accelerometer globals */
+int xAxis = 0, yAxis = 0, zAxis = 0;
 
 /**
  * Initialize robot.
@@ -182,4 +192,23 @@ void batonLoader()
   motor[intake] = INTAKE_SPEED;
   wait1Msec(5000);
   motor[intake] = 0;
+}
+
+/**
+ * Use the accelerometer sensor to balance on the bridge.
+ */
+void bridgeBalance()
+{
+  while(HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis))
+  {
+	  if(xAxis < ACCELEROMETER_LEVEL - ACCELEROMETER_THRESH)
+	  {
+	    move(100, -20);
+	  }
+	  else if(xAxis > ACCELEROMETER_LEVEL + ACCELEROMETER_THRESH)
+	  {
+	    move(100, 20);
+	  }
+	  wait1Msec(BALANCE_WAIT_TIME);
+	}
 }

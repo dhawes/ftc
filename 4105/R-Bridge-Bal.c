@@ -16,7 +16,6 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 #include "Autonomous.c"
-#include "HTAC-driver.h"
 
 /**
  *
@@ -36,10 +35,6 @@ task main()
   servoChangeRate[goalCapture1] = 2;
   servoChangeRate[goalCapture2] = 2;
   */
-
-  int xAxis = 0;
-  int yAxis = 0;
-  int zAxis = 0;
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
@@ -95,6 +90,8 @@ task main()
   wait1Msec(200);
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+
+  bridgeBalance();
 
   wait1Msec(30000);
 }

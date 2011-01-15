@@ -1,4 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
+#pragma config(Sensor, S2,     HTAC,                sensorLowSpeed)
 #pragma config(Motor,  motorA,          motorA,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          motorB,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          motorC,        tmotorNormal, openLoop)
