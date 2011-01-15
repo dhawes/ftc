@@ -24,6 +24,7 @@ void bridgeBalance();
 #define ACCELEROMETER_X_DOWN 0
 #define ACCELEROMETER_THRESH 5
 #define BALANCE_WAIT_TIME    1000
+#define BALANCE_ABORT_TIME   3000
 
 /* Accelerometer globals */
 int xAxis = 0, yAxis = 0, zAxis = 0;
@@ -203,10 +204,18 @@ void bridgeBalance()
   {
 	  if(xAxis < ACCELEROMETER_LEVEL - ACCELEROMETER_THRESH)
 	  {
+	    if(time10[T1] > BALANCE_ABORT_TIME)
+	    {
+	      break;
+	    }
 	    move(100, -20);
 	  }
 	  else if(xAxis > ACCELEROMETER_LEVEL + ACCELEROMETER_THRESH)
 	  {
+	    if(time10[T1] > BALANCE_ABORT_TIME)
+	    {
+	      break;
+	    }
 	    move(100, 20);
 	  }
 	  wait1Msec(BALANCE_WAIT_TIME);
