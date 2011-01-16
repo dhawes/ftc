@@ -13,10 +13,16 @@
 
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
+/*
 #define GOAL_CAPTURE_1_UP 220
 #define GOAL_CAPTURE_2_UP 50
 #define GOAL_CAPTURE_1_DOWN 80
 #define GOAL_CAPTURE_2_DOWN 250
+*/
+#define GOAL_CAPTURE_1_UP 35
+#define GOAL_CAPTURE_2_UP 200
+#define GOAL_CAPTURE_1_DOWN 175
+#define GOAL_CAPTURE_2_DOWN 55
 #define GOAL_CAPTURE_INCREMENT 2
 #define GOAL_ARM_CLOSED 68
 #define GOAL_ARM_OPEN 0
@@ -140,11 +146,16 @@ task main()
     }
     else if(joystick.joy2_TopHat == 4)
     {
-      if(sv1 > GOAL_CAPTURE_1_DOWN)
+      sv1 = ServoValue[goalCapture1];
+      sv2 = ServoValue[goalCapture2];
+      if(sv1 < GOAL_CAPTURE_1_DOWN)
       {
-        sv1 -= GOAL_CAPTURE_INCREMENT;
-        sv2 += GOAL_CAPTURE_INCREMENT;
+        sv1 += GOAL_CAPTURE_INCREMENT;
         servo[goalCapture1] = sv1;
+      }
+      if(sv2 > GOAL_CAPTURE_2_DOWN)
+      {
+        sv2 -= GOAL_CAPTURE_INCREMENT;
         servo[goalCapture2] = sv2;
       }
     }

@@ -19,12 +19,12 @@ void bridgeBalance();
 #define RIGHT_180_ENCODER    1550
 #define WHEELIE_BAR_SPEED    30
 #define WHEELIE_BAR_TIME     400
-#define ACCELEROMETER_LEVEL  -30
-#define ACCELEROMETER_X_UP   -60
-#define ACCELEROMETER_X_DOWN 0
+#define ACCELEROMETER_LEVEL  -13
+#define ACCELEROMETER_X_UP   -47
+#define ACCELEROMETER_X_DOWN 19
 #define ACCELEROMETER_THRESH 5
-#define BALANCE_WAIT_TIME    1000
-#define BALANCE_ABORT_TIME   3000
+#define BALANCE_WAIT_TIME    1400
+#define BALANCE_ABORT_TIME   3500
 
 /* Accelerometer globals */
 int xAxis = 0, yAxis = 0, zAxis = 0;
@@ -42,8 +42,8 @@ void initializeRobot()
   motor[motorA] = 100;
   motor[motorB] = 100;
   motor[motorC] = 100;
-  servo[goalCapture1] = 220;
-  servo[goalCapture2] = 50;
+  servo[goalCapture1] = 35;
+  servo[goalCapture2] = 200;
   servo[goalArm] = 68;
 
   return;
@@ -208,7 +208,8 @@ void bridgeBalance()
 	    {
 	      break;
 	    }
-	    move(100, -20);
+	    move(50, -25);
+	    wait1Msec(500);
 	  }
 	  else if(xAxis > ACCELEROMETER_LEVEL + ACCELEROMETER_THRESH)
 	  {
@@ -216,7 +217,8 @@ void bridgeBalance()
 	    {
 	      break;
 	    }
-	    move(100, 20);
+	    move(50, 25);
+	    wait1Msec(500);
 	  }
 	  wait1Msec(BALANCE_WAIT_TIME);
 	}
