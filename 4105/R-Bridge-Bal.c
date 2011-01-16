@@ -30,7 +30,7 @@ task main()
     HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
     wait1Msec(200);
   }
-  */
+  //*/
   /*
   servoChangeRate[goalCapture1] = 2;
   servoChangeRate[goalCapture2] = 2;
@@ -59,7 +59,7 @@ task main()
   leftQuarterTurn();
   wait1Msec(200);
 
-  move(2300, 30);
+  move(1900, 30);
   wait1Msec(200);
 
   leftQuarterTurn();
@@ -88,15 +88,13 @@ task main()
   wheelieBarUp();
   wait1Msec(200);
 
-  move(1900, -30);
-  wait1Msec(200);
-
-  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  move(2100, -30);
+  wait1Msec(500);
 
   bridgeBalance();
 
   // could not balance, move off of bridge
-  move(1900, -30);
+  move(2700, -30);
 
   wait1Msec(30000);
 }
