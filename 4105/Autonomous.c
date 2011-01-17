@@ -10,6 +10,8 @@ void leftQuarterTurn();
 void move(int distance, int speed);
 void batonLoader();
 void bridgeBalance();
+void bridgeBalanceStablize(int xLevel);
+void balanceStabilize();
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    750
@@ -222,4 +224,62 @@ void bridgeBalance()
 	  }
 	  wait1Msec(BALANCE_WAIT_TIME);
 	}
+}
+
+/**
+ * Use the accelerometer sensor to balance on the bridge.
+ */
+void bridgeBalanceStablize(int xLevel)
+{
+  while(HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis))
+  {
+	  if(xAxis < xLevel - ACCELEROMETER_THRESH)
+	  {
+	    if(time10[T1] > BALANCE_ABORT_TIME)
+	    {
+	      break;
+	    }
+	    move(50, -25);
+	  }
+	  else if(xAxis > xLevel + ACCELEROMETER_THRESH)
+	  {
+	    if(time10[T1] > BALANCE_ABORT_TIME)
+	    {
+	      break;
+	    }
+	    move(50, 25);
+	  }
+	  balanceStabilize();
+	}
+}
+
+/**
+ * Wait for accelerometer readings to stabilize.
+ */
+void balanceStabilize()
+{
+  bool stable = false;
+  int x, y, z;
+  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  while(!stable)
+  {
+    wait1Msec(100);
+    HTACreadAllAxes(HTAC, x, y, z);
+    if((x <= 0 && xAxis <= 0) ||
+       (x >= 0 && xAxis >= 0))
+    {
+      int diff = abs(x) - abs(xAxis); // have to use variable because of compiler issue
+      if(abs(diff) < ACCELEROMETER_THRESH)
+      {
+        stable = true;
+      }
+    }
+    else
+    { if(abs(x - xAxis) < ACCELEROMETER_THRESH)
+      {
+        stable = true;
+      }
+    }
+    HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  }
 }

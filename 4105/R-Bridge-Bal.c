@@ -31,14 +31,12 @@ task main()
     wait1Msec(200);
   }
   //*/
-  /*
-  servoChangeRate[goalCapture1] = 2;
-  servoChangeRate[goalCapture2] = 2;
-  */
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
   waitForStart(); // Wait for the beginning of autonomous phase.
+
+  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
   ClearTimer(T1);
 
@@ -51,10 +49,6 @@ task main()
   wheelieBarUp();
 
   wait1Msec(200);
-  /*
-  move(1300, 30);
-  wait1Msec(600);
-  */
 
   leftQuarterTurn();
   wait1Msec(200);
@@ -92,6 +86,7 @@ task main()
   wait1Msec(500);
 
   bridgeBalance();
+  bridgeBalanceStablize(xAxis);
 
   // could not balance, move off of bridge
   move(2700, -30);
