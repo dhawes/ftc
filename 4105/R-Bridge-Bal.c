@@ -86,7 +86,7 @@ task main()
   wait1Msec(500);
 
   bridgeBalance();
-  bridgeBalanceStablize(xAxis);
+  bridgeBalanceStabilize(xAxis);
 
   // could not balance, move off of bridge
   move(2700, -30);

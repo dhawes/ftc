@@ -10,7 +10,7 @@ void leftQuarterTurn();
 void move(int distance, int speed);
 void batonLoader();
 void bridgeBalance();
-void bridgeBalanceStablize(int xLevel);
+void bridgeBalanceStabilize(int xLevel);
 void balanceStabilize();
 
 /* Common defines */
@@ -229,7 +229,7 @@ void bridgeBalance()
 /**
  * Use the accelerometer sensor to balance on the bridge.
  */
-void bridgeBalanceStablize(int xLevel)
+void bridgeBalanceStabilize(int xLevel)
 {
   while(HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis))
   {
