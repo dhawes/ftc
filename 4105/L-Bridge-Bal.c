@@ -43,13 +43,6 @@ task main()
   nMotorEncoder[motorE] = 0;  //clear the TETRIX encoders in motors D and E
   nMotorEncoder[motorD] = 0;
 
-  motor[motorE] = 0; //turn both motors off
-  motor[motorD] = 0;
-  motor[wheelieBar] = 0;
-  wheelieBarUp();
-
-  wait1Msec(200);
-
   rightQuarterTurn();
   wait1Msec(200);
 

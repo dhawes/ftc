@@ -8,6 +8,8 @@ void leftTurn();
 void rightQuarterTurn();
 void leftQuarterTurn();
 void move(int distance, int speed);
+void wheelieBarUp();
+void wheelieBarDown();
 void batonLoader();
 void bridgeBalance();
 void bridgeBalanceStabilize(int xLevel);
@@ -38,12 +40,13 @@ void initializeRobot()
 {
   // Place code here to sinitialize servos to starting positions.
   // Sensors are automatically configured and setup by ROBOTC. They may need a brief time to stabilize.
-  //servo[wheelieBar1] = 0;
-  //servo[wheelieBar2] = 0;
-  //bFloatDuringInactiveMotorPWM = false;
   motor[motorA] = 100;
   motor[motorB] = 100;
   motor[motorC] = 100;
+  motor[motorD] = 0;
+  motor[motorE] = 0;
+  motor[wheelieBar] = 0;
+  wheelieBarUp();
   servo[goalCapture1] = 35;
   servo[goalCapture2] = 200;
   servo[goalArm] = 68;
