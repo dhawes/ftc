@@ -38,18 +38,16 @@ int xAxis = 0, yAxis = 0, zAxis = 0;
  */
 void initializeRobot()
 {
-  // Place code here to sinitialize servos to starting positions.
-  // Sensors are automatically configured and setup by ROBOTC. They may need a brief time to stabilize.
   motor[motorA] = 100;
   motor[motorB] = 100;
   motor[motorC] = 100;
   motor[motorD] = 0;
   motor[motorE] = 0;
-  motor[wheelieBar] = 0;
-  wheelieBarUp();
   servo[goalCapture1] = 35;
   servo[goalCapture2] = 200;
   servo[goalArm] = 68;
+  wheelieBarUp();
+  motor[wheelieBar] = 0;
 
   return;
 }
