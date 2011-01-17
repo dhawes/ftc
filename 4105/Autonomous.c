@@ -43,11 +43,10 @@ void initializeRobot()
   motor[motorC] = 100;
   motor[motorD] = 0;
   motor[motorE] = 0;
+  motor[wheelieBar] = 0;
   servo[goalCapture1] = 35;
   servo[goalCapture2] = 200;
   servo[goalArm] = 68;
-  wheelieBarUp();
-  motor[wheelieBar] = 0;
 
   return;
 }
