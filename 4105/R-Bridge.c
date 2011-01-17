@@ -7,9 +7,9 @@
 #pragma config(Motor,  mtr_S1_C1_2,     motorE,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_1,     intake,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     wheelieBar,    tmotorNormal, openLoop)
-#pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_1,    goalCapture1,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_2,    goalCapture2,          tServoStandard)
+#pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 
 /* R-Bridge */
 
@@ -34,10 +34,6 @@ task main()
   wheelieBarUp();
 
   wait1Msec(200);
-  /*
-  move(1300, 30);
-  wait1Msec(600);
-  */
 
   leftQuarterTurn();
   wait1Msec(200);
@@ -51,21 +47,20 @@ task main()
   leftTurn();
   wait1Msec(200);
 
-  //moveRight(120, -30);
   motor[motorD] = -30;
   wait1Msec(400);
   motor[motorD] = 0;
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  move(350, -40);
+  move(300, -30);
   wait1Msec(200);
 
   /* wheelie bar */
   wheelieBarDown();
   wait1Msec(300);
 
-  move(600, -50);
+  move(600, -30);
   wait1Msec(60);
 
   wheelieBarUp();
