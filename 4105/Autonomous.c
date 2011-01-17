@@ -275,7 +275,8 @@ void balanceStabilize()
       }
     }
     else
-    { if(abs(x - xAxis) < ACCELEROMETER_THRESH)
+    {
+      if(abs(x - xAxis) < ACCELEROMETER_THRESH)
       {
         stable = true;
       }
