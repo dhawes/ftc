@@ -34,14 +34,18 @@ task main()
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
-  waitForStart(); // Wait for the beginning of autonomous phase.
+  // Wait for the beginning of autonomous phase.
+  waitForStart();
+
+  ClearTimer(T1);
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
+  motor[motorB] = 0;
+  motor[motorC] = 0;
+
   X_LEVEL = xAxis;
   StartTask(balanceLEDIndicate);
-
-  ClearTimer(T1);
 
   nMotorEncoder[motorE] = 0;  //clear the TETRIX encoders in motors D and E
   nMotorEncoder[motorD] = 0;
