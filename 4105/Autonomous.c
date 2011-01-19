@@ -31,7 +31,7 @@ void balanceStabilize();
 #define BALANCE_ABORT_TIME   3500
 
 /* Accelerometer globals */
-int xAxis = 0, yAxis = 0, zAxis = 0;
+int xAxis = 0, yAxis = 0, zAxis = 0, X_LEVEL = 0;
 
 /**
  * Initialize robot.
@@ -260,6 +260,7 @@ void balanceStabilize()
 {
   bool stable = false;
   int x, y, z;
+  motor[motorB] = 0;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   while(!stable)
   {
@@ -282,5 +283,28 @@ void balanceStabilize()
       }
     }
     HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  }
+  motor[motorB] = 100;
+}
+
+/**
+ * Indicate with the LEDs whether the robot is balanced.
+ */
+task balanceLEDIndicate()
+{
+  while(true)
+  {
+    if(xAxis < X_LEVEL - ACCELEROMETER_THRESH ||
+       xAxis > X_LEVEL + ACCELEROMETER_THRESH)
+	  {
+	    motor[motorA] = 0;
+	    motor[motorC] = 100;
+	  }
+	  else
+	  {
+	    motor[motorA] = 100;
+	    motor[motorC] = 0;
+	  }
+	  wait1Msec(500);
   }
 }
