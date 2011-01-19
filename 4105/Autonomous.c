@@ -249,7 +249,9 @@ void bridgeBalanceStabilize(int xLevel)
 	    }
 	    move(50, 25);
 	  }
+	  motor[motorB] = 100;
 	  balanceStabilize();
+	  motor[motorB] = 0;
 	}
 }
 
@@ -260,7 +262,6 @@ void balanceStabilize()
 {
   bool stable = false;
   int x, y, z;
-  motor[motorB] = 0;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   while(!stable)
   {
@@ -284,7 +285,6 @@ void balanceStabilize()
     }
     HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   }
-  motor[motorB] = 100;
 }
 
 /**
