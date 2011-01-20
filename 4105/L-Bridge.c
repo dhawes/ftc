@@ -26,9 +26,6 @@ task main()
 
   waitForStart(); // Wait for the beginning of autonomous phase.
 
-  nMotorEncoder[motorE] = 0;  //clear the TETRIX encoders in motors D and E
-  nMotorEncoder[motorD] = 0;
-
   rightQuarterTurn();
   wait1Msec(200);
 
