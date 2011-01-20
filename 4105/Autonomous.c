@@ -99,6 +99,8 @@ void leftTurn()
  */
 void move(int distance, int speed)
 {
+  nMotorEncoder[motorE] = 0;
+  nMotorEncoder[motorD] = 0;
   while (abs(nMotorEncoder[motorD]) < distance ||
          abs(nMotorEncoder[motorE]) < distance)
   {
