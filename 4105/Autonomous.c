@@ -14,6 +14,8 @@ void batonLoader();
 void bridgeBalance();
 void bridgeBalanceStabilize(int xLevel);
 void balanceStabilize();
+bool onBridge(int xLevel);
+void retryBridgeApproach(int xLevel);
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    750
@@ -284,6 +286,40 @@ void balanceStabilize()
       }
     }
     HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  }
+}
+
+/**
+ * Use the accelerometer to determine if we are on the bridge.
+ */
+bool onBridge(int xLevel)
+{
+  bool ret = false;
+  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  if(xAxis < xLevel - ACCELEROMETER_THRESH ||
+     xAxis > xLevel + ACCELEROMETER_THRESH)
+  {
+    // accleromter reading indicates we are on the bridge
+    ret = true;
+  }
+  return ret;
+}
+
+/**
+ * Try to get on the bridge again.
+ */
+void retryBridgeApproach(int xLevel)
+{
+  wheelieBarUp();
+  move(300, -30);
+  wheelieBarDown();
+  move(600, -30);
+  if(!onBridge(xLevel))
+  {
+    wheelieBarUp();
+    move(300, 30);
+    wheelieBarDown();
+    move(600, -30);
   }
 }
 
