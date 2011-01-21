@@ -34,11 +34,18 @@ task main()
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
-  waitForStart(); // Wait for the beginning of autonomous phase.
+  // Wait for the beginning of autonomous phase.
+  waitForStart();
+
+  ClearTimer(T1);
 
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
-  ClearTimer(T1);
+  motor[motorB] = 0;
+  motor[motorC] = 0;
+
+  X_LEVEL = xAxis;
+  StartTask(balanceLEDIndicate);
 
   rightQuarterTurn();
   wait1Msec(200);
@@ -59,7 +66,7 @@ task main()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  move(300, -30);
+  move(250, -30);
   wait1Msec(200);
 
   /* wheelie bar */
@@ -69,14 +76,21 @@ task main()
   move(600, -30);
   wait1Msec(200);
 
+  /*
+  if(!onBridge(X_LEVEL))
+  {
+    retryBridgeApproach(X_LEVEL);
+  }
+  */
+
   wheelieBarUp();
   wait1Msec(200);
 
-  move(2100, -30);
-  wait1Msec(500);
+  move(1600, -30);
+  wait1Msec(1000);
 
-  bridgeBalance();
-  bridgeBalanceStabilize(xAxis);
+  //bridgeBalance();
+  bridgeBalanceStabilize(X_LEVEL);
 
   // could not balance, move off of bridge
   move(2700, -30);

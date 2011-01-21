@@ -28,7 +28,7 @@ void retryBridgeApproach(int xLevel);
 #define ACCELEROMETER_LEVEL  -13
 #define ACCELEROMETER_X_UP   -47
 #define ACCELEROMETER_X_DOWN 19
-#define ACCELEROMETER_THRESH 5
+#define ACCELEROMETER_THRESH 10
 #define BALANCE_WAIT_TIME    1400
 #define BALANCE_ABORT_TIME   3500
 
@@ -48,7 +48,7 @@ void initializeRobot()
   motor[wheelieBar] = 0;
   servo[goalCapture1] = 35;
   servo[goalCapture2] = 200;
-  servo[goalArm] = 68;
+  servo[goalArm] = 54;
 
   return;
 }
@@ -149,7 +149,8 @@ void wheelieBarDown()
 void wheelieBarUp()
 {
   motor[wheelieBar] = WHEELIE_BAR_SPEED * -1;
-  wait1Msec(WHEELIE_BAR_TIME);
+  wait1Msec(WHEELIE_BAR_TIME * 2);
+  motor[wheelieBar] = 0;
 }
 
 /**
@@ -269,7 +270,7 @@ void balanceStabilize()
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   while(!stable)
   {
-    wait1Msec(100);
+    wait1Msec(400);
     HTACreadAllAxes(HTAC, x, y, z);
     if((x <= 0 && xAxis <= 0) ||
        (x >= 0 && xAxis >= 0))
