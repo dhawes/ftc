@@ -310,15 +310,22 @@ void balanceStabilize()
         stable = true;
         stableCount++;
       }
-    }
-    else if(abs(x - xAxis) < ACCELEROMETER_THRESH)
-    {
-      stable = true;
-      stableCount++;
+      else
+      {
+        stableCount = 0;
+      }
     }
     else
     {
-      stableCount = 0;
+      if(abs(x - xAxis) < ACCELEROMETER_THRESH)
+      {
+        stable = true;
+        stableCount++;
+      }
+      else
+      {
+        stableCount = 0;
+      }
     }
     HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   }
