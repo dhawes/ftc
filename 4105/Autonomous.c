@@ -118,6 +118,34 @@ void move(int distance, int speed)
  *
  * distance -- the distance in encoder counts
  * speed    -- the motor speed (positive == forwards, negative == reverse
+ * time     -- the time in 10ms intervals to quit
+ */
+void moveTimed(int distance, int speed, int time)
+{
+  ClearTimer(T2);
+  nMotorEncoder[motorE] = 0;
+  nMotorEncoder[motorD] = 0;
+  while (abs(nMotorEncoder[motorD]) < distance ||
+         abs(nMotorEncoder[motorE]) < distance)
+  {
+    motor[motorE] = speed;
+    motor[motorD] = speed;
+    if(time10[T2] > time)
+	  {
+	    break;
+	  }
+  }
+  motor[motorE] = 0;
+  motor[motorD] = 0;
+  nMotorEncoder[motorE] = 0;
+  nMotorEncoder[motorD] = 0;
+}
+
+/**
+ * Move the provided distance at the provided motor speed.
+ *
+ * distance -- the distance in encoder counts
+ * speed    -- the motor speed (positive == forwards, negative == reverse
  */
 void moveRight(int distance, int speed)
 {
