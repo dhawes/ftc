@@ -76,14 +76,21 @@ task main()
   move(600, -30);
   wait1Msec(200);
 
+  /*
+  if(!onBridge(X_LEVEL))
+  {
+    retryBridgeApproach(X_LEVEL);
+  }
+  */
+
   wheelieBarUp();
   wait1Msec(200);
 
-  move(2100, -30);
+  move(2000, -30);
   wait1Msec(500);
 
-  bridgeBalance();
-  bridgeBalanceStabilize(xAxis);
+  //bridgeBalance();
+  bridgeBalanceStabilize(X_LEVEL);
 
   // could not balance, move off of bridge
   move(2700, -30);
