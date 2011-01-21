@@ -11,7 +11,7 @@
 #pragma config(Servo,  srvo_S1_C3_2,    goalCapture2,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 
-/* LR-Cliff-LCR.c */
+/* $Id$ */
 
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
