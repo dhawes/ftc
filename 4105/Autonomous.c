@@ -33,7 +33,7 @@ void retryBridgeApproach(int xLevel);
 #define BALANCE_ABORT_TIME   3500
 
 /* Accelerometer globals */
-int xAxis = 0, yAxis = 0, zAxis = 0, X_LEVEL = 0;
+int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
 
 /**
  * Initialize robot.
@@ -234,7 +234,7 @@ void bridgeBalance()
 /**
  * Use the accelerometer sensor to balance on the bridge.
  */
-void bridgeBalanceStabilize(int xLevel)
+void bridgeBalanceStabilize()
 {
   while(HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis))
   {
@@ -295,7 +295,7 @@ void balanceStabilize()
 /**
  * Use the accelerometer to determine if we are on the bridge.
  */
-bool onBridge(int xLevel)
+bool onBridge()
 {
   bool ret = false;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
@@ -311,13 +311,13 @@ bool onBridge(int xLevel)
 /**
  * Try to get on the bridge again.
  */
-void retryBridgeApproach(int xLevel)
+void retryBridgeApproach()
 {
   wheelieBarUp();
   move(300, -30);
   wheelieBarDown();
   move(600, -30);
-  if(!onBridge(xLevel))
+  if(!onBridge())
   {
     wheelieBarUp();
     move(300, 30);
@@ -333,8 +333,8 @@ task balanceLEDIndicate()
 {
   while(true)
   {
-    if(xAxis < X_LEVEL - ACCELEROMETER_THRESH ||
-       xAxis > X_LEVEL + ACCELEROMETER_THRESH)
+    if(xAxis < xLevel - ACCELEROMETER_THRESH ||
+       xAxis > xLevel + ACCELEROMETER_THRESH)
 	  {
 	    motor[motorA] = 0;
 	    motor[motorC] = 100;

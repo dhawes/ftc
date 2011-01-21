@@ -39,12 +39,11 @@ task main()
 
   ClearTimer(T1);
 
-  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
+  HTACreadAllAxes(HTAC, xLevel, yAxis, zAxis);
 
   motor[motorB] = 0;
   motor[motorC] = 0;
 
-  X_LEVEL = xAxis;
   StartTask(balanceLEDIndicate);
 
   leftQuarterTurn();
@@ -77,9 +76,9 @@ task main()
   wait1Msec(200);
 
   /*
-  if(!onBridge(X_LEVEL))
+  if(!onBridge())
   {
-    retryBridgeApproach(X_LEVEL);
+    retryBridgeApproach();
   }
   */
 
@@ -90,7 +89,7 @@ task main()
   wait1Msec(500);
 
   //bridgeBalance();
-  bridgeBalanceStabilize(X_LEVEL);
+  bridgeBalanceStabilize();
 
   // could not balance, move off of bridge
   move(2700, -30);
