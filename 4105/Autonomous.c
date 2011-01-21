@@ -294,6 +294,7 @@ void bridgeBalanceStabilize()
 void balanceStabilize()
 {
   bool stable = false;
+  int stableCount = 0;
   int x, y, z;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   while(!stable)
@@ -307,14 +308,17 @@ void balanceStabilize()
       if(abs(diff) < ACCELEROMETER_THRESH)
       {
         stable = true;
+        stableCount++;
       }
+    }
+    else if(abs(x - xAxis) < ACCELEROMETER_THRESH)
+    {
+      stable = true;
+      stableCount++;
     }
     else
     {
-      if(abs(x - xAxis) < ACCELEROMETER_THRESH)
-      {
-        stable = true;
-      }
+      stableCount = 0;
     }
     HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
   }
