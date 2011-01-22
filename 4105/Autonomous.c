@@ -8,14 +8,15 @@ void leftTurn();
 void rightQuarterTurn();
 void leftQuarterTurn();
 void move(int distance, int speed);
+void moveTimed(int distance, int speed, int time);
 void wheelieBarUp();
 void wheelieBarDown();
 void batonLoader();
 void bridgeBalance();
-void bridgeBalanceStabilize(int xLevel);
+void bridgeBalanceStabilize();
 void balanceStabilize();
-bool onBridge(int xLevel);
-void retryBridgeApproach(int xLevel);
+bool onBridge();
+void retryBridgeApproach();
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    750
@@ -353,15 +354,15 @@ bool onBridge()
 void retryBridgeApproach()
 {
   wheelieBarUp();
-  move(300, -30);
+  moveTimed(300, -30, 300);
   wheelieBarDown();
-  move(600, -30);
+  moveTimed(600, -30, 300);
   if(!onBridge())
   {
     wheelieBarUp();
-    move(300, 30);
+    moveTimed(300, 30, 300);
     wheelieBarDown();
-    move(600, -30);
+    moveTimed(600, -30, 300);
   }
 }
 
