@@ -18,15 +18,18 @@
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
 /**
- *
+ * Starting on the left, drive over the cliff.
  */
 task main()
 {
   initializeRobot();
 
-  waitForStart(); // Wait for the beginning of autonomous phase.
+  // Wait for the beginning of autonomous phase.
+  waitForStart();
 
   // 1 rotation is about 2', 1440 on the encoder
   move(7000, 50);
-  wait1Msec(600);
+  wait1Msec(200);
+
+  wait1Msec(30000);
 }

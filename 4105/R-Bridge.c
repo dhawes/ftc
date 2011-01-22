@@ -18,13 +18,14 @@
 #include "Autonomous.c"
 
 /**
- *
+ * Starting on the right side, traverse the bridge.
  */
 task main()
 {
   initializeRobot();
 
-  waitForStart(); // Wait for the beginning of autonomous phase.
+  // Wait for the beginning of autonomous phase.
+  waitForStart();
 
   leftQuarterTurn();
   wait1Msec(200);
@@ -52,7 +53,7 @@ task main()
   wait1Msec(300);
 
   move(600, -30);
-  wait1Msec(60);
+  wait1Msec(200);
 
   wheelieBarUp();
   wait1Msec(200);
@@ -60,6 +61,5 @@ task main()
   move(4800, -30);
   wait1Msec(200);
 
-  wheelieBarUp();
-  wait1Msec(600);
+  wait1Msec(30000);
 }

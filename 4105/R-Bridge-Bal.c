@@ -18,7 +18,7 @@
 #include "Autonomous.c"
 
 /**
- *
+ * Starting on the right side, balance on the bridge.
  */
 task main()
 {
