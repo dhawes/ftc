@@ -5,7 +5,7 @@
 #pragma config(Motor,  motorC,          motorC,        tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C1_1,     motorD,        tmotorNormal, openLoop, reversed, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     motorE,        tmotorNormal, openLoop, encoder)
-#pragma config(Motor,  mtr_S1_C2_1,     intake,        tmotorNormal, openLoop, encoder)
+#pragma config(Motor,  mtr_S1_C2_1,     intake,        tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C2_2,     wheelieBar,    tmotorNormal, openLoop)
 #pragma config(Servo,  srvo_S1_C3_1,    goalCapture1,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C3_2,    goalCapture2,          tServoStandard)
