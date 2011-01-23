@@ -58,7 +58,6 @@ task main()
   leftTurn();
   wait1Msec(200);
 
-  //moveRight(120, -30);
   motor[motorD] = -30;
   wait1Msec(400);
   motor[motorD] = 0;

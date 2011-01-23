@@ -59,7 +59,6 @@ task main()
   rightTurn();
   wait1Msec(200);
 
-  //moveRight(120, -30);
   motor[motorE] = -30;
   //wait1Msec(400);
   wait1Msec(300);
@@ -86,7 +85,7 @@ task main()
   wait1Msec(200);
 
   move(1600, -30);
-  wait1Msec(1000);
+  wait1Msec(500);
 
   //bridgeBalance();
   bridgeBalanceStabilize();
