@@ -45,7 +45,7 @@ task main()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  move(300, -30);
+  move(250, -30);
   wait1Msec(200);
 
   /* wheelie bar */
