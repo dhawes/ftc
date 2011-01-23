@@ -49,7 +49,7 @@ task main()
   leftQuarterTurn();
   wait1Msec(200);
 
-  move(1900, 30);
+  move(2000, 30);
   wait1Msec(200);
 
   leftQuarterTurn();
@@ -65,27 +65,25 @@ task main()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  move(300, -30);
+  moveTimed(300, -30, 200);
   wait1Msec(200);
 
   /* wheelie bar */
   wheelieBarDown();
   wait1Msec(300);
 
-  move(600, -30);
+  moveTimed(600, -30, 200);
   wait1Msec(200);
 
-  /*
   if(!onBridge())
   {
     retryBridgeApproach();
   }
-  */
 
   wheelieBarUp();
   wait1Msec(200);
 
-  move(2000, -30);
+  move(1600, -30);
   wait1Msec(500);
 
   //bridgeBalance();

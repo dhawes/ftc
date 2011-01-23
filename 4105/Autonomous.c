@@ -30,6 +30,7 @@ void retryBridgeApproach();
 #define ACCELEROMETER_X_UP   -47
 #define ACCELEROMETER_X_DOWN 19
 #define ACCELEROMETER_THRESH 10
+#define BRIDGE_THRESH        5
 #define BALANCE_WAIT_TIME    1400
 #define BALANCE_ABORT_TIME   3500
 
@@ -298,7 +299,8 @@ void balanceStabilize()
   int stableCount = 0;
   int x, y, z;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  while(!stable)
+  //while(!stable)
+  while(stableCount < 2)
   {
     wait1Msec(400);
     HTACreadAllAxes(HTAC, x, y, z);
@@ -339,8 +341,8 @@ bool onBridge()
 {
   bool ret = false;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  if(xAxis < xLevel - ACCELEROMETER_THRESH ||
-     xAxis > xLevel + ACCELEROMETER_THRESH)
+  if(xAxis < xLevel - BRIDGE_THRESH ||
+     xAxis > xLevel + BRIDGE_THRESH)
   {
     // accleromter reading indicates we are on the bridge
     ret = true;
@@ -354,15 +356,16 @@ bool onBridge()
 void retryBridgeApproach()
 {
   wheelieBarUp();
-  moveTimed(300, -30, 300);
+  moveTimed(200, 30, 200);
   wheelieBarDown();
-  moveTimed(600, -30, 300);
+  moveTimed(1000, -30, 200);
+  wait1Msec(200);
   if(!onBridge())
   {
     wheelieBarUp();
-    moveTimed(300, 30, 300);
+    moveTimed(200, 30, 200);
     wheelieBarDown();
-    moveTimed(600, -30, 300);
+    moveTimed(1000, -30, 200);
   }
 }
 

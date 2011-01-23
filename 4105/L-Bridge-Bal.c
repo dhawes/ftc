@@ -49,7 +49,8 @@ task main()
   rightQuarterTurn();
   wait1Msec(200);
 
-  move(1900, 30);
+  //move(1900, 30);
+  move(2100, 30);
   wait1Msec(200);
 
   rightQuarterTurn();
@@ -60,27 +61,26 @@ task main()
 
   //moveRight(120, -30);
   motor[motorE] = -30;
-  wait1Msec(400);
+  //wait1Msec(400);
+  wait1Msec(300);
   motor[motorE] = 0;
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  move(250, -30);
+  moveTimed(250, -30, 200);
   wait1Msec(200);
 
   /* wheelie bar */
   wheelieBarDown();
   wait1Msec(300);
 
-  move(600, -30);
+  moveTimed(600, -30, 200);
   wait1Msec(200);
 
-  /*
   if(!onBridge())
   {
     retryBridgeApproach();
   }
-  */
 
   wheelieBarUp();
   wait1Msec(200);

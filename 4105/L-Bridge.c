@@ -30,7 +30,7 @@ task main()
   rightQuarterTurn();
   wait1Msec(200);
 
-  move(1900, 30);
+  move(2100, 30);
   wait1Msec(200);
 
   rightQuarterTurn();
@@ -40,7 +40,7 @@ task main()
   wait1Msec(200);
 
   motor[motorE] = -30;
-  wait1Msec(400);
+  wait1Msec(300);
   motor[motorE] = 0;
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
