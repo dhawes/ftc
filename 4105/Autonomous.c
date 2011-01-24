@@ -34,6 +34,16 @@ void retryBridgeApproach();
 #define BALANCE_WAIT_TIME    1400
 #define BALANCE_ABORT_TIME   3500
 
+/* Bridge approach defines */
+/* Left */
+#define L_BRIDGE_APPROACH    2100
+#define L_BRIDGE_ADJUST_TIME 300
+#define L_BRIDGE_ADJUST      250
+/* Right */
+#define R_BRIDGE_APPROACH    2000
+#define R_BRIDGE_ADJUST_TIME 400
+#define R_BRIDGE_ADJUST      300
+
 /* Accelerometer globals */
 int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
 
