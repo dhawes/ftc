@@ -64,20 +64,15 @@ task main()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  moveTimed(L_BRIDGE_ADJUST, -30, 300);
+  move(L_BRIDGE_ADJUST, -30);
   wait1Msec(200);
 
   /* wheelie bar */
   wheelieBarDown();
   wait1Msec(300);
 
-  moveTimed(600, -30, 300);
+  move(600, -30);
   wait1Msec(200);
-
-  if(!onBridge())
-  {
-    retryBridgeApproach();
-  }
 
   wheelieBarUp();
   wait1Msec(200);
