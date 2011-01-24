@@ -30,7 +30,7 @@ task main()
   leftQuarterTurn();
   wait1Msec(200);
 
-  move(2000, 30);
+  move(R_BRIDGE_APPROACH, 30);
   wait1Msec(200);
 
   leftQuarterTurn();
@@ -40,12 +40,12 @@ task main()
   wait1Msec(200);
 
   motor[motorD] = -30;
-  wait1Msec(400);
+  wait1Msec(R_BRIDGE_ADJUST_TIME);
   motor[motorD] = 0;
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  move(300, -30);
+  move(R_BRIDGE_ADJUST, -30);
   wait1Msec(200);
 
   /* wheelie bar */

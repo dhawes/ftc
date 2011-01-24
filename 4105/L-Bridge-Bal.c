@@ -49,8 +49,7 @@ task main()
   rightQuarterTurn();
   wait1Msec(200);
 
-  //move(1900, 30);
-  move(2100, 30);
+  move(L_BRIDGE_APPROACH, 30);
   wait1Msec(200);
 
   rightQuarterTurn();
@@ -60,20 +59,19 @@ task main()
   wait1Msec(200);
 
   motor[motorE] = -30;
-  //wait1Msec(400);
-  wait1Msec(300);
+  wait1Msec(L_BRIDGE_ADJUST_TIME);
   motor[motorE] = 0;
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 
-  moveTimed(250, -30, 200);
+  moveTimed(L_BRIDGE_ADJUST, -30, 300);
   wait1Msec(200);
 
   /* wheelie bar */
   wheelieBarDown();
   wait1Msec(300);
 
-  moveTimed(600, -30, 200);
+  moveTimed(600, -30, 300);
   wait1Msec(200);
 
   if(!onBridge())
@@ -87,7 +85,6 @@ task main()
   move(1600, -30);
   wait1Msec(500);
 
-  //bridgeBalance();
   bridgeBalanceStabilize();
 
   // could not balance, move off of bridge
