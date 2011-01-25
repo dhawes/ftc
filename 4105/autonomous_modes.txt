@@ -21,4 +21,4 @@ Autonomous Modes
 + R-Bridge-Wait-Bal
   - From the right, get on the bridge and wait 10s before balancing on it.
 + R-Bridge
-  - From the left, traverse the bridge.
+  - From the right, traverse the bridge.
