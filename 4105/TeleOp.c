@@ -31,7 +31,7 @@
 #define LED_ON 100
 #define LED_OFF 0
 #define JOYSTICK_THRESHOLD 10
-#define INTAKE_POWER 30
+#define INTAKE_POWER 100
 #define WHEELIE_BAR_POWER 30
 #define MOTOR_OFF 0
 
