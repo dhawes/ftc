@@ -71,7 +71,7 @@ task main()
   wheelieBarDown();
   wait1Msec(300);
 
-  move(600, -30);
+  move(200, -30);
   wait1Msec(200);
 
   wheelieBarUp();

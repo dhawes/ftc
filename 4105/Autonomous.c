@@ -19,8 +19,8 @@ bool onBridge();
 void retryBridgeApproach();
 
 /* Common defines */
-#define LEFT_TURN_ENCODER    750
-#define RIGHT_TURN_ENCODER   750
+#define LEFT_TURN_ENCODER    200
+#define RIGHT_TURN_ENCODER   200
 #define TURN_SPEED           25
 #define INTAKE_SPEED         -30
 #define RIGHT_180_ENCODER    1550
@@ -36,13 +36,13 @@ void retryBridgeApproach();
 
 /* Bridge approach defines */
 /* Left */
-#define L_BRIDGE_APPROACH    2100
+#define L_BRIDGE_APPROACH    525
 #define L_BRIDGE_ADJUST_TIME 300
-#define L_BRIDGE_ADJUST      250
+#define L_BRIDGE_ADJUST      100
 /* Right */
-#define R_BRIDGE_APPROACH    2000
-#define R_BRIDGE_ADJUST_TIME 400
-#define R_BRIDGE_ADJUST      300
+#define R_BRIDGE_APPROACH    525
+#define R_BRIDGE_ADJUST_TIME 300
+#define R_BRIDGE_ADJUST      100
 
 /* Accelerometer globals */
 int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
@@ -57,7 +57,7 @@ void initializeRobot()
   motor[motorC] = 100;
   motor[motorD] = 0;
   motor[motorE] = 0;
-  //wheelieBarUp();
+  wheelieBarUp();
   motor[wheelieBar] = 0;
   motor[intake] = 0;
   servo[goalCapture1] = 35;
