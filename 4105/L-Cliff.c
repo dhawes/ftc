@@ -28,7 +28,7 @@ task main()
   waitForStart();
 
   // 1 rotation is about 2', 1440 on the encoder
-  move(7000, 50);
+  move(2500, 100);
   wait1Msec(200);
 
   wait1Msec(30000);

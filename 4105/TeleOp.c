@@ -81,8 +81,8 @@ task main()
     else if(joy1Btn(6))
     {
       // only allow 30% power
-      motor[motorD] = joystick.joy1_y2 * .3;
-      motor[motorE] = joystick.joy1_y1 * .3;
+      motor[motorD] = joystick.joy1_y2 * .4;
+      motor[motorE] = joystick.joy1_y1 * .4;
       motor[motorA] = LED_OFF;
       motor[motorB] = LED_ON;
       motor[motorC] = LED_OFF;
