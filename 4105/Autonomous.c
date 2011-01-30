@@ -43,6 +43,11 @@ void retryBridgeApproach();
 #define R_BRIDGE_APPROACH    525
 #define R_BRIDGE_ADJUST_TIME 300
 #define R_BRIDGE_ADJUST      100
+/* Common */
+#define BR_GET_ON            200
+#define BR_TO_CENTER         400
+#define BR_MOVE_OFF          900
+#define BR_GO_OVER           1600
 
 /* Accelerometer globals */
 int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;

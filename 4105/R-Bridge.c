@@ -52,13 +52,13 @@ task main()
   wheelieBarDown();
   wait1Msec(300);
 
-  move(600, -30);
+  move(BR_GET_ON, -30);
   wait1Msec(200);
 
   wheelieBarUp();
   wait1Msec(200);
 
-  move(4800, -30);
+  move(BR_GO_OVER, -30);
   wait1Msec(200);
 
   wait1Msec(30000);

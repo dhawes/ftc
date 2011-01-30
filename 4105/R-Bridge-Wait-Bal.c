@@ -71,7 +71,7 @@ task main()
   wheelieBarDown();
   wait1Msec(300);
 
-  move(600, -30);
+  move(BR_GET_ON, -30);
   wait1Msec(200);
 
   wheelieBarUp();
@@ -79,13 +79,13 @@ task main()
 
   wait1Msec(10000);
 
-  move(1600, -30);
+  move(BR_TO_CENTER, -30);
   wait1Msec(500);
 
   bridgeBalanceStabilize();
 
   // could not balance, move off of bridge
-  move(2700, -30);
+  move(BR_MOVE_OFF, -30);
 
   wait1Msec(30000);
 }
