@@ -58,6 +58,14 @@ int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
  */
 void initializeRobot()
 {
+  /* PID control */
+  /*
+  nMotorPIDSpeedCtrl[motorD] = mtrSpeedReg;  // mtrNoReg for off
+  nMotorPIDSpeedCtrl[motorE] = mtrSpeedReg;
+  nPidUpdateInterval = 25;
+  nMaxRegulatedSpeed12V = 1000;
+  */
+
   motor[motorA] = 100;
   motor[motorB] = 100;
   motor[motorC] = 100;
