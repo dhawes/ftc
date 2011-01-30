@@ -33,6 +33,7 @@ void retryBridgeApproach();
 #define BRIDGE_THRESH        5
 #define BALANCE_WAIT_TIME    1400
 #define BALANCE_ABORT_TIME   3500
+#define BALANCE_ENCODER_CNT  50
 
 /* Bridge approach defines */
 /* Left */
@@ -262,7 +263,7 @@ void bridgeBalance()
 	    {
 	      break;
 	    }
-	    move(50, -25);
+	    move(BALANCE_ENCODER_CNT, -25);
 	    wait1Msec(500);
 	  }
 	  else if(xAxis > ACCELEROMETER_LEVEL + ACCELEROMETER_THRESH)
@@ -271,7 +272,7 @@ void bridgeBalance()
 	    {
 	      break;
 	    }
-	    move(50, 25);
+	    move(BALANCE_ENCODER_CNT, 25);
 	    wait1Msec(500);
 	  }
 	  wait1Msec(BALANCE_WAIT_TIME);
@@ -291,7 +292,7 @@ void bridgeBalanceStabilize()
 	    {
 	      break;
 	    }
-	    move(50, -25);
+	    move(BALANCE_ENCODER_CNT, -25);
 	  }
 	  else if(xAxis > xLevel + ACCELEROMETER_THRESH)
 	  {
@@ -299,7 +300,7 @@ void bridgeBalanceStabilize()
 	    {
 	      break;
 	    }
-	    move(50, 25);
+	    move(BALANCE_ENCODER_CNT, 25);
 	  }
 	  motor[motorB] = 100;
 	  balanceStabilize();
