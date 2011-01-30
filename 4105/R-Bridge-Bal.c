@@ -24,14 +24,6 @@ task main()
 {
   initializeRobot();
 
-  /*
-  while(true)
-  {
-    HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-    wait1Msec(200);
-  }
-  //*/
-
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
 
   // Wait for the beginning of autonomous phase.
