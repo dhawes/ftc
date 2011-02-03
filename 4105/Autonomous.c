@@ -5,8 +5,8 @@
 void initializeRobot();
 void rightTurn();
 void leftTurn();
-void rightQuarterTurn();
-void leftQuarterTurn();
+void rightHalfTurn();
+void leftHalfTurn();
 void move(int distance, int speed);
 void moveTimed(int distance, int speed, int time);
 void wheelieBarUp();
@@ -210,9 +210,9 @@ void wheelieBarUp()
 }
 
 /**
- * Make a left quarter turn.
+ * Make a left half turn.
  */
-void leftQuarterTurn()
+void leftHalfTurn()
 {
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
@@ -229,9 +229,9 @@ void leftQuarterTurn()
 }
 
 /**
- * Make a right quarter turn.
+ * Make a right half turn.
  */
-void rightQuarterTurn()
+void rightHalfTurn()
 {
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
