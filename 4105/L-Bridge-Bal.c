@@ -38,13 +38,13 @@ task main()
 
   StartTask(balanceLEDIndicate);
 
-  rightQuarterTurn();
+  rightHalfTurn();
   wait1Msec(200);
 
   move(L_BRIDGE_APPROACH, 30);
   wait1Msec(200);
 
-  rightQuarterTurn();
+  rightHalfTurn();
   wait1Msec(200);
 
   rightTurn();

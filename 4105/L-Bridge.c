@@ -27,13 +27,13 @@ task main()
   // Wait for the beginning of autonomous phase.
   waitForStart();
 
-  rightQuarterTurn();
+  rightHalfTurn();
   wait1Msec(200);
 
   move(L_BRIDGE_APPROACH, 30);
   wait1Msec(200);
 
-  rightQuarterTurn();
+  rightHalfTurn();
   wait1Msec(200);
 
   rightTurn();
