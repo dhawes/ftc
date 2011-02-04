@@ -19,8 +19,8 @@ bool onBridge();
 void retryBridgeApproach();
 
 /* Common defines */
-#define LEFT_TURN_ENCODER    200
-#define RIGHT_TURN_ENCODER   200
+#define LEFT_TURN_ENCODER    217
+#define RIGHT_TURN_ENCODER   217
 #define TURN_SPEED           25
 #define INTAKE_SPEED         -30
 #define RIGHT_180_ENCODER    1550
@@ -33,13 +33,13 @@ void retryBridgeApproach();
 #define BRIDGE_THRESH        5
 #define BALANCE_WAIT_TIME    1400
 #define BALANCE_ABORT_TIME   3500
-#define BALANCE_ENCODER_CNT  50
+#define BALANCE_ENCODER_CNT  25
 
 /* Bridge approach defines */
 /* Left */
-#define L_BRIDGE_APPROACH    525
-#define L_BRIDGE_ADJUST_TIME 300
-#define L_BRIDGE_ADJUST      100
+#define L_BRIDGE_APPROACH    650
+#define L_BRIDGE_ADJUST_TIME 200
+#define L_BRIDGE_ADJUST      10
 /* Right */
 #define R_BRIDGE_APPROACH    525
 #define R_BRIDGE_ADJUST_TIME 300
@@ -382,16 +382,16 @@ bool onBridge()
 void retryBridgeApproach()
 {
   wheelieBarUp();
-  moveTimed(200, 30, 200);
+  moveTimed(50, 30, 200);
   wheelieBarDown();
-  moveTimed(1000, -30, 200);
+  moveTimed(200, -30, 200);
   wait1Msec(200);
   if(!onBridge())
   {
     wheelieBarUp();
-    moveTimed(200, 30, 200);
+    moveTimed(50, 30, 200);
     wheelieBarDown();
-    moveTimed(1000, -30, 200);
+    moveTimed(200, -30, 200);
   }
 }
 
