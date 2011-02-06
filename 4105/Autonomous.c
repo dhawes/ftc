@@ -19,12 +19,12 @@ bool onBridge();
 void retryBridgeApproach();
 
 /* Common defines */
-#define LEFT_TURN_ENCODER    217
+#define LEFT_TURN_ENCODER    205
 #define RIGHT_TURN_ENCODER   217
 #define TURN_SPEED           25
 #define INTAKE_SPEED         -30
 #define RIGHT_180_ENCODER    1550
-#define WHEELIE_BAR_SPEED    30
+#define WHEELIE_BAR_SPEED    50
 #define WHEELIE_BAR_TIME     400
 #define ACCELEROMETER_LEVEL  -13
 #define ACCELEROMETER_X_UP   -47
@@ -33,13 +33,13 @@ void retryBridgeApproach();
 #define BRIDGE_THRESH        5
 #define BALANCE_WAIT_TIME    1400
 #define BALANCE_ABORT_TIME   3500
-#define BALANCE_ENCODER_CNT  25
+#define BALANCE_ENCODER_CNT  20
 
 /* Bridge approach defines */
 /* Left */
 #define L_BRIDGE_APPROACH    650
-#define L_BRIDGE_ADJUST_TIME 200
-#define L_BRIDGE_ADJUST      10
+#define L_BRIDGE_ADJUST_TIME 325
+#define L_BRIDGE_ADJUST      50
 /* Right */
 #define R_BRIDGE_APPROACH    525
 #define R_BRIDGE_ADJUST_TIME 300
@@ -71,7 +71,7 @@ void initializeRobot()
   motor[motorC] = 100;
   motor[motorD] = 0;
   motor[motorE] = 0;
-  wheelieBarUp();
+  //wheelieBarUp();
   motor[wheelieBar] = 0;
   motor[intake] = 0;
   servo[goalCapture1] = 35;
@@ -195,7 +195,7 @@ void moveRight(int distance, int speed)
  */
 void wheelieBarDown()
 {
-  motor[wheelieBar] = WHEELIE_BAR_SPEED;
+  motor[wheelieBar] = -WHEELIE_BAR_SPEED;
   wait1Msec(WHEELIE_BAR_TIME);
 }
 
@@ -204,7 +204,7 @@ void wheelieBarDown()
  */
 void wheelieBarUp()
 {
-  motor[wheelieBar] = WHEELIE_BAR_SPEED * -1;
+  motor[wheelieBar] = WHEELIE_BAR_SPEED;
   wait1Msec(WHEELIE_BAR_TIME * 2);
   motor[wheelieBar] = 0;
 }
@@ -382,14 +382,14 @@ bool onBridge()
 void retryBridgeApproach()
 {
   wheelieBarUp();
-  moveTimed(50, 30, 200);
+  moveTimed(75, 30, 200);
   wheelieBarDown();
   moveTimed(200, -30, 200);
   wait1Msec(200);
   if(!onBridge())
   {
     wheelieBarUp();
-    moveTimed(50, 30, 200);
+    moveTimed(75, 30, 200);
     wheelieBarDown();
     moveTimed(200, -30, 200);
   }

@@ -32,7 +32,7 @@
 #define LED_OFF 0
 #define JOYSTICK_THRESHOLD 10
 #define INTAKE_POWER 100
-#define WHEELIE_BAR_POWER 30
+#define WHEELIE_BAR_POWER 50
 #define MOTOR_OFF 0
 
 /**
@@ -100,11 +100,11 @@ task main()
     // figure out how to calibrate joystick so we don't have to check a threshold
     if(joystick.joy2_y2 > JOYSTICK_THRESHOLD)
     {
-      motor[intake] = INTAKE_POWER;
+      motor[intake] = -INTAKE_POWER;
     }
     else if(joystick.joy2_y2 < -JOYSTICK_THRESHOLD)
     {
-      motor[intake] = -INTAKE_POWER;
+      motor[intake] = INTAKE_POWER;
     }
     else
     {
