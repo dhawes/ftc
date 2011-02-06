@@ -1,10 +1,10 @@
 /* $Id$ */
 #ifdef BRIDGE_BALANCE
 #include "HTAC-driver.h"
-#endif BRIDGE_BALANCE
+#endif /* BRIDGE_BALANCE */
 #ifdef COMPASS
 #include "HTMC-driver.h"
-#endif COMPASS
+#endif /* COMPASS */
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    205
@@ -41,7 +41,7 @@
 #ifdef BRIDGE_BALANCE
 /* Accelerometer globals */
 int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
-#endif BRIDGE_BALANCE
+#endif /* BRIDGE_BALANCE */
 
 /**
  * Initialize robot.
@@ -88,7 +88,7 @@ void rightTurn()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif RIGHT_TURN
+#endif /* RIGHT_TURN */
 
 #ifdef LEFT_TURN
 /**
@@ -109,7 +109,7 @@ void leftTurn()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif LEFT_TURN
+#endif /* LEFT_TURN */
 
 #ifdef RIGHT_COMPASS_TURN
 /**
@@ -187,7 +187,7 @@ void move(int distance, int speed)
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif MOVE
+#endif /* MOVE */
 
 #ifdef MOVE_TIMED
 /**
@@ -217,7 +217,7 @@ void moveTimed(int distance, int speed, int time)
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif MOVE_TIMED
+#endif /* MOVE_TIMED */
 
 #ifdef MOVE_RIGHT
 /**
@@ -240,7 +240,7 @@ void moveRight(int distance, int speed)
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif MOVE_RIGHT
+#endif /* MOVE_RIGHT */
 
 #ifdef WHEELIE_BAR
 /**
@@ -262,7 +262,7 @@ void wheelieBarUp()
   wait1Msec(WHEELIE_BAR_TIME * 2);
   motor[wheelieBar] = 0;
 }
-#endif WHEELIE_BAR
+#endif /* WHEELIE_BAR */
 
 #ifdef LEFT_HALF_TURN
 /**
@@ -283,7 +283,7 @@ void leftHalfTurn()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif LEFT_HALF_TURN
+#endif /* LEFT_HALF_TURN */
 
 #ifdef RIGHT_HALF_TURN
 /**
@@ -304,7 +304,7 @@ void rightHalfTurn()
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
 }
-#endif RIGHT_HALF_TURN
+#endif /* RIGHT_HALF_TURN */
 
 #ifdef BRIDGE_BALANCE
 /**
@@ -397,7 +397,7 @@ task balanceLEDIndicate()
 	  wait1Msec(500);
   }
 }
-#endif BRIDGE_BALANCE
+#endif /* BRIDGE_BALANCE */
 
 #ifdef ON_BRIDGE
 /**
@@ -415,7 +415,7 @@ bool onBridge()
   }
   return ret;
 }
-#endif ON_BRIDGE
+#endif /* ON_BRIDGE */
 
 #ifdef RETRY_BRIDGE_APPROACH
 /**
@@ -436,4 +436,4 @@ void retryBridgeApproach()
     moveTimed(200, -30, 200);
   }
 }
-#endif RETRY_BRIDGE_APPROACH
+#endif /* RETRY_BRIDGE_APPROACH */
