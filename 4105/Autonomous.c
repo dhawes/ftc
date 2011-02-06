@@ -2,6 +2,9 @@
 #ifdef BRIDGE_BALANCE
 #include "HTAC-driver.h"
 #endif BRIDGE_BALANCE
+#ifdef COMPASS
+#include "HTMC-driver.h"
+#endif COMPASS
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    205
@@ -107,6 +110,60 @@ void leftTurn()
   nMotorEncoder[motorD] = 0;
 }
 #endif LEFT_TURN
+
+#ifdef RIGHT_COMPASS_TURN
+/**
+ * Turn to the right to the relative heading, stopping if we go over the time.
+ *
+ * heading  -- the relative heading to move to
+ * speed    -- the motor speed (positive == forwards, negative == reverse
+ * time     -- the time in 10ms intervals to quit
+ */
+void rightCompassTurn(int heading, int speed, int time)
+{
+  ClearTimer(T2);
+  int relativeHeading = HTMCreadRelativeHeading(HTMC);
+  while(relativeHeading != heading)
+  {
+    motor[motorE] = speed;
+    motor[motorD] = speed * -1;
+    if(time10[T2] > time)
+	  {
+	    break;
+	  }
+	  relativeHeading = HTMCreadRelativeHeading(HTMC);
+  }
+  motor[motorE] = 0;
+  motor[motorD] = 0;
+}
+#endif /* RIGHT_COMPASS_TURN */
+
+#ifdef LEFT_COMPASS_TURN
+/**
+ * Turn to the left to the relative heading, stopping if we go over the time.
+ *
+ * heading  -- the relative heading to move to
+ * speed    -- the motor speed (positive == forwards, negative == reverse
+ * time     -- the time in 10ms intervals to quit
+ */
+void leftCompassTurn(int heading, int speed, int time)
+{
+  ClearTimer(T2);
+  int relativeHeading = HTMCreadRelativeHeading(HTMC);
+  while(relativeHeading != heading)
+  {
+    motor[motorE] = speed * -1;
+    motor[motorD] = speed;
+    if(time10[T2] > time)
+	  {
+	    break;
+	  }
+	  relativeHeading = HTMCreadRelativeHeading(HTMC);
+  }
+  motor[motorE] = 0;
+  motor[motorD] = 0;
+}
+#endif /* LEFT_COMPASS_TURN */
 
 #ifdef MOVE
 /**
