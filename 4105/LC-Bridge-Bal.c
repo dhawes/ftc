@@ -36,6 +36,7 @@ task main()
 
   ClearTimer(T1);
 
+  HTMCsetTarget(HTMC);
   HTACreadAllAxes(HTAC, xLevel, yAxis, zAxis);
 
   motor[motorB] = 0;
