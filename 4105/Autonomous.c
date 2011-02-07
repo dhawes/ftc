@@ -37,6 +37,10 @@
 int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
 #endif /* BRIDGE_BALANCE */
 
+#ifdef COMPASS
+int initialHeading = 0;
+#endif /* COMPASS */
+
 /**
  * Initialize robot.
  */
