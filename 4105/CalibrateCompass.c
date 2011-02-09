@@ -27,15 +27,16 @@ task main()
 {
   initializeRobot();
 
-  HTMCstartCal(HTMC);
+  //HTMCstartCal(HTMC);
 
   // move a little more than 360 degrees in more than 20 seconds
-  motor[motorD] = 10;
-  motor[motorE] = 10;
+  motor[motorD] = -12;
+  motor[motorE] = 12;
   wait1Msec(22000);
   motor[motorD] = 0;
   motor[motorE] = 0;
 
+  /*
   HTMCstopCal(HTMC);
 
   HTMCsetTarget(HTMC);
@@ -48,4 +49,5 @@ task main()
   wait1Msec(200);
   rightCompassTurn(0, 25, 500);
   wait1Msec(200);
+  */
 }
