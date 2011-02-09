@@ -49,18 +49,26 @@ task main()
   wait1Msec(200);
   */
 
-  /*
+  ///*
+  ClearTimer(T2);
   motor[motorD] = 25;
+  motor[motorE] = 25;
   while(true)
   {
     encD = nMotorEncoder[motorD];
     encE = nMotorEncoder[motorE];
+    if(time10[T2] > 400)
+	  {
+	    break;
+	  }
   }
+  motor[motorD] = 0;
+  motor[motorE] = 0;
   wait1Msec(10000);
   return;
   //*/
 
-  /*
+
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
   while (abs(nMotorEncoder[motorE]) < LEFT_TURN_ENCODER)
@@ -72,7 +80,7 @@ task main()
   motor[motorD] = 0;
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
-
+  /*
   nMotorEncoder[motorE] = 0;
   nMotorEncoder[motorD] = 0;
   while (abs(nMotorEncoder[motorD]) < LEFT_TURN_ENCODER)
@@ -97,6 +105,7 @@ task main()
   leftTurn();
   wait1Msec(1000);
   */
+  /*
   leftTurn();
   wait1Msec(1000);
 
@@ -116,4 +125,5 @@ task main()
 
   rightHalfTurn();
   wait1Msec(200);
+  */
 }

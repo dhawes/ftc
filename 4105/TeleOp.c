@@ -19,7 +19,7 @@
 #define LED_OFF 0
 #define JOYSTICK_THRESHOLD 10
 #define GOAL_GRAB_POWER 100
-#define WHEELIE_BAR_POWER 50
+#define WHEELIE_BAR_POWER 55
 #define MOTOR_OFF 0
 
 /**

@@ -10,12 +10,12 @@
 #define LEFT_TURN_ENCODER    205
 #define RIGHT_TURN_ENCODER   217
 #define TURN_SPEED           25
-#define WHEELIE_BAR_SPEED    50
+#define WHEELIE_BAR_SPEED    55
 #define WHEELIE_BAR_TIME     400
 #define ACCELEROMETER_THRESH 10
 #define BRIDGE_THRESH        5
 #define BALANCE_ABORT_TIME   3500
-#define BALANCE_ENCODER_CNT  20
+#define BALANCE_ENCODER_CNT  15
 
 /* Bridge approach defines */
 /* Left */
@@ -23,9 +23,9 @@
 #define L_BRIDGE_ADJUST_TIME 325
 #define L_BRIDGE_ADJUST      50
 /* Right */
-#define R_BRIDGE_APPROACH    525
-#define R_BRIDGE_ADJUST_TIME 300
-#define R_BRIDGE_ADJUST      100
+#define R_BRIDGE_APPROACH    675
+#define R_BRIDGE_ADJUST_TIME 050
+#define R_BRIDGE_ADJUST      50
 /* Common */
 #define BR_GET_ON            200
 #define BR_TO_CENTER         400
@@ -405,8 +405,8 @@ bool onBridge()
 {
   bool ret = false;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  if(xAxis < xLevel - BRIDGE_THRESH ||
-     xAxis > xLevel + BRIDGE_THRESH)
+  if(xAxis < xLevel - ACCELEROMETER_THRESH ||
+     xAxis > xLevel + ACCELEROMETER_THRESH)
   {
     // accleromter reading indicates we are on the bridge
     ret = true;
@@ -422,16 +422,17 @@ bool onBridge()
 void retryBridgeApproach()
 {
   wheelieBarUp();
-  moveTimed(75, 30, 200);
+  moveTimed(50, 30, 200);
   wheelieBarDown();
   moveTimed(200, -30, 200);
   wait1Msec(200);
-  if(!onBridge())
+  while(!onBridge())
   {
     wheelieBarUp();
-    moveTimed(75, 30, 200);
+    moveTimed(50, 30, 200);
     wheelieBarDown();
     moveTimed(200, -30, 200);
+    wait1Msec(200);
   }
 }
 #endif /* RETRY_BRIDGE_APPROACH */
