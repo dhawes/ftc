@@ -13,6 +13,12 @@
 
 /* $Id$ */
 
+
+
+int cc_relHeading = 0;
+int cc_heading = 0;
+
+
 #define COMPASS
 #define RIGHT_COMPASS_TURN
 #define LEFT_COMPASS_TURN
@@ -27,27 +33,44 @@ task main()
 {
   initializeRobot();
 
-  //HTMCstartCal(HTMC);
+
+
+  /*
+  HTMCsetTarget(HTMC);
+  while(true)
+  {
+    cc_heading = HTMCreadHeading(HTMC);
+    cc_relHeading = HTMCreadRelativeHeading(HTMC);
+    wait1Msec(100);
+  }
+  //*/
+
+  /*
+  HTMCstartCal(HTMC);
 
   // move a little more than 360 degrees in more than 20 seconds
-  motor[motorD] = -12;
-  motor[motorE] = 12;
-  wait1Msec(22000);
+  motor[motorD] = -25;
+  motor[motorE] = 25;
+  wait1Msec(4000);
   motor[motorD] = 0;
   motor[motorE] = 0;
 
-  /*
   HTMCstopCal(HTMC);
+  wait1Msec(2000);
+  return;
+  //*/
 
+  ///*
   HTMCsetTarget(HTMC);
 
   leftCompassTurn(-90, 25, 500);
-  wait1Msec(200);
+  wait1Msec(2000);
   rightCompassTurn(0, 25, 500);
-  wait1Msec(200);
+  wait1Msec(2000);
+  /*
   leftCompassTurn(-45, 25, 500);
   wait1Msec(200);
   rightCompassTurn(0, 25, 500);
   wait1Msec(200);
-  */
+  //*/
 }
