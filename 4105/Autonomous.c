@@ -12,10 +12,12 @@
 #define TURN_SPEED           25
 #define WHEELIE_BAR_SPEED    55
 #define WHEELIE_BAR_TIME     400
-#define ACCELEROMETER_THRESH 10
-#define BRIDGE_THRESH        5
+#define ACCELEROMETER_THRESH 15
+#define BRIDGE_THRESH        7
 #define BALANCE_ABORT_TIME   3500
-#define BALANCE_ENCODER_CNT  15
+#define BALANCE_ENCODER_CNT  14
+#define L_COMPASS_THRESH     -18
+#define R_COMPASS_THRESH     0
 
 /* Bridge approach defines */
 /* Left */
@@ -28,7 +30,7 @@
 #define R_BRIDGE_ADJUST      50
 /* Common */
 #define BR_GET_ON            200
-#define BR_TO_CENTER         400
+#define BR_TO_CENTER         435
 #define BR_MOVE_OFF          900
 #define BR_GO_OVER           1600
 
@@ -121,7 +123,7 @@ void rightCompassTurn(int heading, int speed, int time)
 {
   ClearTimer(T2);
   int relativeHeading = HTMCreadRelativeHeading(HTMC);
-  while(relativeHeading != heading)
+  while(relativeHeading < heading + R_COMPASS_THRESH)
   {
     motor[motorE] = speed;
     motor[motorD] = speed * -1;
@@ -148,7 +150,7 @@ void leftCompassTurn(int heading, int speed, int time)
 {
   ClearTimer(T2);
   int relativeHeading = HTMCreadRelativeHeading(HTMC);
-  while(relativeHeading != heading)
+  while(relativeHeading > heading - L_COMPASS_THRESH)
   {
     motor[motorE] = speed * -1;
     motor[motorD] = speed;
@@ -405,8 +407,8 @@ bool onBridge()
 {
   bool ret = false;
   HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  if(xAxis < xLevel - ACCELEROMETER_THRESH ||
-     xAxis > xLevel + ACCELEROMETER_THRESH)
+  if(xAxis < xLevel - BRIDGE_THRESH ||
+     xAxis > xLevel + BRIDGE_THRESH)
   {
     // accleromter reading indicates we are on the bridge
     ret = true;
