@@ -22,12 +22,12 @@
 /* Bridge approach defines */
 /* Left */
 #define L_BRIDGE_APPROACH    650
-#define L_BRIDGE_ADJUST_TIME 400
+#define L_BRIDGE_ADJUST_TIME 100
 #define L_BRIDGE_ADJUST      0
 /* Right */
-#define R_BRIDGE_APPROACH    665
-#define R_BRIDGE_ADJUST_TIME 050
-#define R_BRIDGE_ADJUST      50
+#define R_BRIDGE_APPROACH    635
+#define R_BRIDGE_ADJUST_TIME 0
+#define R_BRIDGE_ADJUST      45
 /* Common */
 #define BR_GET_ON            200
 #define BR_TO_CENTER         480

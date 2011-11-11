@@ -71,7 +71,7 @@ task main()
   wait1Msec(300);
 
   moveTimed(BR_GET_ON, -30, 300);
-  wait1Msec(200);
+  wait1Msec(500);
 
   if(!onBridge())
   {
