@@ -6,7 +6,7 @@
 #pragma config(Motor,  mtr_S1_C1_2,     motorE,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_1,     goalGrab,        tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C2_2,     wheelieBar,    tmotorNormal, openLoop)
-#pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
+//#pragma config(Servo,  srvo_S1_C3_3,    goalArm,              tServoStandard)
 
 /* $Id$ */
 
@@ -35,7 +35,7 @@ void initializeRobot()
   motor[motorE] = MOTOR_OFF;
   motor[wheelieBar] = MOTOR_OFF;
   motor[goalGrab] = MOTOR_OFF;
-  servo[goalArm] = GOAL_ARM_CLOSED;
+  //servo[goalArm] = GOAL_ARM_CLOSED;
 
   return;
 }
@@ -113,12 +113,12 @@ task main()
     if(joy2Btn(2))
     {
       // if joystick button 2 (controller 2) is pressed then servo motor 2 will "open"
-      servo[goalArm] = GOAL_ARM_OPEN;
+      //servo[goalArm] = GOAL_ARM_OPEN;
     }
     else
     {
       //if no buttons are pressed, then the servos will do nothing or go back automatically
-      servo[goalArm] = GOAL_ARM_CLOSED;
+      //servo[goalArm] = GOAL_ARM_CLOSED;
     }
   }
 }
