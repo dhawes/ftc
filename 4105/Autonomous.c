@@ -1,52 +1,15 @@
 /* $Id: Autonomous.c 69 2011-11-11 22:44:11Z 4105 $ */
-#ifdef BRIDGE_BALANCE
-#include "HTAC-driver.h"
-#endif /* BRIDGE_BALANCE */
-#ifdef COMPASS
-#include "HTMC-driver.h"
-#endif /* COMPASS */
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    205
 #define RIGHT_TURN_ENCODER   217
 #define TURN_SPEED           25
-#define WHEELIE_BAR_SPEED    55
-#define WHEELIE_BAR_TIME     400
-#define ACCELEROMETER_THRESH 15
-#define BRIDGE_THRESH        7
-#define BALANCE_ABORT_TIME   3500
-#define BALANCE_ENCODER_CNT  14
-#define L_COMPASS_THRESH     -18
-#define R_COMPASS_THRESH     0
 #define GRAB_START 20
 #define GRAB_OPEN  100
-#define HOPPER_OPEN  198
+#define HOPPER_OPEN  180
 #define HOPPER_CLOSED  255
 #define MOTOR_OFF 0
-
-/* Bridge approach defines */
-/* Left */
-#define L_BRIDGE_APPROACH    650
-#define L_BRIDGE_ADJUST_TIME 100
-#define L_BRIDGE_ADJUST      0
-/* Right */
-#define R_BRIDGE_APPROACH    635
-#define R_BRIDGE_ADJUST_TIME 0
-#define R_BRIDGE_ADJUST      45
-/* Common */
-#define BR_GET_ON            200
-#define BR_TO_CENTER         480
-#define BR_MOVE_OFF          900
-#define BR_GO_OVER           1600
-
-#ifdef BRIDGE_BALANCE
-/* Accelerometer globals */
-int xAxis = 0, yAxis = 0, zAxis = 0, xLevel = 0;
-#endif /* BRIDGE_BALANCE */
-
-#ifdef COMPASS
-int initialHeading = 0;
-#endif /* COMPASS */
+#define MOTOR_FULL 0
 
 /**
  * Initialize robot.
@@ -68,18 +31,18 @@ void initializeRobot()
  */
 void rightTurn()
 {
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-  while (abs(nMotorEncoder[motorE]) < RIGHT_TURN_ENCODER ||
-         abs(nMotorEncoder[motorD]) < RIGHT_TURN_ENCODER)
+  nMotorEncoder[right] = 0;
+  nMotorEncoder[left] = 0;
+  while (abs(nMotorEncoder[right]) < RIGHT_TURN_ENCODER ||
+         abs(nMotorEncoder[left]) < RIGHT_TURN_ENCODER)
   {
-    motor[motorE] = TURN_SPEED;
-    motor[motorD] = TURN_SPEED * -1;
+    motor[right] = TURN_SPEED;
+    motor[left] = TURN_SPEED * -1;
   }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
+  motor[right] = 0;
+  motor[left] = 0;
+  nMotorEncoder[right] = 0;
+  nMotorEncoder[left] = 0;
 }
 #endif /* RIGHT_TURN */
 
@@ -89,74 +52,20 @@ void rightTurn()
  */
 void leftTurn()
 {
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-  while (abs(nMotorEncoder[motorD]) < LEFT_TURN_ENCODER ||
-         abs(nMotorEncoder[motorE]) < LEFT_TURN_ENCODER)
+  nMotorEncoder[right] = 0;
+  nMotorEncoder[left] = 0;
+  while (abs(nMotorEncoder[left]) < LEFT_TURN_ENCODER ||
+         abs(nMotorEncoder[right]) < LEFT_TURN_ENCODER)
   {
-    motor[motorE] = TURN_SPEED * -1;
-    motor[motorD] = TURN_SPEED;
+    motor[right] = TURN_SPEED * -1;
+    motor[left] = TURN_SPEED;
   }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
+  motor[right] = 0;
+  motor[left] = 0;
+  nMotorEncoder[right] = 0;
+  nMotorEncoder[left] = 0;
 }
 #endif /* LEFT_TURN */
-
-#ifdef RIGHT_COMPASS_TURN
-/**
- * Turn to the right to the relative heading, stopping if we go over the time.
- *
- * heading  -- the relative heading to move to
- * speed    -- the motor speed (positive == forwards, negative == reverse
- * time     -- the time in 10ms intervals to quit
- */
-void rightCompassTurn(int heading, int speed, int time)
-{
-  ClearTimer(T2);
-  int relativeHeading = HTMCreadRelativeHeading(HTMC);
-  while(relativeHeading < heading + R_COMPASS_THRESH)
-  {
-    motor[motorE] = speed;
-    motor[motorD] = speed * -1;
-    if(time10[T2] > time)
-	  {
-	    break;
-	  }
-	  relativeHeading = HTMCreadRelativeHeading(HTMC);
-  }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-}
-#endif /* RIGHT_COMPASS_TURN */
-
-#ifdef LEFT_COMPASS_TURN
-/**
- * Turn to the left to the relative heading, stopping if we go over the time.
- *
- * heading  -- the relative heading to move to
- * speed    -- the motor speed (positive == forwards, negative == reverse
- * time     -- the time in 10ms intervals to quit
- */
-void leftCompassTurn(int heading, int speed, int time)
-{
-  ClearTimer(T2);
-  int relativeHeading = HTMCreadRelativeHeading(HTMC);
-  while(relativeHeading > heading - L_COMPASS_THRESH)
-  {
-    motor[motorE] = speed * -1;
-    motor[motorD] = speed;
-    if(time10[T2] > time)
-	  {
-	    break;
-	  }
-	  relativeHeading = HTMCreadRelativeHeading(HTMC);
-  }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-}
-#endif /* LEFT_COMPASS_TURN */
 
 #ifdef MOVE
 /**
@@ -167,267 +76,68 @@ void leftCompassTurn(int heading, int speed, int time)
  */
 void move(int distance, int speed)
 {
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-  while (abs(nMotorEncoder[motorD]) < distance ||
-         abs(nMotorEncoder[motorE]) < distance)
+  nMotorEncoder[right] = 0;
+  nMotorEncoder[left] = 0;
+  while (abs(nMotorEncoder[left]) < distance ||
+         abs(nMotorEncoder[right]) < distance)
   {
-    motor[motorE] = speed;
-    motor[motorD] = speed;
+    motor[right] = speed;
+    motor[left] = speed;
   }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
+  motor[right] = MOTOR_OFF;
+  motor[left] = MOTOR_OFF;
+  nMotorEncoder[right] = 0;
+  nMotorEncoder[left] = 0;
 }
 #endif /* MOVE */
 
 #ifdef MOVE_TIMED
 /**
- * Move the provided distance at the provided motor speed.
+ * Move at the provided motor speed for the provided time.
  *
- * distance -- the distance in encoder counts
  * speed    -- the motor speed (positive == forwards, negative == reverse
- * time     -- the time in 10ms intervals to quit
+ * time     -- the time in ms
  */
-void moveTimed(int distance, int speed, int time)
+void moveTimed(int speed, int time)
 {
-  ClearTimer(T2);
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-  while (abs(nMotorEncoder[motorD]) < distance ||
-         abs(nMotorEncoder[motorE]) < distance)
-  {
-    motor[motorE] = speed;
-    motor[motorD] = speed;
-    if(time10[T2] > time)
-	  {
-	    break;
-	  }
-  }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
+    motor[right] = speed;
+    motor[left]  = speed;
+    wait1Msec(time);
+    motor[right] = MOTOR_OFF;
+    motor[left]  = MOTOR_OFF;
 }
 #endif /* MOVE_TIMED */
 
-#ifdef MOVE_RIGHT
+#ifdef TURN_RIGHT_TIMED
 /**
- * Move the provided distance at the provided motor speed.
+ * Turn right at the provided motor speed for the provided time.
  *
- * distance -- the distance in encoder counts
  * speed    -- the motor speed (positive == forwards, negative == reverse
+ * time     -- the time in ms
  */
-void moveRight(int distance, int speed)
+void turnRightTimed(int speed, int time)
 {
-  while (abs(nMotorEncoder[motorD]) < distance ||
-         abs(nMotorEncoder[motorE]) < distance)
-  {
-    motor[motorD] = speed;
-    motor[motorE] = 0;
-    //motor[motorE] = speed * -1;
-  }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
+    motor[right] = -speed;
+    motor[left]  = speed;
+    wait1Msec(time);
+    motor[right] = MOTOR_OFF;
+    motor[left]  = MOTOR_OFF;
 }
-#endif /* MOVE_RIGHT */
+#endif /* TURN_RIGHT_TIMED */
 
-#ifdef WHEELIE_BAR
+#ifdef TURN_LEFT_TIMED
 /**
- * Put the wheelie bar down.
+ * Turn left at the provided motor speed for the provided time.
+ *
+ * speed    -- the motor speed (positive == forwards, negative == reverse
+ * time     -- the time in ms
  */
-void wheelieBarDown()
+void turnLeftTimed(int speed, int time)
 {
-  motor[wheelieBar] = -WHEELIE_BAR_SPEED;
-  wait1Msec(WHEELIE_BAR_TIME);
+    motor[right] = speed;
+    motor[left]  = -speed;
+    wait1Msec(time);
+    motor[right] = MOTOR_OFF;
+    motor[left]  = MOTOR_OFF;
 }
-
-
-/**
- * Put the wheelie bar up.
- */
-void wheelieBarUp()
-{
-  motor[wheelieBar] = WHEELIE_BAR_SPEED;
-  wait1Msec(WHEELIE_BAR_TIME * 2);
-  motor[wheelieBar] = 0;
-}
-#endif /* WHEELIE_BAR */
-
-#ifdef LEFT_HALF_TURN
-/**
- * Make a left half turn.
- */
-void leftHalfTurn()
-{
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-  while (abs(nMotorEncoder[motorD]) < LEFT_TURN_ENCODER / 2 ||
-         abs(nMotorEncoder[motorE]) < LEFT_TURN_ENCODER / 2)
-  {
-    motor[motorE] = TURN_SPEED * -1;
-    motor[motorD] = TURN_SPEED;
-  }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-}
-#endif /* LEFT_HALF_TURN */
-
-#ifdef RIGHT_HALF_TURN
-/**
- * Make a right half turn.
- */
-void rightHalfTurn()
-{
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-  while (abs(nMotorEncoder[motorD]) < RIGHT_TURN_ENCODER / 2 ||
-         abs(nMotorEncoder[motorE]) < RIGHT_TURN_ENCODER / 2)
-  {
-    motor[motorE] = TURN_SPEED;
-    motor[motorD] = TURN_SPEED * -1;
-  }
-  motor[motorE] = 0;
-  motor[motorD] = 0;
-  nMotorEncoder[motorE] = 0;
-  nMotorEncoder[motorD] = 0;
-}
-#endif /* RIGHT_HALF_TURN */
-
-#ifdef BRIDGE_BALANCE
-/**
- * Wait for accelerometer readings to stabilize.
- */
-void balanceStabilize()
-{
-  int stableCount = 0;
-  int x, y, z;
-  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  while(stableCount < 2)
-  {
-    wait1Msec(400);
-    HTACreadAllAxes(HTAC, x, y, z);
-    if((x <= 0 && xAxis <= 0) ||
-       (x >= 0 && xAxis >= 0))
-    {
-      int diff = abs(x) - abs(xAxis); // have to use variable because of compiler issue
-      if(abs(diff) < ACCELEROMETER_THRESH)
-      {
-        stableCount++;
-      }
-      else
-      {
-        stableCount = 0;
-      }
-    }
-    else
-    {
-      if(abs(x - xAxis) < ACCELEROMETER_THRESH)
-      {
-        stableCount++;
-      }
-      else
-      {
-        stableCount = 0;
-      }
-    }
-    HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  }
-}
-
-/**
- * Use the accelerometer sensor to balance on the bridge.
- */
-void bridgeBalanceStabilize()
-{
-  while(HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis))
-  {
-	  if(xAxis < xLevel - ACCELEROMETER_THRESH)
-	  {
-	    if(time10[T1] > BALANCE_ABORT_TIME)
-	    {
-	      break;
-	    }
-	    move(BALANCE_ENCODER_CNT, -25);
-	  }
-	  else if(xAxis > xLevel + ACCELEROMETER_THRESH)
-	  {
-	    if(time10[T1] > BALANCE_ABORT_TIME)
-	    {
-	      break;
-	    }
-	    move(BALANCE_ENCODER_CNT, 25);
-	  }
-	  motor[motorB] = 100;
-	  balanceStabilize();
-	  motor[motorB] = 0;
-	}
-}
-
-/**
- * Indicate with the LEDs whether the robot is balanced.
- */
-task balanceLEDIndicate()
-{
-  while(true)
-  {
-    if(xAxis < xLevel - ACCELEROMETER_THRESH ||
-       xAxis > xLevel + ACCELEROMETER_THRESH)
-	  {
-	    motor[motorA] = 0;
-	    motor[motorC] = 100;
-	  }
-	  else
-	  {
-	    motor[motorA] = 100;
-	    motor[motorC] = 0;
-	  }
-	  wait1Msec(500);
-  }
-}
-#endif /* BRIDGE_BALANCE */
-
-#ifdef ON_BRIDGE
-/**
- * Use the accelerometer to determine if we are on the bridge.
- */
-bool onBridge()
-{
-  bool ret = false;
-  HTACreadAllAxes(HTAC, xAxis, yAxis, zAxis);
-  if(xAxis < xLevel - BRIDGE_THRESH ||
-     xAxis > xLevel + BRIDGE_THRESH)
-  {
-    // accleromter reading indicates we are on the bridge
-    ret = true;
-  }
-  return ret;
-}
-#endif /* ON_BRIDGE */
-
-#ifdef RETRY_BRIDGE_APPROACH
-/**
- * Try to get on the bridge again.
- */
-void retryBridgeApproach()
-{
-  wheelieBarUp();
-  moveTimed(50, 30, 200);
-  wheelieBarDown();
-  moveTimed(200, -30, 200);
-  wait1Msec(200);
-  while(!onBridge())
-  {
-    wheelieBarUp();
-    moveTimed(50, 30, 200);
-    wheelieBarDown();
-    moveTimed(200, -30, 200);
-    wait1Msec(200);
-  }
-}
-#endif /* RETRY_BRIDGE_APPROACH */
+#endif /* TURN_LEFT_TIMED */
