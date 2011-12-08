@@ -9,7 +9,7 @@
 #define HOPPER_OPEN  180
 #define HOPPER_CLOSED  255
 #define MOTOR_OFF 0
-#define MOTOR_FULL 0
+#define MOTOR_FULL 100
 
 /**
  * Initialize robot.
