@@ -37,9 +37,11 @@ task main()
   turnLeftTimed(MOTOR_FULL, 1500);
   wait1Msec(200);
 
+  // move forward
   moveTimed(MOTOR_FULL, 1000);
   wait1Msec(200);
 
+  // slight left
   turnLeftTimed(MOTOR_FULL, 500);
   wait1Msec(200);
 
