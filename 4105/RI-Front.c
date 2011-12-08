@@ -27,20 +27,24 @@ task main()
   initializeRobot();
 
   // Wait for the beginning of autonomous phase.
-  //waitForStart();
+  waitForStart();
 
   // go forward
-  moveTimed(MOTOR_FULL, 3000);
-
+  moveTimed(MOTOR_FULL, 1700);
   wait1Msec(200);
 
-  // turn left 
-  turnLeftTimed(MOTOR_FULL, 2000);
+  // turn left
+  turnLeftTimed(MOTOR_FULL, 1500);
+  wait1Msec(200);
 
+  moveTimed(MOTOR_FULL, 1000);
+  wait1Msec(200);
+
+  turnLeftTimed(MOTOR_FULL, 500);
   wait1Msec(200);
 
   motor[intake] = -MOTOR_FULL;
 
   // go to the front parking zone
-  moveTimed(MOTOR_FULL, 6000);
+  moveTimed(MOTOR_FULL, 5650);
 }
