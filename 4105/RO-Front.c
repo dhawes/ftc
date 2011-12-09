@@ -38,7 +38,7 @@ task main()
   wait1Msec(200);
 
   // move forward
-  moveTimed(MOTOR_FULL, 1000);
+  moveTimed(MOTOR_FULL, 2000);
   wait1Msec(200);
 
   // slight left
