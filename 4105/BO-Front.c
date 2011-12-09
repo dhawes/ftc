@@ -14,13 +14,13 @@
 /* $Id: L-Cliff.c 59 2011-02-06 03:01:05Z 4105 $ */
 
 #define MOVE_TIMED
-#define TURN_LEFT_TIMED
+#define TURN_RIGHT_TIMED
 
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
 /**
- * Starting on red on the inside, drive to the front parking area.
+ * Starting on blue on the inside, drive to the front parking area.
  */
 task main()
 {
@@ -33,16 +33,16 @@ task main()
   moveTimed(MOTOR_FULL, 1700);
   wait1Msec(200);
 
-  // turn left
-  turnLeftTimed(MOTOR_FULL, 1500);
+  // turn right
+  turnRightTimed(MOTOR_FULL, 1500);
   wait1Msec(200);
 
   // move forward
   moveTimed(MOTOR_FULL, 1000);
   wait1Msec(200);
 
-  // slight left
-  turnLeftTimed(MOTOR_FULL, 500);
+  // slight right 
+  turnRightTimed(MOTOR_FULL, 500);
   wait1Msec(200);
 
   motor[intake] = -MOTOR_FULL;
