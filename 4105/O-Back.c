@@ -14,7 +14,6 @@
 /* $Id: L-Cliff.c 59 2011-02-06 03:01:05Z 4105 $ */
 
 #define MOVE_TIMED
-#define TURN_LEFT_TIMED
 
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
