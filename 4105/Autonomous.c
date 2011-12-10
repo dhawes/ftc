@@ -12,13 +12,13 @@
 #define MOTOR_FULL 100
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME  1700
+#define MOVE_OFF_RAMP_TIME  1800
 #define RIGHT_TURN_TIME     1500
 #define LEFT_TURN_TIME      1500
 #define MOVE_TO_BBALL_TIME  1000
 #define SLIGHT_RIGHT_TIME   500
 #define SLIGHT_LEFT_TIME    500
-#define MOVE_TO_CORNER_TIME 5650
+#define MOVE_TO_CORNER_TIME 5000
 #define MOVE_TO_WALL_TIME   1000
 #define MOVE_TO_BACK_TIME   6000
 
@@ -30,6 +30,7 @@ void initializeRobot()
   motor[right] = MOTOR_OFF;
   motor[left] = MOTOR_OFF;
   motor[intake] = MOTOR_OFF;
+  motor[whacker] = MOTOR_OFF;
   servo[grab] = GRAB_START;
   servo[hopper] = HOPPER_CLOSED;
 
