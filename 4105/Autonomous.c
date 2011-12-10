@@ -10,6 +10,8 @@
 #define HOPPER_CLOSED  255
 #define MOTOR_OFF 0
 #define MOTOR_FULL 100
+#define LED_ON 100
+#define LED_OFF 0
 
 /* Movement defines */
 #define MOVE_OFF_RAMP_TIME  1800
@@ -27,12 +29,15 @@
  */
 void initializeRobot()
 {
-  motor[right] = MOTOR_OFF;
-  motor[left] = MOTOR_OFF;
-  motor[intake] = MOTOR_OFF;
+  motor[right]   = MOTOR_OFF;
+  motor[left]    = MOTOR_OFF;
+  motor[intake]  = MOTOR_OFF;
   motor[whacker] = MOTOR_OFF;
-  servo[grab] = GRAB_START;
-  servo[hopper] = HOPPER_CLOSED;
+  servo[grab]    = GRAB_START;
+  servo[hopper]  = HOPPER_CLOSED;
+  motor[green]   = LED_ON;
+  motor[yellow]  = LED_ON;
+  motor[red]     = LED_ON;
 
   return;
 }
