@@ -1,4 +1,4 @@
-/* $Id: Autonomous.c 69 2011-11-11 22:44:11Z 4105 $ */
+/* $Id$ */
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    205
