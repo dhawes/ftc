@@ -12,13 +12,15 @@
 #define MOTOR_FULL 100
 
 /* Movement defines */
-#define MOVE_OFF_RAMP  1700
-#define RIGHT_TURN     1500
-#define MOVE_TO_BBALL  1000
-#define SLIGHT_RIGHT   500
-#define SLIGHT_LEFT    500
-#define MOVE_TO_CORNER 5650
-#define MOVE_TO_WALL   1000
+#define MOVE_OFF_RAMP_TIME  1700
+#define RIGHT_TURN_TIME     1500
+#define LEFT_TURN_TIME      1500
+#define MOVE_TO_BBALL_TIME  1000
+#define SLIGHT_RIGHT_TIME   500
+#define SLIGHT_LEFT_TIME    500
+#define MOVE_TO_CORNER_TIME 5650
+#define MOVE_TO_WALL_TIME   1000
+#define MOVE_TO_BACK_TIME   6000
 
 /**
  * Initialize robot.

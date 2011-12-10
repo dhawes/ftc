@@ -29,5 +29,5 @@ task main()
   waitForStart();
 
   // go to the back parking area
-  moveTimed(MOTOR_FULL, 6000);
+  moveTimed(MOTOR_FULL, MOVE_TO_BACK_TIME);
 }
