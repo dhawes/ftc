@@ -1,8 +1,8 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
 #pragma config(Sensor, S1,     ,                    sensorI2CMuxController)
-#pragma config(Motor,  motorA,          motorA,        tmotorNormal, openLoop)
-#pragma config(Motor,  motorB,          motorB,        tmotorNormal, openLoop)
-#pragma config(Motor,  motorC,          motorC,        tmotorNormal, openLoop)
+#pragma config(Motor,  motorA,          green,        tmotorNormal, openLoop)
+#pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
+#pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C1_1,     right,         tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     whacker,        tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_1,     left,          tmotorNormal, openLoop, reversed, encoder)
@@ -32,11 +32,9 @@
 void initializeRobot()
 {
   bFloatDuringInactiveMotorPWM = false;
-  /*
-  motor[motorA] = LED_ON;
-  motor[motorB] = LED_ON;
-  motor[motorC] = LED_ON;
-  */
+  motor[green] = LED_ON;
+  motor[yellow] = LED_ON;
+  motor[red] = LED_ON;
   motor[right] = MOTOR_OFF;
   motor[left] = MOTOR_OFF;
   motor[intake] = MOTOR_OFF;
@@ -56,6 +54,10 @@ task main()
 
   waitForStart();   // wait for start of tele-op phase
 
+  motor[green]  = LED_OFF;
+  motor[yellow] = LED_OFF;
+  motor[red]    = LED_OFF;
+
   while(true)
   {
     getJoystickSettings(joystick);
@@ -63,11 +65,7 @@ task main()
     // 100% power
     motor[right] = joystick.joy1_y2;
     motor[left]= joystick.joy1_y1;
-    /*
-    motor[motorA] = LED_ON;
-    motor[motorB] = LED_OFF;
-    motor[motorC] = LED_OFF;
-    */
+
 
     if(abs(joystick.joy2_y1) > JOYSTICK_THRESHOLD)
     {
@@ -81,23 +79,31 @@ task main()
     if(joy2Btn(2))
     {
       motor[intake] = INTAKE_POWER;
+      motor[green]  = LED_OFF;
+      motor[red]    = LED_ON;
     }
     else if(joy2Btn(1))
     {
       motor[intake] = -INTAKE_POWER;
+      motor[green]  = LED_ON;
+      motor[red]    = LED_OFF;
     }
     else
     {
       motor[intake] = MOTOR_OFF;
+      motor[green]  = LED_OFF;
+      motor[red]    = LED_OFF;
     }
 
     if(joy1Btn(6))
     {
       servo[grab] = GRAB_START;
+      motor[yellow] = LED_OFF;
     }
     else if(joy1Btn(8))
     {
       servo[grab] = GRAB_OPEN;
+      motor[yellow] = LED_ON;
     }
 
     if(joy2Btn(6))

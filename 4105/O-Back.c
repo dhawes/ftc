@@ -1,8 +1,8 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
 #pragma config(Sensor, S1,     ,                    sensorI2CMuxController)
-#pragma config(Motor,  motorA,          motorA,        tmotorNormal, openLoop)
-#pragma config(Motor,  motorB,          motorB,        tmotorNormal, openLoop)
-#pragma config(Motor,  motorC,          motorC,        tmotorNormal, openLoop)
+#pragma config(Motor,  motorA,          green,        tmotorNormal, openLoop)
+#pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
+#pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C1_1,     right,         tmotorNormal, openLoop, encoder)
 #pragma config(Motor,  mtr_S1_C1_2,     whacker,        tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     left,          tmotorNormal, openLoop, reversed, encoder)
@@ -27,6 +27,10 @@ task main()
 
   // Wait for the beginning of autonomous phase.
   waitForStart();
+
+  motor[green]  = LED_OFF;
+  motor[yellow] = LED_OFF;
+  motor[red]    = LED_OFF;
 
   // go to the back parking area
   moveTimed(MOTOR_FULL, MOVE_TO_BACK_TIME);
