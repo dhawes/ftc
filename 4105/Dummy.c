@@ -14,8 +14,6 @@
 
 /* $Id: O-Back.c 92 2011-12-15 23:08:48Z 4105 $ */
 
-#define MOVE_TIMED
-
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
