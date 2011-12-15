@@ -6,12 +6,14 @@
 #define TURN_SPEED           25
 #define GRAB_START 20
 #define GRAB_OPEN  100
-#define HOPPER_OPEN  180
-#define HOPPER_CLOSED  255
 #define MOTOR_OFF 0
 #define MOTOR_FULL 100
 #define LED_ON 100
 #define LED_OFF 0
+#define HOPPER1_OPEN   75
+#define HOPPER1_CLOSED 10
+#define HOPPER2_OPEN   180
+#define HOPPER2_CLOSED 255
 
 /* Movement defines */
 #define MOVE_OFF_RAMP_TIME  1800
@@ -34,7 +36,8 @@ void initializeRobot()
   motor[intake]  = MOTOR_OFF;
   motor[whacker] = MOTOR_OFF;
   servo[grab]    = GRAB_START;
-  servo[hopper]  = HOPPER_CLOSED;
+  servo[hopper1] = HOPPER1_CLOSED;
+  servo[hopper2] = HOPPER2_CLOSED;
   motor[green]   = LED_ON;
   motor[yellow]  = LED_ON;
   motor[red]     = LED_ON;
