@@ -21,7 +21,7 @@
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
 /**
- * Starting on blue on the inside, drive to the front parking area.
+ * Starting on blue on the outside, drive to the front parking area.
  */
 task main()
 {
