@@ -161,3 +161,23 @@ void turnLeftTimed(int speed, int time)
     motor[left]  = MOTOR_OFF;
 }
 #endif /* TURN_LEFT_TIMED */
+
+task prettyLights()
+{
+  while(true)
+  {
+    motor[green] = LED_ON;
+    wait1Msec(200);
+    motor[green] = LED_OFF;
+    motor[yellow] = LED_ON;
+    wait1Msec(200);
+    motor[yellow] = LED_OFF;
+    motor[red] = LED_ON;
+    wait1Msec(200);
+    motor[red] = LED_OFF;
+    motor[yellow] = LED_ON;
+    wait1Msec(200);
+    motor[yellow] = LED_OFF;
+    motor[green] = LED_ON;
+  }
+}
