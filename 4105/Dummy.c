@@ -27,7 +27,7 @@ task main()
   // Wait for the beginning of autonomous phase.
   waitForStart();
 
-  motor[green]  = LED_OFF;
-  motor[yellow] = LED_OFF;
-  motor[red]    = LED_OFF;
+  StartTask(prettyLights);
+
+  wait1Msec(30000);
 }

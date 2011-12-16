@@ -29,9 +29,7 @@ task main()
   // Wait for the beginning of autonomous phase.
   waitForStart();
 
-  motor[green]  = LED_OFF;
-  motor[yellow] = LED_OFF;
-  motor[red]    = LED_OFF;
+  StartTask(prettyLights);
 
   // go to the back parking area
   moveTimed(MOTOR_FULL, MOVE_TO_BACK_TIME);
