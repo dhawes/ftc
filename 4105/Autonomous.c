@@ -16,15 +16,20 @@
 #define HOPPER2_CLOSED 255
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME  1800
-#define RIGHT_TURN_TIME     1500
-#define LEFT_TURN_TIME      1500
-#define MOVE_TO_BBALL_TIME  1000
-#define SLIGHT_RIGHT_TIME   500
-#define SLIGHT_LEFT_TIME    500
-#define MOVE_TO_CORNER_TIME 5000
-#define MOVE_TO_WALL_TIME   1000
-#define MOVE_TO_BACK_TIME   6000
+#define MOVE_OFF_RAMP_TIME         1800
+#define RIGHT_TURN_TIME            1800
+#define LEFT_TURN_TIME             1800
+#define LEFT_OUTSIDE_TURN_TIME     2200
+#define RIGHT_OUTSIDE_TURN_TIME    2200
+#define MOVE_TO_BBALL_TIME         1000
+#define MOVE_OUTSIDE_TO_BBALL_TIME 2125
+#define SLIGHT_RIGHT_TIME          1000
+#define SLIGHT_OUTSIDE_RIGHT_TIME  750
+#define SLIGHT_LEFT_TIME           1000
+#define SLIGHT_OUTSIDE_LEFT_TIME   750
+#define MOVE_TO_CORNER_TIME        5000
+#define MOVE_TO_WALL_TIME          1000
+#define MOVE_TO_BACK_TIME          6000
 
 /**
  * Initialize robot.

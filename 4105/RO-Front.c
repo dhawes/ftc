@@ -37,15 +37,15 @@ task main()
   wait1Msec(200);
 
   // turn left
-  turnLeftTimed(MOTOR_FULL, LEFT_TURN_TIME);
+  turnLeftTimed(MOTOR_FULL, LEFT_OUTSIDE_TURN_TIME);
   wait1Msec(200);
 
   // move forward
-  moveTimed(MOTOR_FULL, MOVE_TO_BBALL_TIME * 2);
+  moveTimed(MOTOR_FULL, MOVE_OUTSIDE_TO_BBALL_TIME);
   wait1Msec(200);
 
   // slight left
-  turnLeftTimed(MOTOR_FULL, SLIGHT_LEFT_TIME);
+  turnLeftTimed(MOTOR_FULL, SLIGHT_OUTSIDE_LEFT_TIME);
   wait1Msec(200);
 
   motor[intake] = -MOTOR_FULL;
