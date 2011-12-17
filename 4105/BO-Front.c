@@ -41,14 +41,14 @@ task main()
   wait1Msec(200);
 
   // move forward
-  moveTimed(MOTOR_FULL, MOVE_OUTSIDE_TO_BBALL_TIME * 2);
+  moveTimed(MOTOR_FULL, MOVE_OUTSIDE_TO_BBALL_TIME);
   wait1Msec(200);
 
   // slight right
   turnRightTimed(MOTOR_FULL, SLIGHT_OUTSIDE_RIGHT_TIME);
   wait1Msec(200);
 
-  motor[intake] = -MOTOR_FULL;
+  motor[intake] = MOTOR_FULL;
 
   // go to the front parking zone
   moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);

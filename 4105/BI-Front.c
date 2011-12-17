@@ -48,7 +48,7 @@ task main()
   turnRightTimed(MOTOR_FULL, SLIGHT_RIGHT_TIME);
   wait1Msec(200);
 
-  motor[intake] = -MOTOR_FULL;
+  motor[intake] = MOTOR_FULL;
 
   // go to the front parking zone
   moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
