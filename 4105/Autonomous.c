@@ -187,3 +187,35 @@ task prettyLights()
     motor[green] = LED_ON;
   }
 }
+
+#ifdef GYRO
+#include "HTGYRO-driver.h"
+
+float currHeading = 0;
+
+// Task to keep track of the current heading using the HT Gyro
+task getHeading ()
+{
+  float delTime = 0;
+  float prevHeading = 0;
+  float curRate = 0;
+
+  HTGYROstartCal(GYRO);
+  PlaySound(soundBeepBeep);
+  while(true)
+  {
+    time1[T1] = 0;
+    curRate = HTGYROreadRot(GYRO);
+    if (abs(curRate) > 3)
+    {
+      prevHeading = currHeading;
+      currHeading = prevHeading + curRate * delTime;
+      if (currHeading > 360) currHeading -= 360;
+      else if (currHeading < 0) currHeading += 360;
+    }
+    wait1Msec(5);
+    delTime = ((float)time1[T1]) / 1000;
+    //delTime /= 1000;
+  }
+}
+#endif /* GYRO */
