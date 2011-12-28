@@ -200,12 +200,12 @@ task getHeading ()
   float prevHeading = 0;
   float curRate = 0;
 
-  HTGYROstartCal(GYRO);
+  HTGYROstartCal(HTGYRO);
   PlaySound(soundBeepBeep);
   while(true)
   {
     time1[T1] = 0;
-    curRate = HTGYROreadRot(GYRO);
+    curRate = HTGYROreadRot(HTGYRO);
     if (abs(curRate) > 3)
     {
       prevHeading = currHeading;
