@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
-#pragma config(Sensor, S2,     HTGYRO,                sensorI2CCustom)
+#pragma config(Sensor, S2,     HTGYRO,                sensorAnalogInactive)
 #pragma config(Motor,  motorA,          green,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
