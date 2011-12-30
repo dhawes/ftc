@@ -228,23 +228,25 @@ void leftGyroTurn(float heading, int speed)
   float degs = 0;
   float turned = 0;
   float oHeading = currHeading;
-  if(currHeading > heading)
+  float ch = oHeading;
+  if(ch > heading)
   {
-    degs = currHeading - heading;
+    degs = ch - heading;
   }
-  else if(currHeading < heading)
+  else if(ch < heading)
   {
-    degs = currHeading + (360 - heading); 
+    degs = ch + (360 - heading); 
   }
   while(currHeading != heading && turned < degs)
   {
-    if(oHeading > currHeading)
+    ch = currHeading;
+    if(oHeading > ch)
     {
-      turned = oHeading - currHeading;
+      turned = oHeading - ch;
     }
-    else if(oHeading < currHeading)
+    else if(oHeading < ch)
     {
-      turned = oHeading + (360 - currHeading);
+      turned = oHeading + (360 - ch);
     }
     motor[right] = speed;
     motor[left] = -speed;
