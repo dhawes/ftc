@@ -199,6 +199,7 @@ task getHeading ()
   float delTime = 0;
   float prevHeading = 0;
   float curRate = 0;
+  float ch = 0;
 
   HTGYROstartCal(HTGYRO);
   PlaySound(soundBeepBeep);
@@ -209,13 +210,79 @@ task getHeading ()
     if (abs(curRate) > 3)
     {
       prevHeading = currHeading;
-      currHeading = prevHeading + curRate * delTime;
-      if (currHeading > 360) currHeading -= 360;
-      else if (currHeading < 0) currHeading += 360;
+      ch = prevHeading + curRate * delTime;
+      if (ch > 360) currHeading = ch - 360;
+      else if (ch < 0) currHeading = ch + 360;
     }
     wait1Msec(5);
     delTime = ((float)time1[T1]) / 1000;
     //delTime /= 1000;
   }
+}
+
+/**
+ * Make a left turn to a heading.
+ */
+void leftGyroTurn(float heading, int speed)
+{
+  float degs = 0;
+  float turned = 0;
+  float oHeading = currHeading;
+  if(currHeading > heading)
+  {
+    degs = currHeading - heading;
+  }
+  else if(currHeading < heading)
+  {
+    degs = currHeading + (360 - heading); 
+  }
+  while(currHeading != heading && turned < degs)
+  {
+    if(oHeading > currHeading)
+    {
+      turned = oHeading - currHeading;
+    }
+    else if(oHeading < currHeading)
+    {
+      turned = oHeading + (360 - currHeading);
+    }
+    motor[right] = speed;
+    motor[left] = -speed;
+  }
+  motor[right] = MOTOR_OFF;
+  motor[left] = MOTOR_OFF;
+}
+
+/**
+ * Make a right turn to a heading.
+ */
+void rightGyroTurn(float heading, int speed)
+{
+  float degs = 0;
+  float turned = 0;
+  float oHeading = currHeading;
+  if(currHeading > heading)
+  {
+    degs = (360 - currHeading) + heading; 
+  }
+  else if(currHeading < heading)
+  {
+    degs = heading - currHeading;
+  }
+  while(currHeading != heading && turned < degs)
+  {
+    if(oHeading > currHeading)
+    {
+      turned = (360 - oHeading) + currHeading; 
+    }
+    else if(oHeading < currHeading)
+    {
+      turned = currHeading - oHeading;
+    }
+    motor[right] = -speed;
+    motor[left] = speed;
+  }
+  motor[right] = MOTOR_OFF;
+  motor[left] = MOTOR_OFF;
 }
 #endif /* GYRO */
