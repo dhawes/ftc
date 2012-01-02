@@ -7,6 +7,7 @@
 #define GRAB_START 20
 #define GRAB_OPEN  100
 #define MOTOR_OFF 0
+#define MOTOR_HALF 50
 #define MOTOR_FULL 100
 #define LED_ON 100
 #define LED_OFF 0
@@ -20,7 +21,7 @@
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
 #define MOVE_TO_BBALL_TIME         1000
-#define SLIGHT_RIGHT_TIME          750
+#define SLIGHT_RIGHT_TIME          350
 #define SLIGHT_LEFT_TIME           800
 #define MOVE_TO_CORNER_TIME        5000
 #define MOVE_TO_WALL_TIME          1000
@@ -191,6 +192,8 @@ task prettyLights()
 #ifdef GYRO
 #include "HTGYRO-driver.h"
 
+#define RATE_THRESH 3
+
 float currHeading = 0;
 
 // Task to keep track of the current heading using the HT Gyro
@@ -199,7 +202,6 @@ task getHeading ()
   float delTime = 0;
   float prevHeading = 0;
   float curRate = 0;
-  float ch = 0;
 
   HTGYROstartCal(HTGYRO);
   PlaySound(soundBeepBeep);
@@ -207,19 +209,20 @@ task getHeading ()
   {
     time1[T1] = 0;
     curRate = HTGYROreadRot(HTGYRO);
-    if (abs(curRate) > 3)
+    if (abs(curRate) > RATE_THRESH)
     {
       prevHeading = currHeading;
-      ch = prevHeading + curRate * delTime;
-      if (ch > 360) currHeading = ch - 360;
-      else if (ch < 0) currHeading = ch + 360;
+      currHeading = prevHeading + curRate * delTime;
+      if (currHeading > 360) currHeading -= 360;
+      else if (currHeading < 0) currHeading += 360;
     }
     wait1Msec(5);
     delTime = ((float)time1[T1]) / 1000;
-    //delTime /= 1000;
+    nxtDisplayTextLine(4, "Gyro:   %f", currHeading);
   }
 }
 
+#ifdef LEFT_GYRO_TURN
 /**
  * Make a left turn to a heading.
  */
@@ -235,7 +238,7 @@ void leftGyroTurn(float heading, int speed)
   }
   else if(ch < heading)
   {
-    degs = ch + (360 - heading); 
+    degs = ch + (360 - heading);
   }
   while(currHeading != heading && turned < degs)
   {
@@ -254,7 +257,9 @@ void leftGyroTurn(float heading, int speed)
   motor[right] = MOTOR_OFF;
   motor[left] = MOTOR_OFF;
 }
+#endif /* LEFT_GYRO_TURN */
 
+#ifdef RIGHT_GYRO_TURN
 /**
  * Make a right turn to a heading.
  */
@@ -265,7 +270,7 @@ void rightGyroTurn(float heading, int speed)
   float oHeading = currHeading;
   if(currHeading > heading)
   {
-    degs = (360 - currHeading) + heading; 
+    degs = (360 - currHeading) + heading;
   }
   else if(currHeading < heading)
   {
@@ -275,7 +280,7 @@ void rightGyroTurn(float heading, int speed)
   {
     if(oHeading > currHeading)
     {
-      turned = (360 - oHeading) + currHeading; 
+      turned = (360 - oHeading) + currHeading;
     }
     else if(oHeading < currHeading)
     {
@@ -287,4 +292,5 @@ void rightGyroTurn(float heading, int speed)
   motor[right] = MOTOR_OFF;
   motor[left] = MOTOR_OFF;
 }
+#endif /* RIGHT_GYRO_TURN */
 #endif /* GYRO */
