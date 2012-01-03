@@ -211,14 +211,20 @@ task getHeading ()
     curRate = HTGYROreadRot(HTGYRO);
     if (abs(curRate) > RATE_THRESH)
     {
+      //hogCPU();
       prevHeading = currHeading;
       currHeading = prevHeading + curRate * delTime;
+      //if (currHeading >= 360) currHeading -= 360;
       if (currHeading > 360) currHeading -= 360;
       else if (currHeading < 0) currHeading += 360;
+      //releaseCPU();
     }
+    nxtDisplayTextLine(1, "currHeading: %f", currHeading);
+    nxtDisplayTextLine(2, "prevHeading: %f", prevHeading);
+    nxtDisplayTextLine(3, "delTime: %f", delTime);
+    nxtDisplayTextLine(4, "curRate: %f", curRate);
     wait1Msec(5);
     delTime = ((float)time1[T1]) / 1000;
-    nxtDisplayTextLine(4, "Gyro:   %f", currHeading);
   }
 }
 
