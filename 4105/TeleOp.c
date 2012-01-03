@@ -70,8 +70,8 @@ task main()
     getJoystickSettings(joystick);
 
     // 100% power
-    motor[right] = joystick.joy1_y2;
-    motor[left]= joystick.joy1_y1;
+    motor[left] = joystick.joy1_y2;
+    motor[right]= joystick.joy1_y1;
 
 
     if(abs(joystick.joy2_y1) > JOYSTICK_THRESHOLD)
