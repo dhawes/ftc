@@ -1,4 +1,7 @@
 /* $Id$ */
+#ifdef GYRO
+#include "HTGYRO-driver.h"
+#endif /* GYRO */
 
 /* Common defines */
 #define LEFT_TURN_ENCODER    205
@@ -48,6 +51,9 @@ void initializeRobot()
   motor[green]   = LED_ON;
   motor[yellow]  = LED_ON;
   motor[red]     = LED_ON;
+#ifdef GYRO
+  StartTask(getHeading);
+#endif /* GYRO */
 
   return;
 }
@@ -190,7 +196,6 @@ task prettyLights()
 }
 
 #ifdef GYRO
-#include "HTGYRO-driver.h"
 
 #define RATE_THRESH 3
 
