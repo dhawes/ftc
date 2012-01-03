@@ -2,4 +2,4 @@
 - look at while comparisions.  is != part tripping us up?
 - use breakpoints, write more data to the NXT
 - add wait in turn functions. maybe this is going too fast?
-- 
+- give task all CPU 
