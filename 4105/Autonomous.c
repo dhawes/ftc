@@ -214,8 +214,7 @@ task getHeading ()
       //hogCPU();
       prevHeading = currHeading;
       currHeading = prevHeading + curRate * delTime;
-      //if (currHeading >= 360) currHeading -= 360;
-      if (currHeading > 360) currHeading -= 360;
+      if (currHeading >= 360) currHeading -= 360;
       else if (currHeading < 0) currHeading += 360;
       //releaseCPU();
     }
