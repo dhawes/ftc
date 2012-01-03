@@ -1,0 +1,4 @@
+- specific turn task, don't rely on getHeading()
+- look at while comparisions.  is != part tripping us up?
+- use breakpoints, write more data to the NXT
+- 
