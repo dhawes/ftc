@@ -43,11 +43,15 @@ task main()
 
   wait1Msec(2000);
 
-  while(true)
-  {
-    //rightGyroTurn(90, MOTOR_FULL);
-    //wait1Msec(1000);
-    //leftGyroTurn(270, MOTOR_FULL);
-    wait1Msec(1000);
-  }
+  leftGyroTurn(270, MOTOR_FULL);
+  wait1Msec(1000);
+  leftGyroTurn(180, MOTOR_FULL);
+
+  /*
+  rightGyroTurn(90, MOTOR_FULL);
+  wait1Msec(5000);
+  rightGyroTurn(180, MOTOR_FULL);
+  */
+
+  wait1Msec(30000);
 }
