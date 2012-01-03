@@ -1,6 +1,7 @@
 /* $Id$ */
 #ifdef GYRO
 #include "HTGYRO-driver.h"
+task getHeading();
 #endif /* GYRO */
 
 /* Common defines */
