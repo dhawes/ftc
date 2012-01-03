@@ -3,3 +3,5 @@
 - use breakpoints, write more data to the NXT
 - add wait in turn functions. maybe this is going too fast?
 - give task all CPU 
+- problem is almost certainly in the while loop of the turn code. the turn seems
+  to start briefly. why does it stop?
