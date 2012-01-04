@@ -199,8 +199,17 @@ task prettyLights()
 #ifdef GYRO
 
 #define RATE_THRESH 3
+#define MOVE_THRESH 1
+
+enum Direction 
+{
+  NONE  = 0,
+  RIGHT = 1,
+  LEFT  = 2 
+}
 
 float currHeading = 0;
+Direction direction = NONE;
 
 // Task to keep track of the current heading using the HT Gyro
 task getHeading ()
@@ -223,6 +232,12 @@ task getHeading ()
       if (currHeading >= 360) currHeading -= 360;
       else if (currHeading < 0) currHeading += 360;
       //releaseCPU();
+      if(curRate > 0) direction = RIGHT;
+      else if(curRate < 0) direction = LEFT;
+    }
+    else
+    {
+      direction = NONE;
     }
     nxtDisplayTextLine(1, "currHeading: %f", currHeading);
     nxtDisplayTextLine(2, "prevHeading: %f", prevHeading);
@@ -304,4 +319,34 @@ void rightGyroTurn(float heading, int speed)
   motor[left] = MOTOR_OFF;
 }
 #endif /* RIGHT_GYRO_TURN */
+
+#ifdef MOVE_GYRO
+void moveGyro(int speed, int time)
+{
+  float oHeading = currHeading;
+  float ch;
+  float error = 0;
+  time1[T2] = 0;
+  while(time1[T2] < time)
+  {
+    ch = currHeading;
+    if(oHeading > currHeading)
+    {
+      error = (360 - oHeading) + currHeading;
+    }
+    else if(oHeading < currHeading)
+    {
+      error = currHeading - oHeading;
+    }
+    if(currHeading > oHeading)
+    {
+        motor[right] = speed;
+        motor[left] = speed;
+    }
+    wait1Msec(10);
+  }
+  motor[right] = MOTOR_OFF;
+  motor[left] = MOTOR_OFF;
+}
+#endif /* MOVE_GYRO */
 #endif /* GYRO */
