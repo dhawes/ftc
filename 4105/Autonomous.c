@@ -192,7 +192,6 @@ task prettyLights()
     motor[yellow] = LED_ON;
     wait1Msec(200);
     motor[yellow] = LED_OFF;
-    motor[green] = LED_ON;
   }
 }
 
