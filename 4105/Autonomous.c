@@ -241,8 +241,6 @@ task getHeading ()
  */
 void leftGyroTurn(float heading, int speed)
 {
-  float degs = 0;
-  float turned = 0;
   while(currHeading > heading + TURN_THRESH)
   {
     motor[right] = speed;
@@ -259,8 +257,6 @@ void leftGyroTurn(float heading, int speed)
  */
 void rightGyroTurn(float heading, int speed)
 {
-  float degs = 0;
-  float turned = 0;
   while(currHeading < heading - TURN_THRESH)
   {
     motor[right] = -speed;
