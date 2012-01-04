@@ -201,15 +201,7 @@ task prettyLights()
 #define RATE_THRESH 3
 #define MOVE_THRESH 1
 
-enum Direction 
-{
-  NONE  = 0,
-  RIGHT = 1,
-  LEFT  = 2 
-}
-
 float currHeading = 0;
-Direction direction = NONE;
 
 // Task to keep track of the current heading using the HT Gyro
 task getHeading ()
@@ -232,12 +224,6 @@ task getHeading ()
       if (currHeading >= 360) currHeading -= 360;
       else if (currHeading < 0) currHeading += 360;
       //releaseCPU();
-      if(curRate > 0) direction = RIGHT;
-      else if(curRate < 0) direction = LEFT;
-    }
-    else
-    {
-      direction = NONE;
     }
     nxtDisplayTextLine(1, "currHeading: %f", currHeading);
     nxtDisplayTextLine(2, "prevHeading: %f", prevHeading);
