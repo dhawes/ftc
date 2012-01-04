@@ -200,6 +200,7 @@ task prettyLights()
 
 #define RATE_THRESH 3
 #define MOVE_THRESH 1
+#define TURN_THRESH 0
 
 float currHeading = 0;
 
@@ -221,8 +222,8 @@ task getHeading ()
       //hogCPU();
       prevHeading = currHeading;
       currHeading = prevHeading + curRate * delTime;
-      if (currHeading >= 360) currHeading -= 360;
-      else if (currHeading < 0) currHeading += 360;
+      //if (currHeading >= 360) currHeading -= 360;
+      //else if (currHeading < 0) currHeading += 360;
       //releaseCPU();
     }
     nxtDisplayTextLine(1, "currHeading: %f", currHeading);
@@ -242,27 +243,8 @@ void leftGyroTurn(float heading, int speed)
 {
   float degs = 0;
   float turned = 0;
-  float oHeading = currHeading;
-  float ch = oHeading;
-  if(ch > heading)
+  while(currHeading > heading + TURN_THRESH)
   {
-    degs = ch - heading;
-  }
-  else if(ch < heading)
-  {
-    degs = ch + (360 - heading);
-  }
-  while(currHeading != heading && turned < degs)
-  {
-    ch = currHeading;
-    if(oHeading > ch)
-    {
-      turned = oHeading - ch;
-    }
-    else if(oHeading < ch)
-    {
-      turned = oHeading + (360 - ch);
-    }
     motor[right] = speed;
     motor[left] = -speed;
   }
@@ -279,25 +261,8 @@ void rightGyroTurn(float heading, int speed)
 {
   float degs = 0;
   float turned = 0;
-  float oHeading = currHeading;
-  if(currHeading > heading)
+  while(currHeading < heading - TURN_THRESH)
   {
-    degs = (360 - currHeading) + heading;
-  }
-  else if(currHeading < heading)
-  {
-    degs = heading - currHeading;
-  }
-  while(currHeading != heading && turned < degs)
-  {
-    if(oHeading > currHeading)
-    {
-      turned = (360 - oHeading) + currHeading;
-    }
-    else if(oHeading < currHeading)
-    {
-      turned = currHeading - oHeading;
-    }
     motor[right] = -speed;
     motor[left] = speed;
   }
@@ -310,21 +275,20 @@ void rightGyroTurn(float heading, int speed)
 void moveGyro(int speed, int time)
 {
   float oHeading = currHeading;
-  float ch;
-  float error = 0;
   time1[T2] = 0;
   while(time1[T2] < time)
   {
-    ch = currHeading;
-    if(oHeading > currHeading)
+    if(currHeading < oHeading)
     {
-      error = (360 - oHeading) + currHeading;
+        motor[right] = speed - MOVE_THRESH;
+        motor[left] = speed;
     }
-    else if(oHeading < currHeading)
+    else if(currHeading > oHeading)
     {
-      error = currHeading - oHeading;
+        motor[right] = speed;
+        motor[left] = speed - MOVE_THRESH;
     }
-    if(currHeading > oHeading)
+    else
     {
         motor[right] = speed;
         motor[left] = speed;
