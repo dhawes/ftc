@@ -274,11 +274,13 @@ void moveGyro(int speed, int time)
   time1[T2] = 0;
   while(time1[T2] < time)
   {
+    // drifting left
     if(currHeading < oHeading)
     {
         motor[right] = speed - MOVE_THRESH;
         motor[left] = speed;
     }
+    // drifting right
     else if(currHeading > oHeading)
     {
         motor[right] = speed;
