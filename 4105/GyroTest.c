@@ -24,6 +24,8 @@
 #define GYRO
 #define RIGHT_GYRO_TURN
 #define LEFT_GYRO_TURN
+#define MOVE_GYRO
+#define MOVE_TIMED
 
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
@@ -38,20 +40,32 @@ task main()
   // Wait for the beginning of autonomous phase.
   //waitForStart();
 
-  StartTask(getHeading);
+  wait1Msec(1000);
+
   StartTask(prettyLights);
 
-  wait1Msec(2000);
-
-  leftGyroTurn(270, MOTOR_FULL);
+  while(true)
+  {
+  leftGyroTurn(-90, MOTOR_FULL);
   wait1Msec(1000);
-  leftGyroTurn(180, MOTOR_FULL);
-
   /*
-  rightGyroTurn(90, MOTOR_FULL);
-  wait1Msec(5000);
-  rightGyroTurn(180, MOTOR_FULL);
+  leftGyroTurn(-135, MOTOR_FULL);
+  wait1Msec(1000);
   */
+  rightGyroTurn(0, MOTOR_FULL);
+  wait1Msec(1000);
+  }
+  return;
+  //moveGyro(MOTOR_FULL, 4000);
+  moveTimed(MOTOR_FULL, 4000);
+  wait1Msec(100);
+  return;
+
+  moveGyro(MOTOR_FULL, 2200);
+  wait1Msec(100);
+  leftGyroTurn(-90, MOTOR_FULL);
+  wait1Msec(100);
+  moveGyro(MOTOR_FULL, 1000);
 
   wait1Msec(30000);
 }
