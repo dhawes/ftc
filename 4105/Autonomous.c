@@ -198,8 +198,9 @@ task prettyLights()
 #ifdef GYRO
 
 #define RATE_THRESH 3
-#define MOVE_THRESH 1
-#define TURN_THRESH 0
+#define MOVE_THRESH 10
+#define RIGHT_TURN_THRESH 0
+#define LEFT_TURN_THRESH 2
 
 float currHeading = 0;
 
@@ -225,8 +226,8 @@ task getHeading ()
       //else if (currHeading < 0) currHeading += 360;
       //releaseCPU();
     }
-    nxtDisplayTextLine(1, "currHeading: %f", currHeading);
-    nxtDisplayTextLine(2, "prevHeading: %f", prevHeading);
+    nxtDisplayTextLine(1, "curr: %f", currHeading);
+    nxtDisplayTextLine(2, "prev: %f", prevHeading);
     nxtDisplayTextLine(3, "delTime: %f", delTime);
     nxtDisplayTextLine(4, "curRate: %f", curRate);
     wait1Msec(5);
@@ -240,7 +241,7 @@ task getHeading ()
  */
 void leftGyroTurn(float heading, int speed)
 {
-  while(currHeading > heading + TURN_THRESH)
+  while(currHeading > heading + LEFT_TURN_THRESH)
   {
     motor[right] = speed;
     motor[left] = -speed;
@@ -256,7 +257,7 @@ void leftGyroTurn(float heading, int speed)
  */
 void rightGyroTurn(float heading, int speed)
 {
-  while(currHeading < heading - TURN_THRESH)
+  while(currHeading < heading - RIGHT_TURN_THRESH)
   {
     motor[right] = -speed;
     motor[left] = speed;
@@ -297,3 +298,13 @@ void moveGyro(int speed, int time)
 }
 #endif /* MOVE_GYRO */
 #endif /* GYRO */
+
+#ifdef IR_SEEKER
+#include "HTIRS2-driver.h"
+
+void getIRDirection()
+{
+  int dir = HTIRS2readACDir(HTIRS2);
+  nxtDisplayTextLine(1, "direction: %d", dir);
+}
+#endif /* HTIRS2 */
