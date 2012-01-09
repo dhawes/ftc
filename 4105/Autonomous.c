@@ -21,17 +21,17 @@ task getHeading();
 #define HOPPER2_CLOSED 255
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME         1800
+#define MOVE_OFF_RAMP_TIME         2200
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
 #define MOVE_TO_BBALL_TIME         1000
 #define SLIGHT_RIGHT_TIME          350
-#define SLIGHT_LEFT_TIME           800
-#define MOVE_TO_CORNER_TIME        5000
+#define SLIGHT_LEFT_TIME           500
+#define MOVE_TO_CORNER_TIME        5500
 #define MOVE_TO_WALL_TIME          1000
 #define MOVE_TO_BACK_TIME          6000
 /* Outside modes */
-#define LEFT_OUTSIDE_TURN_TIME     1800
+#define LEFT_OUTSIDE_TURN_TIME     1600
 #define RIGHT_OUTSIDE_TURN_TIME    1700
 #define MOVE_OUTSIDE_TO_BBALL_TIME 2125
 #define SLIGHT_OUTSIDE_RIGHT_TIME  500
@@ -53,6 +53,7 @@ void initializeRobot()
   motor[yellow]  = LED_ON;
   motor[red]     = LED_ON;
 #ifdef GYRO
+  wait1Msec(2000);
   StartTask(getHeading);
 #endif /* GYRO */
 
@@ -226,10 +227,12 @@ task getHeading ()
       //else if (currHeading < 0) currHeading += 360;
       //releaseCPU();
     }
+    /*
     nxtDisplayTextLine(1, "curr: %f", currHeading);
     nxtDisplayTextLine(2, "prev: %f", prevHeading);
     nxtDisplayTextLine(3, "delTime: %f", delTime);
     nxtDisplayTextLine(4, "curRate: %f", curRate);
+    */
     wait1Msec(5);
     delTime = ((float)time1[T1]) / 1000;
   }
@@ -302,9 +305,44 @@ void moveGyro(int speed, int time)
 #ifdef IR_SEEKER
 #include "HTIRS2-driver.h"
 
-void getIRDirection()
+int getIRDirection()
 {
   int dir = HTIRS2readACDir(HTIRS2);
-  nxtDisplayTextLine(1, "direction: %d", dir);
+  //nxtDisplayTextLine(1, "direction: %d", dir);
+  return dir;
 }
-#endif /* HTIRS2 */
+
+void turnToIRBeacon(int speed)
+{
+  int dir = getIRDirection();
+
+  while(true)
+  {
+    if(dir == 0)
+    {
+      // no reading
+      break;
+    }
+    else if(dir == 5)
+    {
+      break;
+    }
+    else if(dir > 5 && dir > 0)
+    {
+      // left of beacon
+      motor[right] = -speed;
+      motor[left] = speed;
+    }
+    else if(dir < 5 && dir > 0)
+    {
+      // right of beacon
+      motor[right] = speed;
+      motor[left] = -speed;
+    }
+    wait1Msec(5);
+    dir = getIRDirection();
+  }
+  motor[left] = MOTOR_OFF;
+  motor[right] = MOTOR_OFF;
+}
+#endif /* IR_SEEKER */

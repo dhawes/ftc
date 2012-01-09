@@ -1,5 +1,6 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
 #pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
+#pragma config(Sensor, S3,     HTIRS2,              sensorI2CCustom)
 #pragma config(Motor,  motorA,          green,         tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,           tmotorNormal, openLoop)
@@ -21,11 +22,7 @@
 
 /* $Id: O-Back.c 92 2011-12-15 23:08:48Z 4105 $ */
 
-#define GYRO
-#define RIGHT_GYRO_TURN
-#define LEFT_GYRO_TURN
-#define MOVE_GYRO
-#define MOVE_TIMED
+#define IR_SEEKER
 
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
@@ -44,22 +41,17 @@ task main()
 
   StartTask(prettyLights);
 
-  leftGyroTurn(-90, MOTOR_FULL);
-  wait1Msec(1000);
-  rightGyroTurn(0, MOTOR_FULL);
-  wait1Msec(1000);
+  /*
+  while(true)
+  {
+    getIRDirection();
+    wait1Msec(100);
+  }
+  */
 
-  return;
-  //moveGyro(MOTOR_FULL, 4000);
-  moveTimed(MOTOR_FULL, 4000);
-  wait1Msec(100);
-  return;
-
-  moveGyro(MOTOR_FULL, 2200);
-  wait1Msec(100);
-  leftGyroTurn(-90, MOTOR_FULL);
-  wait1Msec(100);
-  moveGyro(MOTOR_FULL, 1000);
-
-  wait1Msec(30000);
+  while(true)
+  {
+    turnToIRBeacon(MOTOR_FULL);
+    wait1Msec(1000);
+  }
 }
