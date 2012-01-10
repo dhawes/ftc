@@ -37,11 +37,44 @@ task getHeading();
 #define SLIGHT_OUTSIDE_RIGHT_TIME  500
 #define SLIGHT_OUTSIDE_LEFT_TIME   750
 
+bool useGyro = false;
+//bool useIRSeeker = false;
+void getUserInput()
+{
+  nxtDisplayCenteredTextLine(3, "Gyro?");
+  while(true)
+  {
+    if(nNxtButtonPressed == 2)
+    {
+      useGyro = true;
+      nxtDisplayCenteredTextLine(1, "Gyro: Yes");
+      break;
+    }
+    else if(nNxtButtonPressed == 1)
+    {
+      useGyro = false;
+      nxtDisplayCenteredTextLine(1, "Gyro: No");
+      break;
+    }
+    nxtDisplayCenteredTextLine(7, "Yes          No");
+  }
+  nxtDisplayTextLine(3, "");
+  nxtDisplayTextLine(7, "");
+}
+
 /**
  * Initialize robot.
  */
 void initializeRobot()
 {
+  getUserInput();
+
+  if(useGyro)
+  {
+    wait1Msec(2000);
+    StartTask(getHeading);
+  }
+
   motor[right]   = MOTOR_OFF;
   motor[left]    = MOTOR_OFF;
   motor[intake]  = MOTOR_OFF;
@@ -52,10 +85,6 @@ void initializeRobot()
   motor[green]   = LED_ON;
   motor[yellow]  = LED_ON;
   motor[red]     = LED_ON;
-#ifdef GYRO
-  wait1Msec(2000);
-  StartTask(getHeading);
-#endif /* GYRO */
 
   return;
 }
