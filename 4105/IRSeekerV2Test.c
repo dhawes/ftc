@@ -20,7 +20,7 @@
 //#pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
 //#pragma config(Sensor, S2,     HTGYRO,              sensorLowSpeed)
 
-/* $Id: O-Back.c 92 2011-12-15 23:08:48Z 4105 $ */
+/* $Id$ */
 
 #define IR_SEEKER
 
