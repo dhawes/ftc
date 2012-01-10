@@ -37,10 +37,13 @@ task getHeading();
 #define SLIGHT_OUTSIDE_RIGHT_TIME  500
 #define SLIGHT_OUTSIDE_LEFT_TIME   750
 
+/* user input globals */
 bool useGyro = false;
 //bool useIRSeeker = false;
+
 void getUserInput()
 {
+#ifdef GYRO
   nxtDisplayCenteredTextLine(3, "Gyro?");
   while(true)
   {
@@ -60,6 +63,7 @@ void getUserInput()
   }
   nxtDisplayTextLine(3, "");
   nxtDisplayTextLine(7, "");
+#endif /* GYRO */
 }
 
 /**
@@ -87,8 +91,6 @@ void initializeRobot()
   motor[green]   = LED_ON;
   motor[yellow]  = LED_ON;
   motor[red]     = LED_ON;
-
-  return;
 }
 
 #ifdef RIGHT_TURN
