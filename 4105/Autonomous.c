@@ -69,11 +69,13 @@ void initializeRobot()
 {
   getUserInput();
 
+#ifdef GYRO
   if(useGyro)
   {
     wait1Msec(2000);
     StartTask(getHeading);
   }
+#endif /* GYRO */
 
   motor[right]   = MOTOR_OFF;
   motor[left]    = MOTOR_OFF;

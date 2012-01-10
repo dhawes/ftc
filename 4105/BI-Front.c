@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
-#pragma config(Sensor, S1,     ,                    sensorI2CMuxController)
+#pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
 #pragma config(Motor,  motorA,          green,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
@@ -14,6 +14,9 @@
 
 /* $Id$ */
 
+#define GYRO
+#define MOVE_GYRO
+#define RIGHT_GYRO_TURN
 #define MOVE_TIMED
 #define TURN_RIGHT_TIMED
 
@@ -33,23 +36,58 @@ task main()
   StartTask(prettyLights);
 
   // go forward
-  moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-  wait1Msec(580);
+  if(useGyro)
+  {
+    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+  }
+  else
+  {
+    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+    wait1Msec(200);
+  }
 
   // turn right
-  turnRightTimed(MOTOR_FULL, RIGHT_TURN_TIME);
-  wait1Msec(260);
+  if(useGyro)
+  {
+    rightGyroTurn(90, MOTOR_FULL);
+  }
+  else
+  {
+    turnRightTimed(MOTOR_FULL, RIGHT_TURN_TIME);
+    wait1Msec(200);
+  }
 
   // move forward
-  moveTimed(MOTOR_FULL, MOVE_TO_BBALL_TIME);
-  wait1Msec(550);
+  if(useGyro)
+  {
+    moveGyro(MOTOR_FULL, MOVE_TO_BBALL_TIME);
+  }
+  else
+  {
+    moveTimed(MOTOR_FULL, MOVE_TO_BBALL_TIME);
+    wait1Msec(200);
+  }
 
   // slight right
-  turnRightTimed(MOTOR_FULL, SLIGHT_RIGHT_TIME);
-  wait1Msec(10);
+  if(useGyro)
+  {
+    rightGyroTurn(105, MOTOR_FULL);
+  }
+  else
+  {
+    turnRightTimed(MOTOR_FULL, SLIGHT_RIGHT_TIME);
+    wait1Msec(200);
+  }
 
   //motor[intake] = MOTOR_FULL;
 
   // go to the front parking zone
-  moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+  if(useGyro)
+  {
+    moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+  }
+  else
+  {
+    moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+  }
 }
