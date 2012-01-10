@@ -39,10 +39,50 @@ task getHeading();
 
 /* user input globals */
 bool useGyro = false;
+string startColor;
+string startPosition;
 //bool useIRSeeker = false;
 
 void getUserInput()
 {
+#ifdef ALL_USER_INPUT
+  nxtDisplayCenteredTextLine(1, "Red or Blue?");
+  while(true)
+  {
+    if(nNxtButtonPressed == 2)
+    {
+      startColor = "Red";
+      nxtDisplayCenteredTextLine(1, "Red");
+      break;
+    }
+    else if(nNxtButtonPressed == 1)
+    {
+      startColor = "Blue";
+      nxtDisplayCenteredTextLine(1, "Blue");
+      break;
+    }
+    nxtDisplayCenteredTextLine(7, "Red        Blue");
+  }
+  nxtDisplayTextLine(7, "");
+  nxtDisplayCenteredTextLine(2, "Inside or Outside Position?");
+  while(true)
+  {
+    if(nNxtButtonPressed == 2)
+    {
+      startPosition = "Inside";
+      nxtDisplayCenteredTextLine(2, "Inside");
+      break;
+    }
+    else if(nNxtButtonPressed == 1)
+    {
+      startPosition = "Outside";
+      nxtDisplayCenteredTextLine(2, "Outside");
+      break;
+    }
+    nxtDisplayCenteredTextLine(7, "Inside  Outside");
+  }
+  nxtDisplayTextLine(7, "");
+#endif /* ALL_USER_INPUT */
 #ifdef GYRO
   nxtDisplayCenteredTextLine(3, "Gyro?");
   while(true)
@@ -50,18 +90,17 @@ void getUserInput()
     if(nNxtButtonPressed == 2)
     {
       useGyro = true;
-      nxtDisplayCenteredTextLine(1, "Gyro: Yes");
+      nxtDisplayCenteredTextLine(3, "Gyro: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       useGyro = false;
-      nxtDisplayCenteredTextLine(1, "Gyro: No");
+      nxtDisplayCenteredTextLine(3, "Gyro: No");
       break;
     }
     nxtDisplayCenteredTextLine(7, "Yes          No");
   }
-  nxtDisplayTextLine(3, "");
   nxtDisplayTextLine(7, "");
 #endif /* GYRO */
 }
