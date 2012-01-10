@@ -26,9 +26,6 @@
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
-void startRed();
-void startBlue();
-
 /**
  * Starting on blue on the inside, drive to the front parking area.
  */
@@ -46,39 +43,43 @@ task main()
     wait1Msec(10000);
   }
 
+  // go forward
+  if(useGyro)
+  {
+    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+  }
+  else
+  {
+    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+    wait1Msec(200);
+  }
+
   if(startColor == START_RED)
   {
-    startRed();
-  }
-  else if(startColor == START_BLUE)
-  {
-    startBlue();
-  }
-}
-
-void startRed()
-{
-  // go forward
-  if(useGyro)
-  {
-    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-  }
-  else
-  {
-    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-    wait1Msec(200);
-  }
-
-  // turn left
-  if(useGyro)
-  {
-    leftGyroTurn(-90, MOTOR_FULL);
-  }
-  else
-  {
-    turnLeftTimed(MOTOR_FULL, startPosition == START_INSIDE ? LEFT_TURN_TIME : LEFT_OUTSIDE_TURN_TIME);
-    wait1Msec(200);
-  }
+    // turn left
+    if(useGyro)
+    {
+      leftGyroTurn(-90, MOTOR_FULL);
+    }
+	  else
+	  {
+	    turnLeftTimed(MOTOR_FULL, startPosition == START_INSIDE ? LEFT_TURN_TIME : LEFT_OUTSIDE_TURN_TIME);
+	    wait1Msec(200);
+	  }
+	}
+	else
+	{
+	  // turn right
+    if(useGyro)
+    {
+      rightGyroTurn(90, MOTOR_FULL);
+    }
+	  else
+	  {
+	    turnRightTimed(MOTOR_FULL, startPosition == START_INSIDE ? RIGHT_TURN_TIME : RIGHT_OUTSIDE_TURN_TIME);
+	    wait1Msec(200);
+	  }
+	}
 
   // move forward
   if(useGyro)
@@ -91,75 +92,32 @@ void startRed()
     wait1Msec(200);
   }
 
-  // slight left
-  if(useGyro)
+  if(startColor == START_RED)
   {
-    leftGyroTurn(-105, MOTOR_FULL);
-  }
-  else
-  {
-    turnLeftTimed(MOTOR_FULL, startPosition == START_INSIDE ? SLIGHT_LEFT_TIME: SLIGHT_OUTSIDE_LEFT_TIME);
-    wait1Msec(200);
-  }
-
-  motor[intake] = MOTOR_FULL;
-
-  // go to the front parking zone
-  if(useGyro)
-  {
-    moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME);
-  }
-  else
-  {
-    moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
-  }
-}
-
-void startBlue()
-{
-  // go forward
-  if(useGyro)
-  {
-    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-  }
-  else
-  {
-    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-    wait1Msec(200);
-  }
-
-  // turn right
-  if(useGyro)
-  {
-    rightGyroTurn(90, MOTOR_FULL);
-  }
-  else
-  {
-    turnRightTimed(MOTOR_FULL, startPosition == START_INSIDE ? RIGHT_TURN_TIME : RIGHT_OUTSIDE_TURN_TIME);
-    wait1Msec(200);
-  }
-
-  // move forward
-  if(useGyro)
-  {
-    moveGyro(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
-  }
-  else
-  {
-    moveTimed(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
-    wait1Msec(200);
-  }
-
-  // slight right
-  if(useGyro)
-  {
-    rightGyroTurn(105, MOTOR_FULL);
-  }
-  else
-  {
-    turnRightTimed(MOTOR_FULL, startPosition == START_INSIDE ? SLIGHT_RIGHT_TIME: SLIGHT_OUTSIDE_RIGHT_TIME);
-    wait1Msec(200);
-  }
+	  // slight left
+	  if(useGyro)
+	  {
+	    leftGyroTurn(-105, MOTOR_FULL);
+	  }
+	  else
+	  {
+	    turnLeftTimed(MOTOR_FULL, startPosition == START_INSIDE ? SLIGHT_LEFT_TIME: SLIGHT_OUTSIDE_LEFT_TIME);
+	    wait1Msec(200);
+	  }
+	}
+	else
+	{
+	  // slight right
+	  if(useGyro)
+	  {
+	    rightGyroTurn(105, MOTOR_FULL);
+	  }
+	  else
+	  {
+	    turnRightTimed(MOTOR_FULL, startPosition == START_INSIDE ? SLIGHT_RIGHT_TIME: SLIGHT_OUTSIDE_RIGHT_TIME);
+	    wait1Msec(200);
+	  }
+	}
 
   motor[intake] = MOTOR_FULL;
 
