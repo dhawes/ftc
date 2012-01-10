@@ -39,8 +39,15 @@ task getHeading();
 
 /* user input globals */
 bool useGyro = false;
+#ifdef ALL_USER_INPUT
+#define START_RED    "Red"
+#define START_BLUE   "Blue"
+#define START_INSIDE "Inside"
+#define START_OUTSIDE "Outside"
 string startColor;
 string startPosition;
+bool startPause = false;
+#endif /* ALL_USER_INPUT */
 //bool useIRSeeker = false;
 
 void getUserInput()
@@ -51,52 +58,70 @@ void getUserInput()
   {
     if(nNxtButtonPressed == 2)
     {
-      startColor = "Red";
+      startColor = START_RED;
       nxtDisplayCenteredTextLine(1, "Red");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
-      startColor = "Blue";
+      startColor = START_BLUE;
       nxtDisplayCenteredTextLine(1, "Blue");
       break;
     }
     nxtDisplayCenteredTextLine(7, "Red        Blue");
   }
   nxtDisplayTextLine(7, "");
-  nxtDisplayCenteredTextLine(2, "Inside or Outside Position?");
+  nxtDisplayCenteredTextLine(2, "Inside or Outside?");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
-      startPosition = "Inside";
+      startPosition = START_INSIDE;
       nxtDisplayCenteredTextLine(2, "Inside");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
-      startPosition = "Outside";
+      startPosition = START_OUTSIDE;
       nxtDisplayCenteredTextLine(2, "Outside");
       break;
     }
     nxtDisplayCenteredTextLine(7, "Inside  Outside");
   }
   nxtDisplayTextLine(7, "");
+  nxtDisplayCenteredTextLine(3, "Wait 10 Seconds?");
+  while(true)
+  {
+    if(nNxtButtonPressed == 2)
+    {
+      startPause = true;
+      nxtDisplayCenteredTextLine(3, "10s Wait: Yes");
+      break;
+    }
+    else if(nNxtButtonPressed == 1)
+    {
+      startPause = false;
+      nxtDisplayCenteredTextLine(3, "10s Wait: No");
+      break;
+    }
+    nxtDisplayCenteredTextLine(7, "Yes          No");
+  }
+  nxtDisplayTextLine(7, "");
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
-  nxtDisplayCenteredTextLine(3, "Gyro?");
+  nxtDisplayCenteredTextLine(4, "Gyro?");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       useGyro = true;
-      nxtDisplayCenteredTextLine(3, "Gyro: Yes");
+      nxtDisplayCenteredTextLine(4, "Gyro: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       useGyro = false;
-      nxtDisplayCenteredTextLine(3, "Gyro: No");
+      nxtDisplayCenteredTextLine(4, "Gyro: No");
       break;
     }
     nxtDisplayCenteredTextLine(7, "Yes          No");
