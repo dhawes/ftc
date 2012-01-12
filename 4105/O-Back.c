@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
-#pragma config(Sensor, S1,     ,                    sensorI2CMuxController)
+#pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
 #pragma config(Motor,  motorA,          green,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
@@ -14,6 +14,8 @@
 
 /* $Id$ */
 
+#define GYRO
+#define MOVE_GYRO
 #define MOVE_TIMED
 
 #include "Autonomous.c"
@@ -32,5 +34,12 @@ task main()
   StartTask(prettyLights);
 
   // go to the back parking area
-  moveTimed(MOTOR_FULL, MOVE_TO_BACK_TIME);
+  if(useGyro)
+  {
+    moveGyro(MOTOR_FULL, MOVE_TO_BACK_TIME);
+  }
+  else
+  {
+    moveTimed(MOTOR_FULL, MOVE_TO_BACK_TIME);
+  }
 }
