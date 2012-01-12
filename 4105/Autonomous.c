@@ -70,6 +70,8 @@ void getUserInput()
       break;
     }
   }
+  PlaySound(soundBlip);
+  wait1Msec(1000);
   nxtDisplayCenteredTextLine(2, "Inside or Outside?");
   nxtDisplayCenteredTextLine(7, "Inside  Outside");
   while(true)
@@ -87,6 +89,8 @@ void getUserInput()
       break;
     }
   }
+  PlaySound(soundBlip);
+  wait1Msec(1000);
   nxtDisplayCenteredTextLine(3, "Wait 10 Seconds?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
@@ -105,6 +109,8 @@ void getUserInput()
     }
   }
   nxtDisplayTextLine(7, "");
+  PlaySound(soundBlip);
+  wait1Msec(1000);
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
   nxtDisplayCenteredTextLine(4, "Gyro?");
@@ -125,6 +131,7 @@ void getUserInput()
     }
   }
   nxtDisplayTextLine(7, "");
+  PlaySound(soundBlip);
 #endif /* GYRO */
 }
 
