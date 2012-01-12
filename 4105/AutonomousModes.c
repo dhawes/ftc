@@ -110,7 +110,7 @@ task main()
 	  // slight right
 	  if(useGyro)
 	  {
-	    rightGyroTurn(105, MOTOR_FULL);
+	    rightGyroTurn(130, MOTOR_FULL);
 	  }
 	  else
 	  {

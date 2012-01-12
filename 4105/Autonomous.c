@@ -441,7 +441,7 @@ void turnToIRBeacon(int speed)
       motor[right] = speed;
       motor[left] = -speed;
     }
-    wait1Msec(5);
+    wait1Msec(100);
     dir = getIRDirection();
   }
   motor[left] = MOTOR_OFF;
