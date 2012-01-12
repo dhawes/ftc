@@ -104,6 +104,7 @@ void getUserInput()
       break;
     }
   }
+  nxtDisplayTextLine(7, "");
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
   nxtDisplayCenteredTextLine(4, "Gyro?");
@@ -123,8 +124,8 @@ void getUserInput()
       break;
     }
   }
-#endif /* GYRO */
   nxtDisplayTextLine(7, "");
+#endif /* GYRO */
 }
 
 /**
