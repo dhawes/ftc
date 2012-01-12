@@ -54,6 +54,7 @@ void getUserInput()
 {
 #ifdef ALL_USER_INPUT
   nxtDisplayCenteredTextLine(1, "Red or Blue?");
+  nxtDisplayCenteredTextLine(7, "Red        Blue");
   while(true)
   {
     if(nNxtButtonPressed == 2)
@@ -68,10 +69,9 @@ void getUserInput()
       nxtDisplayCenteredTextLine(1, "Blue");
       break;
     }
-    nxtDisplayCenteredTextLine(7, "Red        Blue");
   }
-  nxtDisplayTextLine(7, "");
   nxtDisplayCenteredTextLine(2, "Inside or Outside?");
+  nxtDisplayCenteredTextLine(7, "Inside  Outside");
   while(true)
   {
     if(nNxtButtonPressed == 2)
@@ -86,10 +86,9 @@ void getUserInput()
       nxtDisplayCenteredTextLine(2, "Outside");
       break;
     }
-    nxtDisplayCenteredTextLine(7, "Inside  Outside");
   }
-  nxtDisplayTextLine(7, "");
   nxtDisplayCenteredTextLine(3, "Wait 10 Seconds?");
+  nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
@@ -104,12 +103,11 @@ void getUserInput()
       nxtDisplayCenteredTextLine(3, "10s Wait: No");
       break;
     }
-    nxtDisplayCenteredTextLine(7, "Yes          No");
   }
-  nxtDisplayTextLine(7, "");
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
   nxtDisplayCenteredTextLine(4, "Gyro?");
+  nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
@@ -124,10 +122,9 @@ void getUserInput()
       nxtDisplayCenteredTextLine(4, "Gyro: No");
       break;
     }
-    nxtDisplayCenteredTextLine(7, "Yes          No");
   }
-  nxtDisplayTextLine(7, "");
 #endif /* GYRO */
+  nxtDisplayTextLine(7, "");
 }
 
 /**
