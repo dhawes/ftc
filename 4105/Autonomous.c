@@ -21,7 +21,7 @@ task getHeading();
 #define HOPPER2_CLOSED 255
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME         2200
+#define MOVE_OFF_RAMP_TIME         1900
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
 #define MOVE_TO_BBALL_TIME         1000
