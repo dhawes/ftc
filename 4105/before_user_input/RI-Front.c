@@ -20,8 +20,17 @@
 #define MOVE_TIMED
 #define TURN_LEFT_TIMED
 
-#include "Autonomous.c"
+#include "../Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+
+task BallGrab()
+{
+  wait1Msec(1000);
+  motor[whacker] = MOTOR_FULL;
+  wait1Msec(450);
+  motor[whacker] = MOTOR_OFF;
+  return;
+}
 
 /**
  * Starting on red on the inside, drive to the front parking area.
@@ -31,18 +40,22 @@ task main()
   initializeRobot();
 
   // Wait for the beginning of autonomous phase.
-  waitForStart();
+  //waitForStart();
+
+  motor[whacker] = -MOTOR_FULL;
+  wait1Msec(450);
+  motor[whacker] = MOTOR_OFF;
 
   StartTask(prettyLights);
 
   // go forward
   if(useGyro)
   {
-    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+    moveGyro(-MOTOR_FULL, MOVE_OFF_RAMP_TIME);
   }
   else
   {
-    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+    moveTimed(-MOTOR_FULL, MOVE_OFF_RAMP_TIME);
     wait1Msec(200);
   }
 
@@ -60,18 +73,18 @@ task main()
   // move forward
   if(useGyro)
   {
-    moveGyro(MOTOR_FULL, MOVE_TO_BBALL_TIME);
+    moveGyro(-MOTOR_FULL, MOVE_TO_BBALL_TIME);
   }
   else
   {
-    moveTimed(MOTOR_FULL, MOVE_TO_BBALL_TIME);
+    moveTimed(-MOTOR_FULL, MOVE_TO_BBALL_TIME);
     wait1Msec(200);
   }
 
   // slight left
   if(useGyro)
   {
-    leftGyroTurn(-105, MOTOR_FULL);
+    leftGyroTurn(-110, MOTOR_FULL);
   }
   else
   {
@@ -81,13 +94,15 @@ task main()
 
   motor[intake] = MOTOR_FULL;
 
+  StartTask(BallGrab);
+
   // go to the front parking zone
   if(useGyro)
   {
-    moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+    moveGyro(-MOTOR_FULL, MOVE_TO_CORNER_TIME);
   }
   else
   {
-    moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+    moveTimed(-MOTOR_FULL, MOVE_TO_CORNER_TIME);
   }
 }
