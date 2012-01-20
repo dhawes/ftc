@@ -47,6 +47,7 @@ bool useGyro = false;
 string startColor;
 string startPosition;
 bool startPause = false;
+int reversedStart = 1;
 #endif /* ALL_USER_INPUT */
 //bool useIRSeeker = false;
 
@@ -111,22 +112,42 @@ void getUserInput()
   nxtDisplayTextLine(7, "");
   PlaySound(soundBlip);
   wait1Msec(1000);
+  nxtDisplayCenteredTextLine(4, "Reversed start?");
+  nxtDisplayCenteredTextLine(7, "Yes          No");
+  while(true)
+  {
+    if(nNxtButtonPressed == 2)
+    {
+      reversedStart = -1;
+      nxtDisplayCenteredTextLine(4, "Reversed: Yes");
+      break;
+    }
+    else if(nNxtButtonPressed == 1)
+    {
+      reversedStart = 1;
+      nxtDisplayCenteredTextLine(4, "Reversed: No");
+      break;
+    }
+  }
+  nxtDisplayTextLine(7, "");
+  PlaySound(soundBlip);
+  wait1Msec(1000);
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
-  nxtDisplayCenteredTextLine(4, "Gyro?");
+  nxtDisplayCenteredTextLine(5, "Gyro?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       useGyro = true;
-      nxtDisplayCenteredTextLine(4, "Gyro: Yes");
+      nxtDisplayCenteredTextLine(5, "Gyro: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       useGyro = false;
-      nxtDisplayCenteredTextLine(4, "Gyro: No");
+      nxtDisplayCenteredTextLine(5, "Gyro: No");
       break;
     }
   }
@@ -448,3 +469,12 @@ void turnToIRBeacon(int speed)
   motor[right] = MOTOR_OFF;
 }
 #endif /* IR_SEEKER */
+
+task BallGrab()
+{
+  wait1Msec(1000);
+  motor[whacker] = MOTOR_FULL;
+  wait1Msec(450);
+  motor[whacker] = MOTOR_OFF;
+  return;
+}

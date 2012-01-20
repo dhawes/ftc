@@ -33,10 +33,16 @@ task main()
 {
   initializeRobot();
 
+  int RM = reversedStart;
+
   // Wait for the beginning of autonomous phase.
   waitForStart();
 
   StartTask(prettyLights);
+
+  motor[whacker] = -MOTOR_FULL;
+  wait1Msec(450);
+  motor[whacker] = MOTOR_OFF;
 
   if(startPause)
   {
@@ -46,11 +52,11 @@ task main()
   // go forward
   if(useGyro)
   {
-    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+    moveGyro(RM * MOTOR_FULL, MOVE_OFF_RAMP_TIME);
   }
   else
   {
-    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+    moveTimed(RM * MOTOR_FULL, MOVE_OFF_RAMP_TIME);
     wait1Msec(200);
   }
 
@@ -84,11 +90,11 @@ task main()
   // move forward
   if(useGyro)
   {
-    moveGyro(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
+    moveGyro(RM *MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
   }
   else
   {
-    moveTimed(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
+    moveTimed(RM * MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
     wait1Msec(200);
   }
 
@@ -121,13 +127,15 @@ task main()
 
   motor[intake] = MOTOR_FULL;
 
+  StartTask(BallGrab);
+
   // go to the front parking zone
   if(useGyro)
   {
-    moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+    moveGyro(RM * MOTOR_FULL, MOVE_TO_CORNER_TIME);
   }
   else
   {
-    moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
+    moveTimed(RM * MOTOR_FULL, MOVE_TO_CORNER_TIME);
   }
 }
