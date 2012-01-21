@@ -33,16 +33,19 @@ task main()
 {
   initializeRobot();
 
-  int RM = reversedStart;
+  int RM = reversedStart ? -1 : 1;
 
   // Wait for the beginning of autonomous phase.
   waitForStart();
 
   StartTask(prettyLights);
 
-  motor[whacker] = -MOTOR_FULL;
-  wait1Msec(450);
-  motor[whacker] = MOTOR_OFF;
+  if(reversedStart)
+  {
+    motor[whacker] = -MOTOR_FULL;
+    wait1Msec(450);
+    motor[whacker] = MOTOR_OFF;
+  }
 
   if(startPause)
   {
@@ -127,7 +130,10 @@ task main()
 
   motor[intake] = MOTOR_FULL;
 
-  StartTask(BallGrab);
+  if(reversedStart)
+  {
+    StartTask(BallGrab);
+  }
 
   // go to the front parking zone
   if(useGyro)
