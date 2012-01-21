@@ -128,11 +128,14 @@ task main()
 	  }
 	}
 
-  motor[intake] = MOTOR_FULL;
 
   if(reversedStart)
   {
     StartTask(BallGrab);
+  }
+  else
+  {
+    motor[intake] = MOTOR_FULL;
   }
 
   // go to the front parking zone
