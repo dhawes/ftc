@@ -47,7 +47,7 @@ bool useGyro = false;
 string startColor;
 string startPosition;
 bool startPause = false;
-int reversedStart = 1;
+bool reversedStart = false;
 #endif /* ALL_USER_INPUT */
 //bool useIRSeeker = false;
 
@@ -118,13 +118,13 @@ void getUserInput()
   {
     if(nNxtButtonPressed == 2)
     {
-      reversedStart = -1;
+      reversedStart = true;
       nxtDisplayCenteredTextLine(4, "Reversed: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
-      reversedStart = 1;
+      reversedStart = false;
       nxtDisplayCenteredTextLine(4, "Reversed: No");
       break;
     }
