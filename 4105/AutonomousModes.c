@@ -40,12 +40,6 @@ task main()
 
   StartTask(prettyLights);
 
-  if(reversedStart)
-  {
-    motor[whacker] = -MOTOR_FULL;
-    wait1Msec(450);
-    motor[whacker] = MOTOR_OFF;
-  }
 
   if(startPause)
   {
@@ -90,6 +84,13 @@ task main()
 	  }
 	}
 
+  if(reversedStart)
+  {
+    motor[whacker] = -MOTOR_FULL;
+    wait1Msec(450);
+    motor[whacker] = MOTOR_OFF;
+  }
+
   // move forward
   if(useGyro)
   {
@@ -127,7 +128,6 @@ task main()
 	    wait1Msec(200);
 	  }
 	}
-
 
   if(reversedStart)
   {
