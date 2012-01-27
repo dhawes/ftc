@@ -40,14 +40,18 @@ task getHeading();
 /* user input globals */
 bool useGyro = false;
 #ifdef ALL_USER_INPUT
-#define START_RED    "Red"
-#define START_BLUE   "Blue"
-#define START_INSIDE "Inside"
+#define START_RED     "Red"
+#define START_BLUE    "Blue"
+#define START_INSIDE  "Inside"
 #define START_OUTSIDE "Outside"
+#define PARK_BACK     "Back"
+#define PARK_FRONT    "Front"
 string startColor;
 string startPosition;
 bool startPause = false;
 bool reversedStart = false;
+string robotPark;
+string bBallPark;
 #endif /* ALL_USER_INPUT */
 //bool useIRSeeker = false;
 
@@ -154,6 +158,51 @@ void getUserInput()
   nxtDisplayTextLine(7, "");
   PlaySound(soundBlip);
 #endif /* GYRO */
+#ifdef PARK_MODES
+  wait1Msec(1000);
+  nxtDisplayCenteredTextLine(6, "Ball Park?");
+  nxtDisplayCenteredTextLine(7, "Front      Back");
+  while(true)
+  {
+    if(nNxtButtonPressed == 2)
+    {
+      bBallPark = PARK_FRONT;
+      nxtDisplayCenteredTextLine(6, "Ball Park: Front");
+      break;
+    }
+    else if(nNxtButtonPressed == 1)
+    {
+      bBallPark = PARK_BACK;
+      nxtDisplayCenteredTextLine(6, "Ball Park: Back");
+      break;
+    }
+  }
+  nxtDisplayTextLine(7, "");
+  PlaySound(soundBlip);
+  wait1Msec(1000);
+  if(bBallPark == PARK_BACK)
+  {
+	  nxtDisplayCenteredTextLine(7, "Bot Park?");
+	  nxtDisplayCenteredTextLine(7, "Front Bot? Back");
+	  while(true)
+	  {
+	    if(nNxtButtonPressed == 2)
+	    {
+	      robotPark = PARK_FRONT;
+	      nxtDisplayCenteredTextLine(7, "Bot Park: Front");
+	      break;
+	    }
+	    else if(nNxtButtonPressed == 1)
+	    {
+	      robotPark = PARK_BACK;
+	      nxtDisplayCenteredTextLine(7, "Bot Park: Back");
+	      break;
+	    }
+	  }
+	  PlaySound(soundBlip);
+	}
+#endif /* PARK_MODES */
+
 }
 
 /**
