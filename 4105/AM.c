@@ -1,5 +1,6 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTServo,  none)
 #pragma config(Sensor, S2,     HTGYRO,              sensorAnalogInactive)
+#pragma config(Sensor, S3,     HTIRS2,              sensorI2CCustom)
 #pragma config(Motor,  motorA,          green,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
@@ -23,6 +24,7 @@
 #define MOVE_TIMED
 #define TURN_RIGHT_TIMED
 #define TURN_LEFT_TIMED
+#define IR_SEEKER
 
 #include "Autonomous.c"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
@@ -172,7 +174,7 @@ task main()
 	  {
 	    if(useGyro)
 	    {
-	      leftGyroTurn(-15, MOTOR_FULL);
+	      leftGyroTurn(-25, MOTOR_FULL);
 	    }
 	  }
 
@@ -183,22 +185,36 @@ task main()
       motor[whacker] = MOTOR_OFF;
       if(useGyro)
       {
-        moveGyro(RM * MOTOR_FULL, 6000);
+        moveGyro(RM * MOTOR_FULL, 5000);
       }
       else
       {
-        moveTimed(RM * MOTOR_FULL, 6000);
+        moveTimed(RM * MOTOR_FULL, 5000);
       }
 
       wait1Msec(100);
 
       if(useGyro)
       {
-        moveGyro(RM * -MOTOR_FULL, 10000);
+        moveGyro(RM * -MOTOR_FULL, 5000);
       }
       else
       {
-        moveTimed(RM * -MOTOR_FULL, 10000);
+        moveTimed(RM * -MOTOR_FULL, 5000);
+      }
+
+      for(int i = 0; i < 2; i++)
+      {
+        turnToIRBeacon(MOTOR_FULL);
+
+        if(useGyro)
+        {
+          moveGyro(RM * -MOTOR_FULL, 2000);
+        }
+        else
+        {
+          moveTimed(RM * -MOTOR_FULL, 2000);
+        }
       }
     }
     else
