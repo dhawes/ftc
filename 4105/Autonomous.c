@@ -21,7 +21,7 @@ task getHeading();
 #define HOPPER2_CLOSED 255
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME         1900
+#define MOVE_OFF_RAMP_TIME         1700
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
 #define MOVE_TO_BBALL_TIME         1000
@@ -58,78 +58,78 @@ string bBallPark;
 void getUserInput()
 {
 #ifdef ALL_USER_INPUT
-  nxtDisplayCenteredTextLine(1, "Red or Blue?");
+  nxtDisplayCenteredTextLine(0, "Red or Blue?");
   nxtDisplayCenteredTextLine(7, "Red        Blue");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       startColor = START_RED;
-      nxtDisplayCenteredTextLine(1, "Red");
+      nxtDisplayCenteredTextLine(0, "Red");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       startColor = START_BLUE;
-      nxtDisplayCenteredTextLine(1, "Blue");
+      nxtDisplayCenteredTextLine(0, "Blue");
       break;
     }
   }
   PlaySound(soundBlip);
   wait1Msec(1000);
-  nxtDisplayCenteredTextLine(2, "Inside or Outside?");
+  nxtDisplayCenteredTextLine(1, "Inside or Outside?");
   nxtDisplayCenteredTextLine(7, "Inside  Outside");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       startPosition = START_INSIDE;
-      nxtDisplayCenteredTextLine(2, "Inside");
+      nxtDisplayCenteredTextLine(1, "Inside");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       startPosition = START_OUTSIDE;
-      nxtDisplayCenteredTextLine(2, "Outside");
+      nxtDisplayCenteredTextLine(1, "Outside");
       break;
     }
   }
   PlaySound(soundBlip);
   wait1Msec(1000);
-  nxtDisplayCenteredTextLine(3, "Wait 10 Seconds?");
+  nxtDisplayCenteredTextLine(2, "Wait 10 Seconds?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       startPause = true;
-      nxtDisplayCenteredTextLine(3, "10s Wait: Yes");
+      nxtDisplayCenteredTextLine(2, "10s Wait: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       startPause = false;
-      nxtDisplayCenteredTextLine(3, "10s Wait: No");
+      nxtDisplayCenteredTextLine(2, "10s Wait: No");
       break;
     }
   }
   nxtDisplayTextLine(7, "");
   PlaySound(soundBlip);
   wait1Msec(1000);
-  nxtDisplayCenteredTextLine(4, "Reversed start?");
+  nxtDisplayCenteredTextLine(3, "Reversed start?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       reversedStart = true;
-      nxtDisplayCenteredTextLine(4, "Reversed: Yes");
+      nxtDisplayCenteredTextLine(3, "Reversed: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       reversedStart = false;
-      nxtDisplayCenteredTextLine(4, "Reversed: No");
+      nxtDisplayCenteredTextLine(3, "Reversed: No");
       break;
     }
   }
@@ -138,20 +138,20 @@ void getUserInput()
   wait1Msec(1000);
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
-  nxtDisplayCenteredTextLine(5, "Gyro?");
+  nxtDisplayCenteredTextLine(4, "Gyro?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       useGyro = true;
-      nxtDisplayCenteredTextLine(5, "Gyro: Yes");
+      nxtDisplayCenteredTextLine(4, "Gyro: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       useGyro = false;
-      nxtDisplayCenteredTextLine(5, "Gyro: No");
+      nxtDisplayCenteredTextLine(4, "Gyro: No");
       break;
     }
   }
@@ -160,20 +160,20 @@ void getUserInput()
 #endif /* GYRO */
 #ifdef PARK_MODES
   wait1Msec(1000);
-  nxtDisplayCenteredTextLine(6, "Ball Park?");
+  nxtDisplayCenteredTextLine(5, "Ball Park?");
   nxtDisplayCenteredTextLine(7, "Front      Back");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       bBallPark = PARK_FRONT;
-      nxtDisplayCenteredTextLine(6, "Ball Park: Front");
+      nxtDisplayCenteredTextLine(5, "Ball Park: Front");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       bBallPark = PARK_BACK;
-      nxtDisplayCenteredTextLine(6, "Ball Park: Back");
+      nxtDisplayCenteredTextLine(5, "Ball Park: Back");
       break;
     }
   }
@@ -182,27 +182,28 @@ void getUserInput()
   wait1Msec(1000);
   if(bBallPark == PARK_BACK)
   {
-	  nxtDisplayCenteredTextLine(7, "Bot Park?");
-	  nxtDisplayCenteredTextLine(7, "Front Bot? Back");
+	  nxtDisplayCenteredTextLine(6, "Robot Park?");
+	  nxtDisplayCenteredTextLine(7, "Front      Back");
 	  while(true)
 	  {
 	    if(nNxtButtonPressed == 2)
 	    {
 	      robotPark = PARK_FRONT;
-	      nxtDisplayCenteredTextLine(7, "Bot Park: Front");
+	      nxtDisplayCenteredTextLine(6, "Bot Park: Front");
 	      break;
 	    }
 	    else if(nNxtButtonPressed == 1)
 	    {
 	      robotPark = PARK_BACK;
-	      nxtDisplayCenteredTextLine(7, "Bot Park: Back");
+	      nxtDisplayCenteredTextLine(6, "Bot Park: Back");
 	      break;
 	    }
 	  }
+	  nxtDisplayTextLine(7, "");
 	  PlaySound(soundBlip);
 	}
 #endif /* PARK_MODES */
-
+	  nxtDisplayCenteredTextLine(7, "* Tally ho! *");
 }
 
 /**
