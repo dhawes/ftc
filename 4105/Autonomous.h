@@ -520,6 +520,8 @@ void turnToIRBeacon(int speed)
 }
 #endif /* IR_SEEKER */
 
+
+#ifdef BALL_GRAB
 task BallGrab()
 {
   wait1Msec(1000);
@@ -528,3 +530,4 @@ task BallGrab()
   motor[whacker] = MOTOR_OFF;
   return;
 }
+#endif /* BALL_GRAB */

@@ -25,6 +25,7 @@
 #define TURN_RIGHT_TIMED
 #define TURN_LEFT_TIMED
 #define IR_SEEKER
+#define BALL_GRAB
 
 #include "Autonomous.h"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
