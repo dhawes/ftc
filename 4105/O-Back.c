@@ -18,7 +18,7 @@
 #define MOVE_GYRO
 #define MOVE_TIMED
 
-#include "Autonomous.c"
+#include "Autonomous.h"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 
 /**
