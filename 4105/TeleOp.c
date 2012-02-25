@@ -6,9 +6,9 @@
 #pragma config(Motor,  motorC,          red,        tmotorNormal, openLoop)
 #pragma config(Servo,  srvo_S1_C1_1,    clawRelease,                 tServoStandard)
 #pragma config(Servo,  srvo_S1_C1_2,    armRelease,                 tServoStandard)
-#pragma config(Motor,  mtr_S1_C2_1,     left,          tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  mtr_S1_C2_1,     right,          tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_2,     clawArm,          tmotorNormal, openLoop, encoder)
-#pragma config(Motor,  mtr_S1_C3_1,     right,          tmotorNormal, openLoop)
+#pragma config(Motor,  mtr_S1_C3_1,     left,          tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     ballArm,          tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C4_1,     spool,          tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C4_2,     intake,          tmotorNormal, openLoop)
@@ -27,8 +27,8 @@
 #define MOTOR_FULL 100
 #define GRAB_START 20
 #define GRAB_OPEN  100
-#define ARM_RELEASE_OPEN   132
-#define ARM_RELEASE_CLOSED 249
+#define ARM_RELEASE_OPEN    120
+#define ARM_RELEASE_CLOSED  255
 #define CLAW_RELEASE_OPEN   186
 #define CLAW_RELEASE_CLOSED 131
 
@@ -75,8 +75,8 @@ task main()
     getJoystickSettings(joystick);
 
     // 100% power
-    motor[left] = joystick.joy1_y2;
-    motor[right]= joystick.joy1_y1;
+    motor[left] = joystick.joy1_y1;
+    motor[right]= joystick.joy1_y2;
 
     if(abs(joystick.joy2_y1) > JOYSTICK_THRESHOLD)
     {

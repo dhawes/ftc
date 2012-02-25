@@ -5,20 +5,18 @@ task getHeading();
 #endif /* GYRO */
 
 /* Common defines */
-#define LEFT_TURN_ENCODER    205
-#define RIGHT_TURN_ENCODER   217
-#define TURN_SPEED           25
-#define GRAB_START 20
-#define GRAB_OPEN  100
-#define MOTOR_OFF 0
-#define MOTOR_HALF 50
-#define MOTOR_FULL 100
-#define LED_ON 100
-#define LED_OFF 0
-#define HOPPER1_OPEN   75
-#define HOPPER1_CLOSED 10
-#define HOPPER2_OPEN   180
-#define HOPPER2_CLOSED 255
+#define LEFT_TURN_ENCODER   205
+#define RIGHT_TURN_ENCODER  217
+#define TURN_SPEED          25
+#define MOTOR_OFF           0
+#define MOTOR_HALF          50
+#define MOTOR_FULL          100
+#define LED_ON              100
+#define LED_OFF             0
+#define ARM_RELEASE_OPEN    120
+#define ARM_RELEASE_CLOSED  255
+#define CLAW_RELEASE_OPEN   186
+#define CLAW_RELEASE_CLOSED 131
 
 /* Movement defines */
 #define MOVE_OFF_RAMP_TIME         1700
@@ -49,7 +47,6 @@ bool useGyro = false;
 string startColor;
 string startPosition;
 bool startPause = false;
-bool reversedStart = false;
 string robotPark;
 string bBallPark;
 #endif /* ALL_USER_INPUT */
@@ -110,26 +107,6 @@ void getUserInput()
     {
       startPause = false;
       nxtDisplayCenteredTextLine(2, "10s Wait: No");
-      break;
-    }
-  }
-  nxtDisplayTextLine(7, "");
-  PlaySound(soundBlip);
-  wait1Msec(1000);
-  nxtDisplayCenteredTextLine(3, "Reversed start?");
-  nxtDisplayCenteredTextLine(7, "Yes          No");
-  while(true)
-  {
-    if(nNxtButtonPressed == 2)
-    {
-      reversedStart = true;
-      nxtDisplayCenteredTextLine(3, "Reversed: Yes");
-      break;
-    }
-    else if(nNxtButtonPressed == 1)
-    {
-      reversedStart = false;
-      nxtDisplayCenteredTextLine(3, "Reversed: No");
       break;
     }
   }
@@ -221,16 +198,19 @@ void initializeRobot()
   }
 #endif /* GYRO */
 
-  motor[right]   = MOTOR_OFF;
-  motor[left]    = MOTOR_OFF;
-  motor[intake]  = MOTOR_OFF;
-  motor[whacker] = MOTOR_OFF;
-  servo[grab]    = GRAB_START;
-  servo[hopper1] = HOPPER1_CLOSED;
-  servo[hopper2] = HOPPER2_CLOSED;
-  motor[green]   = LED_ON;
-  motor[yellow]  = LED_ON;
-  motor[red]     = LED_ON;
+  motor[green] =  LED_ON;
+  motor[yellow] = LED_ON;
+  motor[red] =    LED_ON;
+  motor[right] =   MOTOR_OFF;
+  motor[clawArm] = MOTOR_OFF;
+  motor[left] =    MOTOR_OFF;
+  motor[ballArm] = MOTOR_OFF;
+  motor[spool] =   MOTOR_OFF;
+  motor[intake] =  MOTOR_OFF;
+  servoChangeRate[armRelease] = 50;
+  servoTarget[armRelease] =  ARM_RELEASE_CLOSED;
+  servoChangeRate[armRelease] = 10;
+  servoTarget[clawRelease] = CLAW_RELEASE_CLOSED;
 }
 
 #ifdef RIGHT_TURN
@@ -525,9 +505,9 @@ void turnToIRBeacon(int speed)
 task BallGrab()
 {
   wait1Msec(1000);
-  motor[whacker] = MOTOR_FULL;
+  motor[ballArm] = MOTOR_FULL;
   wait1Msec(450);
-  motor[whacker] = MOTOR_OFF;
+  motor[ballArm] = MOTOR_OFF;
   return;
 }
 #endif /* BALL_GRAB */
