@@ -505,7 +505,7 @@ void turnToIRBeacon(int speed)
 task BallGrab()
 {
   wait1Msec(1000);
-  motor[ballArm] = MOTOR_FULL;
+  motor[ballArm] = -MOTOR_FULL;
   wait1Msec(450);
   motor[ballArm] = MOTOR_OFF;
   return;
