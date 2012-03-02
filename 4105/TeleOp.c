@@ -25,12 +25,14 @@
 #define INTAKE_POWER 100
 #define MOTOR_OFF 0
 #define MOTOR_FULL 100
+#define SPOOL_SPEED 50
 #define GRAB_START 20
 #define GRAB_OPEN  100
 #define ARM_RELEASE_OPEN    120
 #define ARM_RELEASE_CLOSED  255
 #define CLAW_RELEASE_OPEN   186
 #define CLAW_RELEASE_CLOSED 131
+#define CLAW_SPEED 100
 
 /**
  * Initialize the robot.
@@ -127,11 +129,11 @@ task main()
 
     if(joy2Btn(6))
     {
-      motor[spool] = MOTOR_FULL;
+      motor[spool] = SPOOL_SPEED;
     }
     else if(joy2Btn(8))
     {
-      motor[spool] = -MOTOR_FULL;
+      motor[spool] = -SPOOL_SPEED;
     }
     else
     {
@@ -146,7 +148,7 @@ task main()
       }
       else
       {
-        motor[clawArm] = -MOTOR_FULL;
+        motor[clawArm] = -CLAW_SPEED;
       }
     }
     else
