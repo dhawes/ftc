@@ -180,7 +180,23 @@ void getUserInput()
 	  PlaySound(soundBlip);
 	}
 #endif /* PARK_MODES */
-	  nxtDisplayCenteredTextLine(7, "* Tally ho! *");
+
+    string sayings[] = {"* Tally ho! *",
+                        "* Geronimo! *",
+                        "* Bansai! *",
+                        "* Kamikazee! *",
+                        "* Charge! *",
+                        "* Ballin! *",
+                        "* For Demacia! *",
+                        "* Banana Pancakes *",
+                        "* You Broke Me :(",
+                        "You Look Ravishing",
+                        "Radishes & Shining",
+                        "Dont cross streams!",
+                        "Break them",
+                        "Well Then"};
+	  //nxtDisplayCenteredTextLine(7, "* Tally ho! *");
+	  nxtDisplayCenteredTextLine(7, sayings[rand() % 14]);
 }
 
 /**
