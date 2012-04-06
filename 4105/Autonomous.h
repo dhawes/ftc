@@ -27,7 +27,12 @@ task getHeading();
 #define SLIGHT_LEFT_TIME           500
 #define MOVE_TO_CORNER_TIME        2500
 #define MOVE_TO_WALL_TIME          1000
-#define MOVE_TO_BACK_TIME          6000
+/* Back parking defines */
+#define MOVE_TO_BACK_TIME          3000
+#define MOVE_TO_BACK_JUKE_TIME     1000
+#define MOVE_FROM_BACK_TIME        2500
+#define MOVE_TO_BEACON_TIME        1000
+
 /* Outside modes */
 #define LEFT_OUTSIDE_TURN_TIME     1600
 #define RIGHT_OUTSIDE_TURN_TIME    1700
@@ -54,6 +59,7 @@ string bBallPark;
 
 void getUserInput()
 {
+  disableDiagnosticsDisplay();
 #ifdef ALL_USER_INPUT
   nxtDisplayCenteredTextLine(0, "Red or Blue?");
   nxtDisplayCenteredTextLine(7, "Red        Blue");
