@@ -115,6 +115,7 @@ void getUserInput()
   wait1Msec(1000);
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
+/*
   nxtDisplayCenteredTextLine(4, "Gyro?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
@@ -134,6 +135,8 @@ void getUserInput()
   }
   nxtDisplayTextLine(7, "");
   PlaySound(soundBlip);
+*/
+  useGyro = true;
 #endif /* GYRO */
 #ifdef PARK_MODES
   wait1Msec(1000);

@@ -22,9 +22,6 @@
 #define MOVE_GYRO
 #define RIGHT_GYRO_TURN
 #define LEFT_GYRO_TURN
-#define MOVE_TIMED
-#define TURN_RIGHT_TIMED
-#define TURN_LEFT_TIMED
 #define IR_SEEKER
 #define BALL_GRAB
 
@@ -46,46 +43,21 @@ task main()
 
   if(startPause)
   {
-    //wait1Msec(10000);
     wait1Msec(5000);
   }
 
   // go forward
-  if(useGyro)
-  {
-    moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-  }
-  else
-  {
-    moveTimed(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
-    wait1Msec(200);
-  }
+  moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
 
   if(startColor == START_RED)
   {
     // turn left
-    if(useGyro)
-    {
-      leftGyroTurn(-90, MOTOR_FULL);
-    }
-	  else
-	  {
-	    turnLeftTimed(MOTOR_FULL, startPosition == START_INSIDE ? LEFT_TURN_TIME : LEFT_OUTSIDE_TURN_TIME);
-	    wait1Msec(200);
-	  }
+    leftGyroTurn(-90, MOTOR_FULL);
 	}
 	else
 	{
 	  // turn right
-    if(useGyro)
-    {
-      rightGyroTurn(90, MOTOR_FULL);
-    }
-	  else
-	  {
-	    turnRightTimed(MOTOR_FULL, startPosition == START_INSIDE ? RIGHT_TURN_TIME : RIGHT_OUTSIDE_TURN_TIME);
-	    wait1Msec(200);
-	  }
+    rightGyroTurn(90, MOTOR_FULL);
 	}
 
   motor[ballArm] = MOTOR_FULL;
@@ -93,80 +65,38 @@ task main()
   motor[ballArm] = MOTOR_OFF;
 
   // move forward
-  if(useGyro)
-  {
-    moveGyro(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
-  }
-  else
-  {
-    moveTimed(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
-    wait1Msec(200);
-  }
+  moveGyro(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
 
   if(startColor == START_RED)
   {
 	  // slight left
-	  if(useGyro)
-	  {
-	    leftGyroTurn(-115, MOTOR_FULL);
-	  }
-	  else
-	  {
-	    turnLeftTimed(MOTOR_FULL, startPosition == START_INSIDE ? SLIGHT_LEFT_TIME: SLIGHT_OUTSIDE_LEFT_TIME);
-	    wait1Msec(200);
-	  }
+	  leftGyroTurn(-115, MOTOR_FULL);
 	}
 	else
 	{
 	  // slight right
-	  if(useGyro)
-	  {
-	    rightGyroTurn(125, MOTOR_FULL);
-	  }
-	  else
-	  {
-	    turnRightTimed(MOTOR_FULL, startPosition == START_INSIDE ? SLIGHT_RIGHT_TIME: SLIGHT_OUTSIDE_RIGHT_TIME);
-	    wait1Msec(200);
-	  }
+	  rightGyroTurn(125, MOTOR_FULL);
 	}
 
   StartTask(BallGrab);
 
   if(bBallPark == PARK_FRONT)
-  { // go to the front parking zone
-	  if(useGyro)
-	  {
-	    moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME);
-	  }
-	  else
-	  {
-	    moveTimed(MOTOR_FULL, MOVE_TO_CORNER_TIME);
-	  }
+  {
+    // go to the front parking zone
+	  moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME);
 	}
   else //if(bBallPark == PARK_BACK)
-  { // go to the back parking zone
-    if(useGyro)
-    {
-      moveGyro(MOTOR_FULL, 1000);
-    }
-    else
-    {
-      moveTimed(MOTOR_FULL, 1000);
-    }
+  {
+    // go to the back parking zone
+    moveGyro(MOTOR_FULL, 1000);
 
     if(startColor == START_RED)
     {
-	    if(useGyro)
-	    {
-	      rightGyroTurn(45, MOTOR_FULL);
-	    }
+	    rightGyroTurn(45, MOTOR_FULL);
 	  }
 	  else
 	  {
-	    if(useGyro)
-	    {
-	      leftGyroTurn(-15, MOTOR_FULL);
-	    }
+	    leftGyroTurn(-15, MOTOR_FULL);
 	  }
 
 	  if(robotPark == PARK_FRONT)
@@ -174,50 +104,24 @@ task main()
       motor[ballArm] = MOTOR_FULL;
       wait1Msec(450);
       motor[ballArm] = MOTOR_OFF;
-      if(useGyro)
-      {
-        moveGyro(MOTOR_FULL, 3000);
-      }
-      else
-      {
-        moveTimed(MOTOR_FULL, 3000);
-      }
+
+      moveGyro(MOTOR_FULL, 3000);
 
       wait1Msec(500);
 
-      if(useGyro)
-      {
-        moveGyro(-MOTOR_FULL, 2500);
-      }
-      else
-      {
-        moveTimed(-MOTOR_FULL, 2500);
-      }
+      moveGyro(-MOTOR_FULL, 2500);
 
       for(int i = 0; i < 3; i++)
       {
         turnToIRBeacon(MOTOR_FULL);
 
-        if(useGyro)
-        {
-          moveGyro(-MOTOR_FULL, 1000);
-        }
-        else
-        {
-          moveTimed(-MOTOR_FULL, 1000);
-        }
+        moveGyro(-MOTOR_FULL, 1000);
       }
     }
     else
-    { // bowling ball and robot in the back
-      if(useGyro)
-      {
-        moveGyro(MOTOR_FULL, 3000);
-      }
-      else
-      {
-        moveTimed(MOTOR_FULL, 3000);
-      }
+    {
+      // bowling ball and robot in the back
+      moveGyro(MOTOR_FULL, 3000);
     }
   }
 }
