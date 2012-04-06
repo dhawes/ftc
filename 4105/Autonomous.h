@@ -19,19 +19,19 @@ task getHeading();
 #define CLAW_RELEASE_CLOSED 131
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME         1700
+#define MOVE_OFF_RAMP_TIME         600
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
-#define MOVE_TO_BBALL_TIME         1000
+#define MOVE_TO_BBALL_TIME         300
 #define SLIGHT_RIGHT_TIME          350
 #define SLIGHT_LEFT_TIME           500
-#define MOVE_TO_CORNER_TIME        5500
+#define MOVE_TO_CORNER_TIME        2500
 #define MOVE_TO_WALL_TIME          1000
 #define MOVE_TO_BACK_TIME          6000
 /* Outside modes */
 #define LEFT_OUTSIDE_TURN_TIME     1600
 #define RIGHT_OUTSIDE_TURN_TIME    1700
-#define MOVE_OUTSIDE_TO_BBALL_TIME 2125
+#define MOVE_OUTSIDE_TO_BBALL_TIME 1000
 #define SLIGHT_OUTSIDE_RIGHT_TIME  500
 #define SLIGHT_OUTSIDE_LEFT_TIME   750
 
@@ -93,20 +93,20 @@ void getUserInput()
   }
   PlaySound(soundBlip);
   wait1Msec(1000);
-  nxtDisplayCenteredTextLine(2, "Wait 10 Seconds?");
+  nxtDisplayCenteredTextLine(2, "Wait 5 Seconds?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
   {
     if(nNxtButtonPressed == 2)
     {
       startPause = true;
-      nxtDisplayCenteredTextLine(2, "10s Wait: Yes");
+      nxtDisplayCenteredTextLine(2, "5s Wait: Yes");
       break;
     }
     else if(nNxtButtonPressed == 1)
     {
       startPause = false;
-      nxtDisplayCenteredTextLine(2, "10s Wait: No");
+      nxtDisplayCenteredTextLine(2, "5s Wait: No");
       break;
     }
   }
@@ -195,8 +195,8 @@ void getUserInput()
                         "Dont cross streams!",
                         "Break them",
                         "Well Then"};
-	  //nxtDisplayCenteredTextLine(7, "* Tally ho! *");
-	  nxtDisplayCenteredTextLine(7, sayings[rand() % 14]);
+	  nxtDisplayCenteredTextLine(7, "* Tally ho! *");
+	  //nxtDisplayCenteredTextLine(7, sayings[rand() % 14]);
 }
 
 /**
