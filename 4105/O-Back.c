@@ -20,8 +20,8 @@
 #define MOVE_GYRO
 #define MOVE_TIMED
 
-#include "Autonomous.h"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+#include "Autonomous.h"
 
 /**
  * Starting on the outside, drive to the back parking area.

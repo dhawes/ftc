@@ -25,15 +25,14 @@
 #define IR_SEEKER
 #define BALL_GRAB
 
-#include "Autonomous.h"
 #include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+#include "Autonomous.h"
 
 /**
  * Autonomous modes depending on user input.
  */
 task main()
 {
-  disableDiagnosticsDisplay();
   initializeRobot();
 
   // Wait for the beginning of autonomous phase.
@@ -88,7 +87,7 @@ task main()
   else //if(bBallPark == PARK_BACK)
   {
     // go to the back parking zone
-    moveGyro(MOTOR_FULL, 1000);
+    moveGyro(MOTOR_FULL, MOVE_TO_BACK_JUKE_TIME);
 
     if(startColor == START_RED)
     {
@@ -100,28 +99,28 @@ task main()
 	  }
 
 	  if(robotPark == PARK_FRONT)
-    { // leave the bowling ball in the back and park in the front
+    {
+      // leave the bowling ball in the back and park in the front
       motor[ballArm] = MOTOR_FULL;
       wait1Msec(450);
       motor[ballArm] = MOTOR_OFF;
 
-      moveGyro(MOTOR_FULL, 3000);
+      moveGyro(MOTOR_FULL, MOVE_TO_BACK_TIME);
 
       wait1Msec(500);
 
-      moveGyro(-MOTOR_FULL, 2500);
+      moveGyro(-MOTOR_FULL, MOVE_FROM_BACK_TIME);
 
       for(int i = 0; i < 3; i++)
       {
         turnToIRBeacon(MOTOR_FULL);
-
-        moveGyro(-MOTOR_FULL, 1000);
+        moveGyro(-MOTOR_FULL, MOVE_TO_BEACON_TIME);
       }
     }
     else
     {
       // bowling ball and robot in the back
-      moveGyro(MOTOR_FULL, 3000);
+      moveGyro(MOTOR_FULL, MOVE_TO_BACK_TIME);
     }
   }
 }
