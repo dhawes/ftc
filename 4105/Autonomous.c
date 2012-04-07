@@ -4,7 +4,7 @@
 #pragma config(Motor,  motorA,          green,         tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,           tmotorNormal, openLoop)
-#pragma config(Motor,  mtr_S1_C2_1,     ballArm,       tmotorNormal, openLoop)
+#pragma config(Motor,  mtr_S1_C2_1,     ballArm,       tmotorNormal, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C2_2,     clawArm,          tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C3_1,     intake,        tmotorNormal, openLoop)
 #pragma config(Motor,  mtr_S1_C3_2,     spool,         tmotorNormal, openLoop, reversed)
@@ -25,7 +25,6 @@
 #define IR_SEEKER
 #define BALL_GRAB
 
-#include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
 #include "Autonomous.h"
 
 /**
