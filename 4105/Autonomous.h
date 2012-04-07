@@ -1,4 +1,6 @@
 /* $Id$ */
+#include "JoystickDriver.c"  //Include file to "handle" the Bluetooth messages.
+
 #ifdef GYRO
 #include "HTGYRO-driver.h"
 task getHeading();
@@ -30,7 +32,7 @@ task getHeading();
 /* Back parking defines */
 #define MOVE_TO_BACK_TIME          3000
 #define MOVE_TO_BACK_JUKE_TIME     1000
-#define MOVE_FROM_BACK_TIME        2500
+#define MOVE_FROM_BACK_TIME        1500
 #define MOVE_TO_BEACON_TIME        1000
 
 /* Outside modes */
@@ -379,7 +381,9 @@ task prettyLights()
 #define RATE_THRESH 3
 #define MOVE_THRESH 10
 #define RIGHT_TURN_THRESH 0
-#define LEFT_TURN_THRESH 2
+#define LEFT_TURN_THRESH 0
+#define GYRO_SPEED_LIMITER 0.8
+#define GYRO_LIMITER_ANGLE 20
 
 float currHeading = 0;
 
@@ -422,8 +426,15 @@ task getHeading ()
  */
 void leftGyroTurn(float heading, int speed)
 {
+  bool speedReduced = false;
   while(currHeading > heading + LEFT_TURN_THRESH)
   {
+    if(!speedReduced &&
+       currHeading - (heading + LEFT_TURN_THRESH) < GYRO_LIMITER_ANGLE)
+    {
+      speed = (float)speed * GYRO_SPEED_LIMITER;
+      speedReduced = true;
+    }
     motor[right] = speed;
     motor[left] = -speed;
   }
@@ -438,8 +449,15 @@ void leftGyroTurn(float heading, int speed)
  */
 void rightGyroTurn(float heading, int speed)
 {
+  bool speedReduced = false;
   while(currHeading < heading - RIGHT_TURN_THRESH)
   {
+    if(!speedReduced &&
+       (heading - RIGHT_TURN_THRESH) - currHeading < GYRO_LIMITER_ANGLE)
+    {
+      speed = (float)speed * GYRO_SPEED_LIMITER;
+      speedReduced = true;
+    }
     motor[right] = -speed;
     motor[left] = speed;
   }
