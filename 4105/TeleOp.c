@@ -29,7 +29,7 @@
 #define GRAB_START 20
 #define GRAB_OPEN  100
 #define ARM_RELEASE_OPEN    120
-#define ARM_RELEASE_CLOSED  255
+#define ARM_RELEASE_CLOSED  239
 #define CLAW_RELEASE_OPEN   186
 #define CLAW_RELEASE_CLOSED 131
 #define CLAW_SPEED 100
@@ -77,8 +77,22 @@ task main()
     getJoystickSettings(joystick);
 
     // 100% power
-    motor[left] = joystick.joy1_y1;
-    motor[right]= joystick.joy1_y2;
+    if(abs(joystick.joy1_y1) > JOYSTICK_THRESHOLD)
+    {
+      motor[left] = joystick.joy1_y1;
+    }
+    else
+    {
+      motor[left] = MOTOR_OFF;
+    }
+    if(abs(joystick.joy1_y2) > JOYSTICK_THRESHOLD)
+    {
+      motor[right] = joystick.joy1_y2;
+    }
+    else
+    {
+      motor[right] = MOTOR_OFF;
+    }
 
     if(abs(joystick.joy2_y1) > JOYSTICK_THRESHOLD)
     {
