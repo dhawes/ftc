@@ -25,6 +25,8 @@
 #define IR_SEEKER
 #define BALL_GRAB
 
+
+
 #include "Autonomous.h"
 
 /**
@@ -45,7 +47,9 @@ task main()
   }
 
   // go forward
-  moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
+  moveGyro(MOTOR_RAMP, MOVE_OFF_RAMP_TIME);
+
+  wait1Msec(TURN_WAIT_MS);
 
   if(startColor == START_RED)
   {
@@ -65,6 +69,8 @@ task main()
   // move forward
   moveGyro(MOTOR_FULL, startPosition == START_INSIDE ? MOVE_TO_BBALL_TIME : MOVE_OUTSIDE_TO_BBALL_TIME);
 
+  wait1Msec(TURN_WAIT_MS);
+
   if(startColor == START_RED)
   {
 	  // slight left
@@ -78,6 +84,8 @@ task main()
 
   StartTask(BallGrab);
 
+  wait1Msec(TURN_WAIT_MS);
+
   if(bBallPark == PARK_FRONT)
   {
     // go to the front parking zone
@@ -88,6 +96,8 @@ task main()
     // go to the back parking zone
     moveGyro(MOTOR_FULL, MOVE_TO_BACK_JUKE_TIME);
 
+    wait1Msec(TURN_WAIT_MS);
+
     if(startColor == START_RED)
     {
 	    rightGyroTurn(45, MOTOR_FULL);
@@ -96,6 +106,8 @@ task main()
 	  {
 	    leftGyroTurn(-15, MOTOR_FULL);
 	  }
+
+	  wait1Msec(TURN_WAIT_MS);
 
 	  if(robotPark == PARK_FRONT)
     {

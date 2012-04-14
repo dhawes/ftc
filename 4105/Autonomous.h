@@ -13,10 +13,11 @@ task getHeading();
 #define MOTOR_OFF           0
 #define MOTOR_HALF          50
 #define MOTOR_FULL          100
+#define MOTOR_RAMP          80
 #define LED_ON              100
 #define LED_OFF             0
 #define ARM_RELEASE_OPEN    120
-#define ARM_RELEASE_CLOSED  255
+#define ARM_RELEASE_CLOSED  239
 #define CLAW_RELEASE_OPEN   186
 #define CLAW_RELEASE_CLOSED 131
 
@@ -24,14 +25,14 @@ task getHeading();
 #define MOVE_OFF_RAMP_TIME         600
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
-#define MOVE_TO_BBALL_TIME         300
+#define MOVE_TO_BBALL_TIME         500
 #define SLIGHT_RIGHT_TIME          350
 #define SLIGHT_LEFT_TIME           500
 #define MOVE_TO_CORNER_TIME        2500
 #define MOVE_TO_WALL_TIME          1000
 /* Back parking defines */
 #define MOVE_TO_BACK_TIME          3000
-#define MOVE_TO_BACK_JUKE_TIME     1000
+#define MOVE_TO_BACK_JUKE_TIME     1500
 #define MOVE_FROM_BACK_TIME        1500
 #define MOVE_TO_BEACON_TIME        1000
 
@@ -41,6 +42,8 @@ task getHeading();
 #define MOVE_OUTSIDE_TO_BBALL_TIME 1000
 #define SLIGHT_OUTSIDE_RIGHT_TIME  500
 #define SLIGHT_OUTSIDE_LEFT_TIME   750
+
+#define TURN_WAIT_MS 900
 
 /* user input globals */
 bool useGyro = false;
@@ -120,10 +123,10 @@ void getUserInput()
   }
   nxtDisplayTextLine(7, "");
   PlaySound(soundBlip);
-  wait1Msec(1000);
 #endif /* ALL_USER_INPUT */
 #ifdef GYRO
 /*
+  wait1Msec(1000);
   nxtDisplayCenteredTextLine(4, "Gyro?");
   nxtDisplayCenteredTextLine(7, "Yes          No");
   while(true)
@@ -382,8 +385,8 @@ task prettyLights()
 #define MOVE_THRESH 10
 #define RIGHT_TURN_THRESH 0
 #define LEFT_TURN_THRESH 0
-#define GYRO_SPEED_LIMITER 0.8
-#define GYRO_LIMITER_ANGLE 20
+#define GYRO_TURN_SPEED 90
+#define GYRO_LIMITER_ANGLE 35
 
 float currHeading = 0;
 
@@ -432,7 +435,7 @@ void leftGyroTurn(float heading, int speed)
     if(!speedReduced &&
        currHeading - (heading + LEFT_TURN_THRESH) < GYRO_LIMITER_ANGLE)
     {
-      speed = (float)speed * GYRO_SPEED_LIMITER;
+      speed = GYRO_TURN_SPEED;
       speedReduced = true;
     }
     motor[right] = speed;
@@ -455,7 +458,7 @@ void rightGyroTurn(float heading, int speed)
     if(!speedReduced &&
        (heading - RIGHT_TURN_THRESH) - currHeading < GYRO_LIMITER_ANGLE)
     {
-      speed = (float)speed * GYRO_SPEED_LIMITER;
+      speed = GYRO_TURN_SPEED;
       speedReduced = true;
     }
     motor[right] = -speed;
@@ -547,7 +550,7 @@ void turnToIRBeacon(int speed)
 #ifdef BALL_GRAB
 task BallGrab()
 {
-  wait1Msec(1000);
+  wait1Msec(1000 + TURN_WAIT_MS);
   motor[ballArm] = -MOTOR_FULL;
   wait1Msec(450);
   motor[ballArm] = MOTOR_OFF;
