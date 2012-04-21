@@ -1,6 +1,7 @@
 #pragma config(Hubs,  S1, HTServo,  HTMotor,  HTMotor,  HTMotor)
 #pragma config(Sensor, S2,     HTIRS2,         sensorI2CCustom)
 #pragma config(Sensor, S3,     HTGYRO,         sensorAnalogInactive)
+#pragma config(Sensor, S4,     SONAR,         sensorSONAR)
 #pragma config(Motor,  motorA,          green,         tmotorNormal, openLoop)
 #pragma config(Motor,  motorB,          yellow,        tmotorNormal, openLoop)
 #pragma config(Motor,  motorC,          red,           tmotorNormal, openLoop)
@@ -25,8 +26,6 @@
 #define IR_SEEKER
 #define BALL_GRAB
 
-
-
 #include "Autonomous.h"
 
 /**
@@ -47,19 +46,19 @@ task main()
   }
 
   // go forward
-  moveGyro(MOTOR_RAMP, MOVE_OFF_RAMP_TIME);
+  moveGyro(MOTOR_FULL, MOVE_OFF_RAMP_TIME);
 
   wait1Msec(TURN_WAIT_MS);
 
   if(startColor == START_RED)
   {
     // turn left
-    leftGyroTurn(-90, MOTOR_FULL);
+    leftGyroTurn(-80, MOTOR_FULL);
 	}
 	else
 	{
 	  // turn right
-    rightGyroTurn(90, MOTOR_FULL);
+    rightGyroTurn(85, MOTOR_FULL);
 	}
 
   motor[ballArm] = MOTOR_FULL;
@@ -74,7 +73,7 @@ task main()
   if(startColor == START_RED)
   {
 	  // slight left
-	  leftGyroTurn(-115, MOTOR_FULL);
+	  leftGyroTurn(-120, MOTOR_FULL);
 	}
 	else
 	{
@@ -96,11 +95,18 @@ task main()
     // go to the back parking zone
     moveGyro(MOTOR_FULL, MOVE_TO_BACK_JUKE_TIME);
 
+    if(SensorValue[SONAR] > 10)
+    {
+      PlaySound(soundBeepBeep);
+      moveGyro(MOTOR_FULL, MOVE_TO_CORNER_TIME - MOVE_TO_BACK_JUKE_TIME);
+      return;
+    }
+
     wait1Msec(TURN_WAIT_MS);
 
     if(startColor == START_RED)
     {
-	    rightGyroTurn(45, MOTOR_FULL);
+	    rightGyroTurn(30, MOTOR_FULL);
 	  }
 	  else
 	  {
@@ -116,7 +122,7 @@ task main()
       wait1Msec(450);
       motor[ballArm] = MOTOR_OFF;
 
-      moveGyro(MOTOR_FULL, MOVE_TO_BACK_TIME);
+      moveGyro(MOTOR_FULL, MOVE_TO_BACK_TIME - 500);
 
       wait1Msec(500);
 
