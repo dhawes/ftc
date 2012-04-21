@@ -22,28 +22,28 @@ task getHeading();
 #define CLAW_RELEASE_CLOSED 131
 
 /* Movement defines */
-#define MOVE_OFF_RAMP_TIME         600
+#define MOVE_OFF_RAMP_TIME         1700
 #define RIGHT_TURN_TIME            1500
 #define LEFT_TURN_TIME             1800
-#define MOVE_TO_BBALL_TIME         500
+#define MOVE_TO_BBALL_TIME         1200
 #define SLIGHT_RIGHT_TIME          350
 #define SLIGHT_LEFT_TIME           500
-#define MOVE_TO_CORNER_TIME        2500
+#define MOVE_TO_CORNER_TIME        5000
 #define MOVE_TO_WALL_TIME          1000
 /* Back parking defines */
-#define MOVE_TO_BACK_TIME          3000
+#define MOVE_TO_BACK_TIME          7000
 #define MOVE_TO_BACK_JUKE_TIME     1500
-#define MOVE_FROM_BACK_TIME        1500
+#define MOVE_FROM_BACK_TIME        7000
 #define MOVE_TO_BEACON_TIME        1000
 
 /* Outside modes */
 #define LEFT_OUTSIDE_TURN_TIME     1600
 #define RIGHT_OUTSIDE_TURN_TIME    1700
-#define MOVE_OUTSIDE_TO_BBALL_TIME 1000
+#define MOVE_OUTSIDE_TO_BBALL_TIME 2800
 #define SLIGHT_OUTSIDE_RIGHT_TIME  500
 #define SLIGHT_OUTSIDE_LEFT_TIME   750
 
-#define TURN_WAIT_MS 900
+#define TURN_WAIT_MS 200
 
 /* user input globals */
 bool useGyro = false;
@@ -195,7 +195,7 @@ void getUserInput()
 	}
 #endif /* PARK_MODES */
 
-    string sayings[] = {"* Tally ho! *",
+    string sayings[] = {"You Look Ravishing",
                         "* Geronimo! *",
                         "* Bansai! *",
                         "* Kamikazee! *",
@@ -208,7 +208,10 @@ void getUserInput()
                         "Radishes & Shining",
                         "Dont cross streams!",
                         "Break them",
-                        "Well Then"};
+                        "Well Then",
+                        "Kamehameha!",
+                        "Allurbaserblong2us!"};
+
 	  nxtDisplayCenteredTextLine(7, "* Tally ho! *");
 	  //nxtDisplayCenteredTextLine(7, sayings[rand() % 14]);
 }
@@ -385,7 +388,7 @@ task prettyLights()
 #define MOVE_THRESH 10
 #define RIGHT_TURN_THRESH 0
 #define LEFT_TURN_THRESH 0
-#define GYRO_TURN_SPEED 90
+#define GYRO_TURN_SPEED 80
 #define GYRO_LIMITER_ANGLE 35
 
 float currHeading = 0;
